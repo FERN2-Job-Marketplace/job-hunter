@@ -5,7 +5,7 @@ declare global {
     username: string
     name:string
     email: string
-    password: string
+    password?: string
     role: "candidate" | "admin"
   }
 }

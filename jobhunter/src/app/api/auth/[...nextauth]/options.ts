@@ -1,12 +1,60 @@
 
 import { baseUrl } from "@/utils";
 import axios from "axios";
+import { error } from "console";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import { GoogleProfile } from "next-auth/providers/google";
 import Swal from "sweetalert2";
 
 export const options: NextAuthOptions = {
   providers: [
+    GoogleProvider({
+      async profile(profile: GoogleProfile) {
+
+        const searchId = baseUrl + `/user/${profile.sub}`
+
+        const res = await fetch(searchId)
+
+        // console.log("profile: ", profile);
+
+        
+
+        if(!res.ok) {
+
+          console.log("Masokkk");
+
+          const postUser = baseUrl + '/user'
+
+          const newData: User = {
+            id: profile.sub,
+            username: profile.name,
+            name: profile.name,
+            email: profile.email,
+            role: "candidate"
+          }
+
+          const newUser = await fetch(postUser, {
+            method: 'post',
+            body: JSON.stringify(newData) 
+          })
+
+          if(!newUser.ok) return
+
+          return newData
+        }
+
+        const getUserData = await res.json()
+
+        console.log("json data: ", getUserData);
+
+        return getUserData
+        
+      },
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    }),
     CredentialsProvider({
       name: 'Credentials',
       

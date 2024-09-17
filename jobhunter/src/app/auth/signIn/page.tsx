@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
+import GoogleButton from 'react-google-button'
 
 export default function SignInPage() {
   let { current: usernameCurr } = useRef("");
@@ -54,6 +55,12 @@ export default function SignInPage() {
         <button onClick={onSubmit} className="btn btn-primary">
           Login
         </button>
+        <div className="flex justify-center w-full p-5">
+        <GoogleButton onClick={() => signIn("google", {
+          redirect:true,
+          callbackUrl: '/'
+        })} className="mx-auto p-3"/>
+        </div>
       </div>
     </div>
   );
