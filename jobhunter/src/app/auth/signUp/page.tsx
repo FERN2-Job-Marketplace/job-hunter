@@ -51,7 +51,7 @@ export default function SignUpPage(){
             </button>
             <div className="flex flex-row justify-center items-center text-base text-dark-grey-text gap-1">
                 <h1>Already Have an Account?</h1>
-                <a href="sigIn" className="text-steel-blue">Login</a>
+                <a href="signIn" className="text-steel-blue">Login</a>
             </div>
             <div className="w-80 text-xs text-dark-grey-text tracking-wide">
                 By clicking 'Register', you acknowledge that you have read and accept the 
