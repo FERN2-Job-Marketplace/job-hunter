@@ -24,7 +24,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex justify-center items-center w-full h-screen bg-white">
-      <div className="p-5 shadow-md flex flex-col gap-3 justify-center bg-white">
+      <div className="p-5 flex flex-col gap-3 justify-center bg-white md:min-w-[405px]">
         <div className="flex flex-row justify-center items-center gap-2">
           <img 
           src="/Vector.png" 
@@ -33,7 +33,7 @@ export default function SignInPage() {
           <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
         </div>
         <AuthOptionBtn/>
-        <label className="form-control w-80 ">
+        <label className="form-control w-full ">
           <div className="label">
             <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
           </div>
@@ -44,10 +44,10 @@ export default function SignInPage() {
               usernameCurr = e.target.value;
             }}
             placeholder="username"
-            className="input text-black input-bordered w-full max-w-xs focus:border-steel-blue rounded-none bg-white"
+            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
           />
         </label>
-        <label className="form-control w-80 ">
+        <label className="form-control w-full ">
           <div className="label">
             <span className="text-base font-semibold tracking-widest text-dark-grey-text">Password</span>
           </div>
@@ -58,7 +58,7 @@ export default function SignInPage() {
               passwordCurr = e.target.value;
             }}
             placeholder="password"
-            className="input text-black input-bordered w-full max-w-xs focus:border-steel-blue rounded-none bg-white"
+            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
           />
         </label>
         <button onClick={onSubmit} className="btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
