@@ -1,7 +1,7 @@
 declare global {
   interface JobVacancy {
     id: string;
-    adminId: string;
+    userId: string;
     title: string;
     companyName: string;
     location: {

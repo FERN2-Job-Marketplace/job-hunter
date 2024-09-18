@@ -1,25 +1,32 @@
 declare global {
   interface CandidateProfile {
+    id: string
     userId: string; // Referensi ke user id
-    dateOfBirth: Date;
-    currentCity: string;
-    currentCountry?: string; //kita pake city aja, tapi kalo mau tambahin negara bolehh
+    dateOfBirth: string;
+    gender: string
     phoneNumber: string;
     profilePicture?: string; // URL ke profile picture, defaultnya ntar aku buat static url gambar profile hambar
     bio: string;
-    skills: string[]; // Array of Strings
+    currentCity: string;
+    currentCountry?: string; //kita pake city aja, tapi kalo mau tambahin negara bolehh
+    
     experience: { //Array of Objects, kalo di CV tuh sprt work experiences
       title: string;
       company: string;
-      startDate: Date;
-      endDate?: Date;
+      startDate: string;
+      endDate: string;
+      location: string;
       description: string;
     }[];
+
     education: { //Array of Objects, edukasi
-      degree: string;
       institution: string;
-      graduationYear: number;
+      degree: string;
+      graduationYear: string;
     }[];
+
+    skills: string[]; // Array of Strings
+    isEligible: boolean
 
     //nah ini ga wajib semua
     resumeUrl?: string;
@@ -36,6 +43,7 @@ declare global {
   }
 
   interface CompanyProfile {
+    id: string
     userId: string; // Referensi ke user id
     companyName: string;
     companyWebsite?: string;
@@ -52,6 +60,7 @@ declare global {
     benefits?: string[];
     culture?: string;
     hiringProcess?: string;
+    isEligible: boolean;
     updatedAt: string
   }
 }

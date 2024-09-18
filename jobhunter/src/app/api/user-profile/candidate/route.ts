@@ -1,34 +1,32 @@
-import { getServerSession } from "next-auth"
-import { options } from "../auth/[...nextauth]/options"
-import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+import { options } from "../../auth/[...nextauth]/options";
 import { baseUrl, generateId } from "@/utils";
 
 export async function POST (request: NextRequest) {
 
   const session = await getServerSession(options)
   
-  const req: JobVacancy = await request.json()
+  const req: CandidateProfile = await request.json()
   
-  const jobVacancyUrl = baseUrl + "/job-vacancy";
+  const userProfileUrl = baseUrl + "/user-profile";
 
-  if(!session?.user || session?.user?.role !== "company" ) {
+  if(!session?.user || session?.user?.role !== "candidate" ) {
     return NextResponse.json({
       error: "Unauthorized",
     }, {status: 401 });
   }
 
-  const newData: JobVacancy = {
+  const newData: CandidateProfile  = {
     ...req,
     id: generateId(),
     userId: session.user.id,
-    // isActive: true,
-    // createdAt: new Date().toISOString(),
-    // updatedAt: new Date().toISOString(), 
+    updatedAt: new Date().toISOString()
   }
 
   try {
 
-    const res = await fetch(jobVacancyUrl, {
+    const res = await fetch(userProfileUrl, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +43,7 @@ export async function POST (request: NextRequest) {
     }
 
     return NextResponse.json({
-      message: "Job successfully added"
+      message: "Resume successfully added"
     }, {status: 201})
 
   } catch (error) {
