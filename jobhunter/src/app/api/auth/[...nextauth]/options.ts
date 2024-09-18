@@ -23,15 +23,17 @@ export const options: NextAuthOptions = {
 
         if(!res.ok) {
 
-          console.log("Masokkk");
+          // console.log("Masokkk");
 
           const postUser = baseUrl + '/user'
 
           const newData: User = {
             id: profile.sub,
-            username: profile.name,
             name: profile.name,
             email: profile.email,
+            provider: "google",
+            createdAt: new Date().toISOString(),
+            isVerified: false,         
             role: "candidate"
           }
 
@@ -47,7 +49,7 @@ export const options: NextAuthOptions = {
 
         const getUserData = await res.json()
 
-        console.log("json data: ", getUserData);
+        // console.log("json data: ", getUserData);
 
         return getUserData
         
