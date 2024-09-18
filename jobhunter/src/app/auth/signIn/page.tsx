@@ -1,5 +1,6 @@
 "use client";
 
+import AuthOptionBtn from "@/app/_components/AuthOptionBtn";
 import { signIn } from "next-auth/react";
 import { useRef } from "react";
 import GoogleButton from 'react-google-button'
@@ -31,10 +32,7 @@ export default function SignInPage() {
           className="w-6 h-6"/>
           <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
         </div>
-        <div className="flex flex-row justify-center items-center">
-          <button className="w-24 px-2 py-2 text-steel-blue text-base font-semibold hover:bg-slate-300">Job Seeker</button>
-          <button className="w-24 px-2 py-2 text-steel-blue text-base font-semibold hover:bg-slate-300">Company</button>
-        </div>
+        <AuthOptionBtn/>
         <label className="form-control w-80 ">
           <div className="label">
             <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
