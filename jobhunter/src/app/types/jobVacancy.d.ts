@@ -13,7 +13,7 @@ declare global {
       requirements: string[];
       preferences: string[];
       salary: string
-      benefits: string[];
+      benefits?: string[];
     };
     applicationDeadline: string; // ISO date string
     createdAt: string; // ISO date-time string
@@ -23,3 +23,5 @@ declare global {
     experienceLevel?: "entry" | "mid" | "senior" | "executive";
   }
 }
+
+export {}
