@@ -1,9 +1,9 @@
 declare global {
   interface CandidateProfile {
-    id: string
+    id: string;
     userId: string; // Referensi ke user id
     dateOfBirth: string;
-    gender: string
+    gender: string;
     phoneNumber: string;
     profilePicture?: string; // URL ke profile picture, defaultnya ntar aku buat static url gambar profile hambar
     bio: string;
@@ -49,7 +49,7 @@ declare global {
     companyWebsite?: string;
     industry: string;
     companySize?: string;
-    foundedYear?: number;
+    foundedYear?: string;
     companyDescription?: string;
     headquarters?: string;
     logoUrl?: string;

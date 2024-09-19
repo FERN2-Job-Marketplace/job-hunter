@@ -1,4 +1,4 @@
-import { baseUrl, generateId } from "@/utils";
+import { baseUrl, createDefaultProfile, generateId } from "@/utils";
 import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
     email: email,
     password: password,
     role: role,
+    detailId: generateId(),
     provider: "none",
     createdAt: new Date().toISOString(),
     isVerified: false,
@@ -69,6 +70,16 @@ export async function POST(request: NextRequest) {
     },
     body: JSON.stringify(newUser),
   });
+
+  const resultProfile = await createDefaultProfile(role, newUser.detailId, newUser.id)
+
+  if(resultProfile?.error) {
+    return NextResponse.json({
+      error: resultProfile.error,
+      message: resultProfile.message,
+      
+    }, {status: resultProfile.status})
+  }
 
   if (!res.ok) {
     return NextResponse.json({
