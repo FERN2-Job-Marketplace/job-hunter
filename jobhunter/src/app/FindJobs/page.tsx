@@ -7,7 +7,7 @@ export default function FindJobs() {
     return(
         <>
             <CustomBackground />
-            <div className="w-screen h-screen bg-cale">
+            <div className="w-screen h-[475px] bg-cale">
                 <div className="container w-[83%] mx-auto pt-32">
                     <div className="pb-5 flex gap-2 justify-center items-center">
                         <div className="font-bold text-white text-5xl">Find your</div>
