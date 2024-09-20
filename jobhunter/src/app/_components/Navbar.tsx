@@ -18,8 +18,8 @@ export default async function Navbar() {
           <div className="font-bold text-[#ffffff] text-xl">jobhunter</div>
                   
           <div className="w-[55%] px-10 flex gap-4 mt-[3px]">
-            <button className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">Cari Perusahaan</button>
-            <button className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">Cari Lowongan</button>
+            <a href="/FindJobs" className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">Find Jobs</a>
+            <a href="/AboutUs" className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">About Us</a>
           </div>
                   
           <div className="w-[38%] px-2 py-2 flex justify-end items-end gap-4">
