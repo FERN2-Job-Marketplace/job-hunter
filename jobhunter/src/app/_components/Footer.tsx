@@ -1,7 +1,7 @@
 export default function Footer(){
     return(
         <>
-            <div className="w-full py-12 px-24 grid grid-cols-3">
+            <div className="w-screen h-screen py-12 px-24 grid grid-cols-3">
                 <div className="flex flex-col">
                     <div className="flex flex-row pb-2">
                         <img 

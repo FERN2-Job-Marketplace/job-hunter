@@ -56,7 +56,7 @@ export default function SearchBar() {
                   <div className="flex">
                     <button
                       type="submit"
-                      className="absolute top-[47px] right-[150px] bg-[#4682B4] text-white font-bold text-lg px-2 pb-2 pt-2"
+                      className="absolute top-[47px] right-[150px] bg-[#4D7EA8] text-white font-bold text-lg px-2 pb-2 pt-2"
                     >
                       Search
                     </button>

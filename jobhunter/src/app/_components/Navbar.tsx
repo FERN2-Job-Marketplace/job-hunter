@@ -18,13 +18,13 @@ export default async function Navbar() {
           <div className="font-bold text-[#ffffff] text-xl">jobhunter</div>
                   
           <div className="w-[55%] px-10 flex gap-4 mt-[3px]">
-            <button className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">Cari Perusahaan</button>
-            <button className="font-normal px-2.5 py-2 hover:bg-[#4682B4] text-[#ffffff] text-sm">Cari Lowongan</button>
+            <button className="font-normal px-2.5 py-2 hover:bg-[#4D7EA8] text-[#ffffff] text-sm">Cari Perusahaan</button>
+            <button className="font-normal px-2.5 py-2 hover:bg-[#4D7EA8] text-[#ffffff] text-sm">Cari Lowongan</button>
           </div>
                   
           <div className="w-[38%] px-2 py-2 flex justify-end items-end gap-4">
-            <button className="uppercase px-2.5 py-2 hover:bg-[#4682B4] text-sm font-normal text-[#ffffff]">Login</button> 
-            <button className="uppercase px-2.5 py-2 hover:bg-[#4682B4] text-sm font-normal text-[#ffffff]">Register</button>
+            <button className="uppercase px-2.5 py-2 hover:bg-[#4D7EA8] text-sm font-normal text-[#ffffff]">Login</button> 
+            <button className="uppercase px-2.5 py-2 hover:bg-[#4D7EA8] text-sm font-normal text-[#ffffff]">Register</button>
             <div>
               {session ? <LogoutBtn /> : <SignInBtn /> }
             </div>

@@ -26,7 +26,9 @@ export default function RootLayout({
           <div className="bg-gradient-to-r bg-slate-900 text-gray-200">
             {children}
           </div>
-          <Footer/>
+          <div className="w-screen bg-[#202430]">
+            <Footer />
+          </div>
         </AuthProvider>
       </body>
     </html>

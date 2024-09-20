@@ -75,9 +75,9 @@ export default function Home() {
                 <div className="container h-[50vw]">
                   <CardJobs />
                 </div>
-                <div className="w-screen bg-[#202430]">
+                {/* <div className="w-screen bg-[#202430]">
                   <Footer />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
