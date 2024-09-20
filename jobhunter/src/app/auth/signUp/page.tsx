@@ -50,11 +50,11 @@ export default function SignUpPage(){
                 <button className="btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
                     Register
                 </button>
-                <div className="flex flex-row justify-center items-center text-base text-dark-grey-text gap-1">
+                <div className="flex flex-row justify-center text-base text-dark-grey-text gap-1">
                     <h1>Already Have an Account?</h1>
                     <a href="signIn" className="text-steel-blue">Login</a>
                 </div>
-                <div className="w-80 text-xs text-dark-grey-text tracking-wide text-center m-auto">
+                <div className="w-80 text-xs text-dark-grey-text tracking-wide  m-auto">
                     By clicking 'Register', you acknowledge that you have read and accept the 
                     <a href="" className="text-blue-300 gap-1">Terms of Service</a> and <a href="" className="text-blue-300 gap-1">Privacy Policy</a>
                 </div>

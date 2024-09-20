@@ -1,7 +1,7 @@
 export default function Footer(){
     return(
         <>
-            <div className="w-screen h-screen py-12 px-24 grid grid-cols-3">
+            <div className="w-full py-12 px-24 grid grid-cols-3 bg-raisin-black">
                 <div className="flex flex-col">
                     <div className="flex flex-row pb-2">
                         <img 
@@ -10,7 +10,7 @@ export default function Footer(){
                         className="w-6 h-6"/>
                         <h1 className="text-white font-semibold text-xl">JobHunter</h1>
                     </div>
-                    <h3 className="text-lavender text-sm mr-5">
+                    <h3 className="text-lavender text-sm mr-10">
                         Great platform for the job seeker that passionate about startups.Find your dream job easier.
                     </h3>
                 </div>
@@ -31,7 +31,7 @@ export default function Footer(){
                         </ul>
                    </div>
                 </div>
-                <div className="">
+                <div className="bg-raisin-black">
                     <h1 className="text-white font-semibold text-base pb-2">Get job notifications</h1>
                     <p className="text-lavender text-sm pb-2">The latest job news, articles, sent to your inbox weekly.</p>
                     <input 
@@ -43,9 +43,9 @@ export default function Footer(){
                     </button>
                 </div>
             </div>
-            <div className="w-full px-24">
-                <hr className="w-full h-px mx-auto my-4 bg-gray-100 border-0 md:my-10 dark:bg-dark-grey-text" />
-                <div className="flex justify-between text-sm text-gray-400 mb-10">
+            <div className="w-full px-24 bg-raisin-black">
+                <hr className="w-full h-px mx-auto bg-gray-100 border-0 dark:bg-dark-grey-text" />
+                <div className="flex justify-between text-sm text-gray-400 py-10">
                     <p>2024 @ JobHunter. All rights reserved.</p>
                     <div className="flex flex-row gap-2">
                         <img 

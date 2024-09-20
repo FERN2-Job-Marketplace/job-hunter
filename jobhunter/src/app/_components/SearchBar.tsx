@@ -31,7 +31,7 @@ export default function SearchBar() {
                     <input
                       type="search"
                       id="default-search"
-                      className="w-72 p-2 ps-12 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="w-72 p-2 ps-12 text-sm bg-white text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Job title or keyword"
                     /> 
                   </div>
@@ -42,7 +42,7 @@ export default function SearchBar() {
                         name="city"
                         // value={''}
                         // onChange={''}
-                        className="mt-1 border-2 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                        className="bg-white text-black mt-1 border-2 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                       >
                         <option value="">-- Pilih Kota --</option>
                         <option value="jakarta">Jakarta</option>
@@ -56,7 +56,7 @@ export default function SearchBar() {
                   <div className="flex">
                     <button
                       type="submit"
-                      className="absolute top-[47px] right-[150px] bg-[#4D7EA8] text-white font-bold text-lg px-2 pb-2 pt-2"
+                      className="absolute top-[47px] right-[150px] bg-[#4682B4] text-white font-bold text-lg px-4 pb-2 pt-2"
                     >
                       Search
                     </button>
