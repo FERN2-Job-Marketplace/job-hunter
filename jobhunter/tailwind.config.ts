@@ -17,6 +17,9 @@ const config: Config = {
       colors: {
         'dark-grey-text': '#515B6F',
         'steel-blue': '#4D7EA8',
+        'raisin-black': '#202430',
+        'celestial-blue': '#26A4FF',
+        'lavender': '#D6DDEB',
       }
     },
   },

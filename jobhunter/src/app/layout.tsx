@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import AuthProvider from './context/AuthProvider'
 import Navbar from './_components/Navbar'
+import Footer from './_components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <div className="bg-gradient-to-r bg-slate-900 text-gray-200">
             {children}
           </div>
+          <Footer/>
         </AuthProvider>
       </body>
     </html>
