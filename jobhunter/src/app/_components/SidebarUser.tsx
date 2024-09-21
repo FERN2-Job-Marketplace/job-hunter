@@ -14,7 +14,7 @@ export default function SidebarUser() {
             </Link>
             <div className="dashboardLinkWrap">
                 <Link href={"/user/dashboard"} className={currentPath === "/user/dashboard" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Dashboard</Link>
-                <Link href={"/user/myappliations"} className={currentPath === "/user/myappliacations" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Applications</Link>
+                <Link href={"/user/myapplications"} className={currentPath === "/user/myapplications" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Applications</Link>
                 <Link href={"/user/myprofile"} className={currentPath === "/user/myprofile" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Profile</Link>
                 <button className="text-red p-3 text-[16px] block w-full text-start transition hover:bg-red hover:text-white">Logout</button>
             </div>

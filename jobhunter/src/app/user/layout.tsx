@@ -13,6 +13,9 @@ export default function Layout({
                 .navbar {
                     display: none;
                 }
+                .footer{
+                    display: none;
+                }
             `}</style>
             <div className="dashboard bg-white flex min-h-screen">
 
