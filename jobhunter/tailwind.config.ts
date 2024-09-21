@@ -20,7 +20,7 @@ const config: Config = {
         'raisin-black': '#202430',
         'celestial-blue': '#26A4FF',
         'lavender': '#D6DDEB',
-        'salte-grey':'#7C8493',
+        'slate-grey':'#7C8493',
         'green':'#56CDAD',
         'yellow': '#FFB836',
       }
