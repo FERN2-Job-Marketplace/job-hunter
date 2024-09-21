@@ -11,8 +11,8 @@ export default function CardFindJobs() {
                     <h3>Jakarta, Indonesia</h3>
                 </div>
                 <div className="flex flex-row gap-2 pt-2">
-                    <button className="bg-emerald-50 text-center px-2 py-1 rounded-2xl text-green">Full-Time</button>
-                    <button className="bg-white text-center px-2 py-1 rounded-2xl text-yellow border-2 border-yellow">Marketing</button>
+                    <button className="bg-emerald-50 text-center px-2 rounded-2xl text-green">Full-Time</button>
+                    <button className="bg-white text-center px-2 rounded-2xl text-yellow border-2 border-yellow">Marketing</button>
                 </div>
             </div>
             <button className="bg-steel-blue w-fit text-white font-semibold text-base ml-72 px-4 py-1" >Apply</button>
