@@ -21,8 +21,10 @@ const config: Config = {
         'celestial-blue': '#26A4FF',
         'lavender': '#D6DDEB',
         'slate-grey':'#7C8493',
+        'ghost-white': '#F8F8FD',
         'green':'#56CDAD',
         'yellow': '#FFB836',
+        'red': '#FF6550'
       }
     },
   },
