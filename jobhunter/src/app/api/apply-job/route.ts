@@ -4,16 +4,12 @@ import { baseUrl, generateId } from "@/utils";
 import { options } from "../auth/[...nextauth]/options";
 
 
-// "applicantness" : [
-//     {
-//       "id": "a01",
-//       "applied_id": "jv01", //Foreign Key dri job_vacancies[].id
-//       "candidate_id": 1, //Foreign Key dri user[].id
-//       "applied_at": "Date"
-//     }
-//   ],
+//Jadi route api /apply-job ini akan digunakan oleh 2 category user terotentikasi
+  //List pekerjaan yang di apply oleh si applicant (rencananya)
+  //List user yang apply ke job vacancy berdasarkan company
 
-//List all applicant ntar
+
+// ini masih general dapatin semua list
 export async function GET (request: NextRequest) {
   const session = await getServerSession(options)
   
@@ -40,10 +36,6 @@ export async function GET (request: NextRequest) {
     applicantUrl += `?${query}`
   }
 
-  applicantUrl += `${query ? '&' : '?'}_start=${startPage}&_end=${endPage}`
-
-  console.log(applicantUrl);
-
   const res = await fetch(applicantUrl)
   
   const data: ApplyJob[] = await res.json()
@@ -58,52 +50,53 @@ export async function GET (request: NextRequest) {
 
 }
 
-export async function POST (request: NextRequest) {
 
-  const session = await getServerSession(options)
-  const req: ApplyJob= await request.json()
+// export async function POST (request: NextRequest) {
 
-  console.log(session);
+//   const session = await getServerSession(options)
+//   const req: ApplyJob= await request.json()
+
+//   console.log(session);
   
-  const applyJobUrl = baseUrl + "/applicant";
+//   const applyJobUrl = baseUrl + "/applicant";
 
-  if(session?.user?.role !== "candidate") {
-    return NextResponse.json({
-      error: "Unauthorized",
-    }, {status: 401 });
-  }
+//   if(session?.user?.role !== "candidate") {
+//     return NextResponse.json({
+//       error: "Unauthorized",
+//     }, {status: 401 });
+//   }
 
-  const newData: ApplyJob = {
-    id: generateId(),
-    jobId: req.jobId,
-    candidateId: session.user.id,
-    isOffered: false,
-    appliedAt: new Date().toISOString() 
-  }
+//   const newData: ApplyJob = {
+//     id: generateId(),
+//     jobId: req.jobId,
+//     candidateId: session.user.id,
+//     isOffered: false,
+//     appliedAt: new Date().toISOString() 
+//   }
 
-  try {
+//   try {
 
-    const res = await fetch(applyJobUrl, {
-      method: 'post',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newData),
-    })
+//     const res = await fetch(applyJobUrl, {
+//       method: 'post',
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(newData),
+//     })
 
-    if(!res.ok) {
-      return NextResponse.json({
-        error: "Failed",
-        message: "Something went wrong", 
+//     if(!res.ok) {
+//       return NextResponse.json({
+//         error: "Failed",
+//         message: "Something went wrong", 
   
-      }, {status: res.status || 500});
-    }
+//       }, {status: res.status || 500});
+//     }
 
-    return NextResponse.json({
-      message: "Job successfully Applied"
-    }, {status: 201})
+//     return NextResponse.json({
+//       message: "Job successfully Applied"
+//     }, {status: 201})
 
-  } catch (error) {
-    console.error(error)
-  } 
-}
+//   } catch (error) {
+//     console.error(error)
+//   } 
+// }

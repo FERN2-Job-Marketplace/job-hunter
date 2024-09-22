@@ -4,15 +4,9 @@ import { options } from "../../auth/[...nextauth]/options";
 import { baseUrl, generateId, getDetailApplicant } from "@/utils";
 
 
-// "applicantness" : [
-//     {
-//       "id": "a01",
-//       "applied_id": "jv01", //Foreign Key dri job_vacancies[].id
-//       "candidate_id": 1, //Foreign Key dri user[].id
-//       "applied_at": "Date"
-//     }
-//   ],
+//Route API GET detail apply job ada di utils
 
+//Untuk apply job baru
 // ID nya si JOB ID
 export async function POST (request: NextRequest, {params} : {params: {id: string}}) {
 

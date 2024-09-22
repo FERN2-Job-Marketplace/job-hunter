@@ -252,18 +252,45 @@ export async function getDetailApplicant (id: string) {
   // console.log("url:", appliedUrl);
   
 
-  const offeredRes = await fetch(appliedUrl)
+  const res = await fetch(appliedUrl)
 
-  console.log(offeredRes);
+  console.log(res);
   
-  if(!offeredRes.ok) {
+  if(!res.ok) {
     return {
       error: "Get Applicant Detail Error",
-      status: offeredRes.status || 500
+      status: res.status || 500
     }
   }
 
-  const data = await offeredRes.json()
+  const data = await res.json()
+
+  // console.log("this is data: ", data);
+
+  return data
+    
+}
+
+export async function getDetailWishlist (id: string) {
+
+  const wishlistUrl = baseUrl + `/wishlist-job/${id}`;
+
+  // console.log("id:", id);
+  // console.log("url:", appliedUrl);
+  
+
+  const res = await fetch(wishlistUrl)
+
+  console.log(res);
+  
+  if(!res.ok) {
+    return {
+      error: "Get Wishlist Error",
+      status: res.status || 500
+    }
+  }
+
+  const data = await res.json()
 
   // console.log("this is data: ", data);
 

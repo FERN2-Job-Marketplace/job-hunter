@@ -9,6 +9,8 @@ export async function GET (request: NextRequest) {
   const {href} = request.nextUrl
   
   let query = ""
+
+  //Ini harus dari sisi client
   let startPage = 0
   let endPage = 9
   let offset = 10
