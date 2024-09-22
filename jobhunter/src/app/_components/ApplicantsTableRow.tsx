@@ -16,7 +16,7 @@ export default function ApplicantsTableRow() {
             <td>24 July 2024</td>
             <td>Fullstack Developer</td>
             <td>
-                <Link href={"/applicants/details"} className="bg-steel-blue text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white">see details</Link>
+                <Link href={"/company/applicants/details"} className="bg-steel-blue text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white">see details</Link>
             </td>
         </tr>
     </>
