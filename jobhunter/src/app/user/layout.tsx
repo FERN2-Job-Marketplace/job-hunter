@@ -1,6 +1,6 @@
 "use client";
 import SidebarUser from "../_components/SidebarUser";
-import UserHeader from "../_components/UserHeader";
+import DashboardHeader from "../_components/DashboardHeader";
 
 export default function Layout({
     children,
@@ -21,7 +21,7 @@ export default function Layout({
 
                 <SidebarUser/>
                 <div className="dashboardContent container w-full md:w-9/12 py-4">
-                    <UserHeader/>
+                    <DashboardHeader/>
                     {children}
                 </div>
             </div>

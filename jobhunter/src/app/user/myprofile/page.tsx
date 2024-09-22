@@ -49,6 +49,12 @@ export default function MyProfile() {
                 </label>
                 <label className="form-control w-full max-w-sm mb-3">
                     <div className="label">
+                        <span className="label-text capitalize text-slate-grey">Years of Experience</span>
+                    </div>
+                    <input type="number" placeholder="Years of Experience" className="input input-bordered w-full" />
+                </label>
+                <label className="form-control w-full max-w-sm mb-3">
+                    <div className="label">
                         <span className="label-text capitalize text-slate-grey">about me</span>
                     </div>
                     <textarea className="textarea textarea-bordered h-24" placeholder="About Me"></textarea>

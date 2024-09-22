@@ -1,6 +1,6 @@
 import MyApplicationTableRow from "@/app/_components/MyApplicationTableRow"
 
-export default function myapplications() {
+export default function Myapplications() {
   return (
     <>
         <div className="overflow-x-auto">
