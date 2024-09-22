@@ -19,8 +19,6 @@ export const options: NextAuthOptions = {
 
         // console.log("profile: ", profile);
 
-        
-
         if(!res.ok) {
 
           // console.log("Masokkk");
@@ -73,8 +71,7 @@ export const options: NextAuthOptions = {
           //sementara masih manual utk user nya pake data[0]
         const urlEndpoint = baseUrl + `/user?username=${credentials?.username}`
 
-        console.log(urlEndpoint);
-        
+        console.log("sesuatu");
 
         // const res = await fetch(urlEndpoint)
         const {data} = await axios({
@@ -104,7 +101,6 @@ export const options: NextAuthOptions = {
   ], 
   callbacks: {
     async jwt({token, user}) {
-
       // console.log("cbacks user: ", user);
       // console.log("cbacks token: ", token);
       
@@ -135,7 +131,17 @@ export const options: NextAuthOptions = {
       return session
     }
   },
+  // session: {
+  //   strategy: "jwt",
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+  //   updateAge: 24 * 60 * 60, // 24 hours
+  // },
+  // jwt: {
+  //   secret: process.env.NEXTAUTH_SECRET,
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+  // },
   pages: {
     signIn: '/auth/signIn'
-  }
+  },
+  debug: true
 }

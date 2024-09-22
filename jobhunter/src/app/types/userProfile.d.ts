@@ -1,3 +1,12 @@
+export type experience = {
+  title: string;
+  company: string;
+  startDate: string;
+  endDate?: string;
+  location: string;
+  description: string;
+};
+
 declare global {
   interface CandidateProfile {
     id: string;
@@ -5,32 +14,26 @@ declare global {
     dateOfBirth: string;
     gender: string;
     phoneNumber: string;
-    profilePicture?: string; // URL ke profile picture, defaultnya ntar aku buat static url gambar profile hambar
-    bio: string;
+    profilePicture: string; // URL ke profile picture, defaultnya ntar aku buat static url gambar profile hambar
+    bio?: string;
     currentCity: string;
     currentCountry?: string; //kita pake city aja, tapi kalo mau tambahin negara bolehh
-    
-    experience: { //Array of Objects, kalo di CV tuh sprt work experiences
-      title: string;
-      company: string;
-      startDate: string;
-      endDate: string;
-      location: string;
-      description: string;
-    }[];
 
-    education: { //Array of Objects, edukasi
+    experience?: experience[];
+
+    education?: {
+      //Array of Objects, edukasi
       institution: string;
       degree: string;
       graduationYear: string;
     }[];
 
     skills: string[]; // Array of Strings
-    isEligible: boolean
+    isEligible: boolean;
 
     //nah ini ga wajib semua
     resumeUrl?: string;
-    socialProfiles?: { 
+    socialProfiles?: {
       linkedin?: string;
       github?: string;
       portfolio?: string;
@@ -39,21 +42,22 @@ declare global {
     desiredSalary?: number;
     willingToRelocate?: boolean;
     preferredWorkEnvironment?: ("onsite" | "remote" | "hybrid")[];
-    updatedAt: string
+    updatedAt: string;
   }
 
   interface CompanyProfile {
-    id: string
+    id: string;
     userId: string; // Referensi ke user id
     companyName: string;
     companyWebsite?: string;
     industry: string;
     companySize?: string;
     foundedYear?: string;
-    companyDescription?: string;
+    companyDescription: string;
     headquarters?: string;
     logoUrl?: string;
-    socialProfiles?: { //akun company
+    socialProfiles?: {
+      //akun company
       linkedin?: string;
       twitter?: string;
     };
@@ -61,7 +65,7 @@ declare global {
     culture?: string;
     hiringProcess?: string;
     isEligible: boolean;
-    updatedAt: string
+    updatedAt: string;
   }
 }
 
