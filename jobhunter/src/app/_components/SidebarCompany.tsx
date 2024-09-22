@@ -16,7 +16,7 @@ export default function SidebarCompany() {
                 <Link href={"/company/joblisting"} className={currentPath === "/company/joblisting" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Job Listing</Link>
                 <Link href={"/company/applicants"} className={currentPath === "/company/applicants" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Applications</Link>
                 <Link href={"/company/postajob"} className={currentPath === "/company/postajob" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Post a Job</Link>
-                <Link href={"/company/companyprofile"} className={currentPath === "/company/companyprofile" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Company Profile</Link>
+                <Link href={"/company/profile"} className={currentPath === "/company/profile" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Company Profile</Link>
                 <button className="text-red p-3 text-[16px] block w-full text-start transition hover:bg-red hover:text-white">Logout</button>
             </div>
         </div>
