@@ -23,7 +23,7 @@ export async function POST (request: NextRequest, {params} : {params: {id: strin
 
   const newData: ApplyJob = {
     id: generateId(),
-    isOffered: false,
+    status: "ongoing",
     note: "",
     jobId: params.id,
     candidateId: session.user.id,
@@ -79,9 +79,9 @@ export async function DELETE (request: NextRequest, {params} : {params: {id: str
 
     console.log("detail: ", detailApplicantRes);
     
-    if(detailApplicantRes.isOffered) {
+    if(detailApplicantRes.status === "ongoing" || detailApplicantRes.status === "rejected") {
       return NextResponse.json({
-        message: "Offering is no longer Valid",
+        message: "Job Applied is no longer Valid",
       }, {status: 403 });
     }
 

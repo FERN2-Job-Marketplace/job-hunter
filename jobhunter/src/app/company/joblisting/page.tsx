@@ -8,28 +8,28 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function JobListing() {
+  const [listJob, setListJob] = useState<JobVacancy[]>([]);
+  const { data: session } = useSession();
 
-// const [dataJob, setDataJob] = useState<JobVacancy[]>([]);
-//   const { data: session } = useSession();
+  const filterIndex = `userId=${session?.user.id}`;
 
-//   // console.log("session:", session?.user.id);
-//   console.log(dataJob);
+  // console.log("session:", session?.user.id);
+  console.log(listJob);
 
-//   useEffect(() => {
-//     async function fetchData() {
-//       // const filterIndex = "_start=0&_end=5"
-//       const result = await getListJobVacancy();
-//       setDataJob(result);
-//     }
+  useEffect(() => {
+    async function fetchData() {
+      const result = await getListJobVacancy(filterIndex);
+      setListJob(result);
+    }
 
-//     fetchData();
-//   }, []);
+    fetchData();
+  }, []);
 
-//   if (!session) {
-//     return null;
-//   }
+  if (!session) {
+    return null;
+  }
 
-//   const listJob = dataJob.filter((el) => el.userId === session.user.id);
+  // const listJob = dataJob.filter((el) => el.userId === session.user.id);
 
   return (
     <>
@@ -48,22 +48,19 @@ export default function JobListing() {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 10 }).map((_, i: number) => {
+            {/* {Array.from({ length: 10 }).map((_, i: number) => {
               return <JoblistingTableRow key={i} />;
-            })}
-            {/* {listJob.length > 0 && (
+            })} */}
+            {listJob.length > 0 && (
               <>
                 {listJob.map((item) => (
                   <JoblistingTableRow key={item.id} item={item} />
                 ))}
               </>
-            )} */}
+            )}
           </tbody>
         </table>
       </div>
     </>
   );
 }
-
-
-

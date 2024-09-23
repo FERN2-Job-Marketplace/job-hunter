@@ -5,7 +5,7 @@ declare global {
     jobId: string
     candidateId: string
     note?: string
-    isOffered: false
+    status: "ongoing" | "offer" |"rejected"
     appliedAt: string
   }
 }
