@@ -2,6 +2,7 @@ import { baseUrl, createDefaultProfile, generateId } from "@/utils";
 import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
+
 export async function POST(request: NextRequest) {
   const req = await request.formData();
   const registerUrl = baseUrl + "/user";
@@ -10,6 +11,8 @@ export async function POST(request: NextRequest) {
   const email = req.get("email")?.toString();
   const password = req.get("password")?.toString();
   const role = req.get("role")?.toString();
+
+  // const {name, email, password, role} = await request.json()
 
   if (!name) {
     return NextResponse.json(
