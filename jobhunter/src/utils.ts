@@ -1,4 +1,8 @@
 import { nanoid } from "nanoid";
+import { revalidatePath } from "next/cache";
+import Swal from "sweetalert2";
+import { experience } from "./app/types/userProfile";
+import { error } from "console";
 
 export const baseUrl = "http://localhost:3001";
 
@@ -60,6 +64,8 @@ const defaultCompanyProfile = {
   updatedAt: "",
 };
 
+//ini hanya digunakan ketika membuat akun pertama kali
+//penganti yg Route API
 export async function createDefaultProfile(
   role: User["role"],
   id: User["detailId"],
@@ -101,3 +107,193 @@ export async function createDefaultProfile(
     console.log(error); 
   }
 }
+
+// function jobExperienceValidation (experiences: experience[]) {
+
+//   experiences.forEach((obj, index) => {
+//     for(let key in obj) {
+//       if(!obj[key as keyof experience]) {
+//         return false
+//       } else return true
+//     }
+//   })
+
+// }
+
+export async function updateProfile (prop: CandidateProfile | CompanyProfile, role: User["role"]){
+
+  const updateJobUrl = baseUrl + `/profile/${prop.id}`
+
+  let newData = {} as CandidateProfile | CompanyProfile
+
+  if(role === "candidate") {
+
+    newData = {
+      ...prop,
+    updatedAt: new Date().toISOString()
+    } as CandidateProfile
+
+    
+    // const checkExpValidness = jobExperienceValidation(newData.experience)
+    
+    if(
+      !newData.dateOfBirth 
+      || !newData.gender 
+      || !newData.phoneNumber 
+      || !newData.profilePicture 
+      || !newData.currentCity
+      || !newData.skills
+    ) {
+      newData.isEligible = false
+    } else newData.isEligible = true
+  } else if(role === "company") {
+    newData = {
+      ...prop,
+    updatedAt: new Date().toISOString()
+    } as CompanyProfile
+
+    if(
+      !newData.companyName
+      || !newData.industry
+      || !newData.companyDescription
+    ) {
+      newData.isEligible = false
+    } else newData.isEligible = true 
+  } else throw new Error("Unauthorized")
+
+  try {
+    const res = await fetch(updateJobUrl, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newData)
+    })
+
+    if(!res.ok) {
+      return
+    }
+
+    await Swal.fire({
+      icon: "success",
+      title: "Update",
+      text: `${res.status}`
+    })
+
+    revalidatePath("/FindJobs")
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function updateJob (prop: JobVacancy) {
+  const updateJobUrl = baseUrl + `/job-vacancy/${prop.id}`
+  
+  const newData: JobVacancy = {
+    ...prop,
+    updatedAt: new Date().toISOString()
+  }
+
+  try {
+    const res = await fetch(updateJobUrl, {
+      method: 'put',
+      body: JSON.stringify(newData)
+    })
+
+    if(!res.ok) {
+      return 
+    }
+
+    await Swal.fire({
+      icon: "success",
+      title: "Update",
+      text: `${res.status}`
+    })
+
+    revalidatePath("/FindJobs")
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function deleteJob (id: string) {
+
+  const deleteJobUrl = baseUrl + `/job-vacancy/${id}`
+  
+  try {
+    const res = await fetch(deleteJobUrl, {
+      method: 'delete'
+    })
+
+    if(!res.ok) {
+      return 
+    }
+
+    await Swal.fire({
+      icon: "success",
+      title: "Delete",
+      text: `${res.status}`
+    })
+
+    revalidatePath("/FindJobs")
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function getDetailApplicant (id: string) {
+
+  const appliedUrl = baseUrl + `/applicant/${id}`;
+
+  // console.log("id:", id);
+  // console.log("url:", appliedUrl);
+  
+
+  const res = await fetch(appliedUrl)
+
+  console.log(res);
+  
+  if(!res.ok) {
+    return {
+      error: "Get Applicant Detail Error",
+      status: res.status || 500
+    }
+  }
+
+  const data = await res.json()
+
+  // console.log("this is data: ", data);
+
+  return data
+    
+}
+
+export async function getDetailWishlist (id: string) {
+
+  const wishlistUrl = baseUrl + `/wishlist-job/${id}`;
+
+  // console.log("id:", id);
+  // console.log("url:", appliedUrl);
+  
+
+  const res = await fetch(wishlistUrl)
+
+  console.log(res);
+  
+  if(!res.ok) {
+    return {
+      error: "Get Wishlist Error",
+      status: res.status || 500
+    }
+  }
+
+  const data = await res.json()
+
+  // console.log("this is data: ", data);
+
+  return data
+    
+} 

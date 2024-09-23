@@ -20,6 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    
+    <AuthProvider>
     <html lang="en">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -28,7 +30,6 @@ export default function RootLayout({
       </Head>
       <body
       >
-        <AuthProvider>
           <Navbar />
           <div className="bg-gradient-to-r bg-slate-900 text-gray-200">
             {children}
@@ -36,8 +37,9 @@ export default function RootLayout({
           <div className="w-screen bg-[#202430]">
             <Footer />
           </div>
-        </AuthProvider>
+        
       </body>
     </html>
+    </AuthProvider>
   )
 }

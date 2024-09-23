@@ -1,23 +1,38 @@
+type category = 
+  | 'technology'
+  | 'devs'
+  | 'finance'
+  | 'marketing'
+  | 'creative'
+  | 'engineering'
+  | 'education'
+  | 'administrative'
+  | 'hr'
+  | 'legal'
+  | 'freelance'
+  | 'remote';
+
+  type location =
+    "jakarta" | "depok" | "bekasi" | "tanggerang" | "surabaya" | "bogor" | "bandung" | "remote"
+  
+
 declare global {
   interface JobVacancy {
     id: string;
     userId: string;
+    category?: category
     title: string;
     companyName: string;
-    location: {
-      city: string;
-      remote: boolean;
-    };
+    location: string
     details: {
       description: string;
       requirements: string[];
       preferences: string[];
-      salary: string
       benefits?: string[];
     };
-    applicationDeadline: string; // ISO date string
-    createdAt: string; // ISO date-time string
-    updatedAt: string; // ISO date-time string
+    salary: number
+    applicationDeadline: string;
+    updatedAt: string; 
     isActive: boolean;
     jobType?: "full-time" | "part-time" | "contract" | "internship";
     experienceLevel?: "entry" | "mid" | "senior" | "executive";

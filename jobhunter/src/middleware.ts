@@ -15,7 +15,7 @@ export default withAuth(
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
 
-    if (pathName.startsWith("/job") && request.nextauth.token?.role === "admin") {
+    if (pathName.startsWith("/job-vacancy") && request.nextauth.token?.role === "company") {
 
         return NextResponse.rewrite(new URL("/denied", request.url));
 
@@ -50,5 +50,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*", "/job/:path*"],
+  matcher: ["/admin/:path*", "/job-vacancy/:path*"],
 };
