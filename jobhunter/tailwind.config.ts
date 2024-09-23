@@ -24,7 +24,8 @@ const config: Config = {
         'ghost-white': '#F8F8FD',
         'green':'#56CDAD',
         'yellow': '#FFB836',
-        'red': '#FF6550'
+        'red': '#FF6550',
+        'navy': '#25324B'
       }
     },
   },

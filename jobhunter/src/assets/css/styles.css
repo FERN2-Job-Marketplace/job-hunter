@@ -6,3 +6,20 @@
 a{
     text-decoration: none;
 }
+
+.homeHero{
+    position: relative;
+    overflow: hidden;
+}
+.homeHero::before{
+    content: url("/img-pattern-hero1.svg");
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.homeHero::after{
+    content: url("/img-pattern-hero2.svg");
+    position: absolute;
+    right: 0;
+    top: 0;
+}
