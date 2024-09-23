@@ -2,22 +2,36 @@
 
 import { useEffect, useState } from "react";
 import CardFindJobs from "../_components/CardFindJobs";
-import CustomBackground from "../_components/CustomBackground";
 import SearchBar from "../_components/SearchBar";
 
 export default function FindJobs() {
     const [jobData, setJobData] = useState<JobVacancy[]>();
+    const [locationFilter, setLocationFilter] = useState('');
     
-    async function getData() {
-        const res = await fetch("http://localhost:3000/api/job-vacancy")
-        if (res) {
-            setJobData(await res.json())
+    async function getData(location: string) {
+        let url ="http://localhost:3000/api/job-vacancy?"        
+
+        if (location) {
+            url += `&location=${location}`;
+        }
+
+        const res = await fetch(url)
+        const responseJson = await res.json()
+
+        if (responseJson) {
+            const newData = Array.isArray(responseJson) ? responseJson : []
+            setJobData(newData)
         }
     }
 
     useEffect(() => {
-        getData()
-      }, []);
+        getData(locationFilter)
+    }, []);
+
+    function locationChange(value: string) {
+        setLocationFilter(value);
+        getData(value);
+    }
 
     return(
         <>
@@ -28,7 +42,7 @@ export default function FindJobs() {
                     <SearchBar/>
                 </div>
             </div>
-            <div className="flex flex-row bg-white pl-40 py-20">
+            <div className="flex flex-row bg-white px-44 py-20 gap-32">
                 <div className="w-[20%]">
                     <div>
                         <h3 className="text-black font-semibold pb-4 ">Type of Employment</h3>
@@ -193,24 +207,29 @@ export default function FindJobs() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col">
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-col">
                             <h3 className="text-3xl font-bold text-black">All Jobs</h3>
                             <h3 className="text-sm font-normal text-gray-700">Showing 73 results</h3>
                         </div>
                         <div className="filterWrap flex items-center gap-4">
-                            <select className="select select-bordered text-raisin-black bg-white">
-                                    <option disabled selected>Location</option>
-                                    <option>Jakarta Pusat</option>
-                                    <option>Jakarta Selatan</option>
-                                    <option>Jakarta Utara</option>
-                                    <option>Jakarta Barat</option>
-                                    <option>Jakarta Timur</option>
-                                    <option>Bogor</option>
-                                    <option>Depok</option>
-                                    <option>Tangerang</option>
-                                    <option>Bekasi</option>
+                            <select 
+                            name="Search"
+                            id="Search"
+                            onChange={(e) => locationChange(e.target.value)}
+                            defaultValue={""}
+                            className="select select-bordered text-raisin-black bg-white">
+                                    <option value="">Location</option>
+                                    <option value="Jakarta Pusat">Jakarta Pusat</option>
+                                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                                    <option value="Jakarta Utara">Jakarta Utara</option>
+                                    <option value="Jakarta Barat">Jakarta Barat</option>
+                                    <option value="Jakarta Timur">Jakarta Timur</option>
+                                    <option value="Bogor">Bogor</option>
+                                    <option value="Depok">Depok</option>
+                                    <option value="Tangerang">Tangerang</option>
+                                    <option value="Bekasi">Bekasi</option>
                             </select>
                             <div className="flex flex-row items-center">
                                 <h3 className=" text-dark-grey-text">Sort by:</h3>
@@ -228,14 +247,19 @@ export default function FindJobs() {
                         </div>
                     </div>
                     <div className="mt-5">
-                    {jobData && 
-                        jobData?.map((el, index) => {
-                            return <CardFindJobs key={index} jobData={el} />;
-                        })
-                    }
-                        
+                        {jobData && ( 
+                            jobData?.map((el, index) => {
+                                return <CardFindJobs key={index} jobData={el} />;
+                            })
+                        )}
+
+                        {!jobData?.length && (
+                            <div className="flex justify-center items-center">
+                                <img src="/notjobs.png" alt="icon" className="w-96 h-[300px] justify-center items-center mt-5"/>
+                            </div>
+                        )}  
                     </div>
-                    <nav aria-label="Page navigation example" className="mt-7 ml-64">
+                    <nav aria-label="Page navigation example" className="mt-7 flex justify-center">
                         <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
                             <li>
                                 <a

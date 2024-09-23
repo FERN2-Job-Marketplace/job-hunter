@@ -2,7 +2,7 @@
 
 export default function CardFindJobs(props: {jobData: JobVacancy}) {
     return(
-        <div className="w-[800px] h-[120px] flex flex-row border-2 gap-8 items-center px-8 mt-5 justify-between">
+        <div className="w-full h-[120px] flex flex-row border-2 gap-8 items-center px-8 mt-5 justify-between">
             <div className="flex flex-row gap-8 justify-center">
                 <img src="/Company Logo.png" alt="icon" className="w-16 h-16 self-center"/>
                 <div>
