@@ -31,7 +31,7 @@ export default async function Layout({
     <>
     <JobProvider jobs={listJob}>
       <style jsx global>{`
-          .navbar {
+          .navbarMain {
               display: none;
           }
           .footer{
