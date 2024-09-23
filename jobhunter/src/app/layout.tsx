@@ -37,7 +37,6 @@ export default function RootLayout({
           <div className="w-screen bg-[#202430]">
             <Footer />
           </div>
-        
       </body>
     </html>
     </AuthProvider>
