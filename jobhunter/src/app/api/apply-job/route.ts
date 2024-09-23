@@ -22,9 +22,9 @@ export async function GET (request: NextRequest) {
   }
 
   let query = ""
-  let startPage = 0
-  let endPage = 9
-  let offset = 10
+  // let startPage = 0
+  // let endPage = 9
+  // let offset = 10
 
   if(href.includes("?")) {
     query = href.split('?').pop() || ""

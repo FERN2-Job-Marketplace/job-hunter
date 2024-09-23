@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import DashboardHeader from "../_components/DashboardHeader";
 import SidebarCompany from "../_components/SidebarCompany";
@@ -25,19 +25,19 @@ export default async function Layout({
 
   const listJob = await getListJobVacancy()
 
-  console.log("listJob: ", listJob);
-  
+  // console.log("listJob: ", listJob);
+
   return (
     <>
-    {/* <JobProvider jobs={listJob}> */}
-      {/* <style jsx global>{`
+    <JobProvider jobs={listJob}>
+      <style jsx global>{`
           .navbar {
               display: none;
           }
           .footer{
               display: none;
           }
-      `}</style> */}
+      `}</style>
       <div className="dashboard bg-white flex min-h-screen">
 
           <SidebarCompany/>
@@ -46,7 +46,7 @@ export default async function Layout({
               {children}
           </div>
       </div>
-      {/* </JobProvider> */}
+      </JobProvider>
     </>
   );
 }
