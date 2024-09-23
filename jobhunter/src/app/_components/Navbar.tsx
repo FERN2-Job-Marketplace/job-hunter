@@ -75,6 +75,13 @@ export default async function Navbar() {
                   find jobs
                 </Link>
               </li>
+              {session && (
+                <li>
+                  <Link href={"/user/dashboard"} className="capitalize text-navy font-medium text-[16px] px-[24px] py-[12px]">
+                    my dashboard
+                  </Link>
+                </li>
+              )}
               <li>
                 {session ? <LogoutBtn /> : <SignInBtn /> }
               </li>
