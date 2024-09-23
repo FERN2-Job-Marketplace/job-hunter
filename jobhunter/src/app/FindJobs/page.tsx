@@ -21,15 +21,12 @@ export default function FindJobs() {
 
     return(
         <>
-            <CustomBackground />
-            <div className="w-screen h-[475px] bg-cale">
-                <div className="container w-[83%] mx-auto pt-32">
-                    <div className="pb-5 flex gap-2 justify-center items-center">
-                        <div className="font-bold text-white text-5xl">Find your</div>
-                        <div className="font-bold text-[#26A4FF] text-5xl">dream job</div>
-                    </div>
+            <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
+                <div className="homeHeroContent relative z-[1]">
+                    <h1 className="font-bold text-white text-center text-4xl lg:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
+                    <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
+                    <SearchBar/>
                 </div>
-                <SearchBar />
             </div>
             <div className="flex flex-row bg-white pl-40 py-20">
                 <div className="w-[20%]">
@@ -202,18 +199,32 @@ export default function FindJobs() {
                             <h3 className="text-3xl font-bold text-black">All Jobs</h3>
                             <h3 className="text-sm font-normal text-gray-700">Showing 73 results</h3>
                         </div>
-                        <div className="flex flex-row">
-                            <h3 className="pt-4 text-dark-grey-text">Sort by:</h3>
-                            <select
-                                name="Search"
-                                id="Search"
-                                // onChange={}
-                                defaultValue={""}
-                                className="bg-white outline-none text-black"
-                                >
-                                <option value="">Newest</option>
-                                <option value="">Oldest</option>
+                        <div className="filterWrap flex items-center gap-4">
+                            <select className="select select-bordered text-raisin-black bg-white">
+                                    <option disabled selected>Location</option>
+                                    <option>Jakarta Pusat</option>
+                                    <option>Jakarta Selatan</option>
+                                    <option>Jakarta Utara</option>
+                                    <option>Jakarta Barat</option>
+                                    <option>Jakarta Timur</option>
+                                    <option>Bogor</option>
+                                    <option>Depok</option>
+                                    <option>Tangerang</option>
+                                    <option>Bekasi</option>
                             </select>
+                            <div className="flex flex-row items-center">
+                                <h3 className=" text-dark-grey-text">Sort by:</h3>
+                                <select
+                                    name="Search"
+                                    id="Search"
+                                    // onChange={}
+                                    defaultValue={""}
+                                    className="bg-white outline-none text-black"
+                                    >
+                                    <option value="">Newest</option>
+                                    <option value="">Oldest</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div className="mt-5">
