@@ -19,8 +19,8 @@ export default function EducationCard() {
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.5" y="0.5" width="39" height="39" stroke="#D6DDEB"/>
                         <g clip-path="url(#clip0_178_5701)">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M20 12C20.5523 12 21 12.4477 21 13V27C21 27.5523 20.5523 28 20 28C19.4477 28 19 27.5523 19 27V13C19 12.4477 19.4477 12 20 12Z" fill="#4D7EA8"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20C12 19.4477 12.4477 19 13 19H27C27.5523 19 28 19.4477 28 20C28 20.5523 27.5523 21 27 21H13C12.4477 21 12 20.5523 12 20Z" fill="#4D7EA8"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M20 12C20.5523 12 21 12.4477 21 13V27C21 27.5523 20.5523 28 20 28C19.4477 28 19 27.5523 19 27V13C19 12.4477 19.4477 12 20 12Z" fill="#4D7EA8"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M12 20C12 19.4477 12.4477 19 13 19H27C27.5523 19 28 19.4477 28 20C28 20.5523 27.5523 21 27 21H13C12.4477 21 12 20.5523 12 20Z" fill="#4D7EA8"/>
                         </g>
                         <defs>
                         <clipPath id="clip0_178_5701">
