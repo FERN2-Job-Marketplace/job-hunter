@@ -41,7 +41,7 @@ export default async function Layout({
       <div className="dashboard bg-white flex min-h-screen">
 
           <SidebarCompany/>
-          <div className="dashboardContent container w-full md:w-9/12 py-4">
+          <div className="dashboardContent container w-full md:w-9/12 py-24 md:py-4">
               <DashboardHeader/>
               {children}
           </div>
