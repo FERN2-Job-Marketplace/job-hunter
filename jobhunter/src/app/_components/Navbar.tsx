@@ -43,7 +43,7 @@ export default async function Navbar() {
           </div>
         </div>
       </nav> */}
-      <nav className="navbar bg-transparent fixed top-0 w-full py-5 px-12 z-[1]">
+      <nav className="navbar bg-raisin-black fixed top-0 w-full py-5 px-12 z-[1]">
         <div className="navbar-start">
           <Link href={"/"} className="btn btn-ghost text-xl">
             <svg className="max-w-full" width="166" height="36" viewBox="0 0 166 36" fill="none" xmlns="http://www.w3.org/2000/svg">
