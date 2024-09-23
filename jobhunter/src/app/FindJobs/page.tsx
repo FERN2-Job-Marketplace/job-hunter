@@ -6,15 +6,12 @@ import SearchBar from "../_components/SearchBar";
 export default function FindJobs() {
     return(
         <>
-            <CustomBackground />
-            <div className="w-screen h-[475px] bg-cale">
-                <div className="container w-[83%] mx-auto pt-32">
-                    <div className="pb-5 flex gap-2 justify-center items-center">
-                        <div className="font-bold text-white text-5xl">Find your</div>
-                        <div className="font-bold text-[#26A4FF] text-5xl">dream job</div>
-                    </div>
+            <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
+                <div className="homeHeroContent relative z-[1]">
+                    <h1 className="font-bold text-white text-center text-4xl lg:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
+                    <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
+                    <SearchBar/>
                 </div>
-                <SearchBar />
             </div>
             <div className="flex flex-row bg-white pl-40 py-20">
                 <div className="w-[20%]">
