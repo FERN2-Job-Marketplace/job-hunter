@@ -1,9 +1,24 @@
+'use client'
+
+import { useEffect, useState } from "react";
 import CardFindJobs from "../_components/CardFindJobs";
 import CustomBackground from "../_components/CustomBackground";
 import SearchBar from "../_components/SearchBar";
 
-
 export default function FindJobs() {
+    const [jobData, setJobData] = useState<JobVacancy[]>();
+    
+    async function getData() {
+        const res = await fetch("http://localhost:3000/api/job-vacancy")
+        if (res) {
+            setJobData(await res.json())
+        }
+    }
+
+    useEffect(() => {
+        getData()
+      }, []);
+
     return(
         <>
             <CustomBackground />
@@ -158,7 +173,7 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 1jt - 4jt
+                            Rp 1jt - 10jt
                             </label>
                         </div>
                         <div className="flex items-center mb-4">
@@ -167,7 +182,7 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 5jt - 7jt
+                            Rp 11jt - 50jt
                             </label>
                         </div>
                         <div className="flex items-center mb-4">
@@ -176,88 +191,7 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 8jt - 10jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 11jt - 15jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 16jt - 20jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 21jt - 25jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 26jt - 30jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 31jt - 40jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 41jt - 50jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 50jt - 70jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 70jt - 99jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={true} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 100jt ++
+                            Rp 51jt - 100jt
                             </label>
                         </div>
                     </div>
@@ -283,13 +217,12 @@ export default function FindJobs() {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
+                    {jobData && 
+                        jobData.map((el, index) => {
+                            return <CardFindJobs key={index} jobData={el} />;
+                        })
+                    }
+                        
                     </div>
                     <nav aria-label="Page navigation example" className="mt-7 ml-64">
                         <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
