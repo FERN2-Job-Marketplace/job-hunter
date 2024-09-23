@@ -9,15 +9,15 @@ export default withAuth(
     const pathName = request.nextUrl.pathname;
 
     if (
-      pathName.startsWith("/admin") &&
-      request.nextauth.token?.role !== "admin"
+      pathName.startsWith("/company") &&
+      request.nextauth.token?.role !== "company"
     ) {
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
 
     if (pathName.startsWith("/job-vacancy") && request.nextauth.token?.role === "company") {
 
-        return NextResponse.rewrite(new URL("/denied", request.url));
+      return NextResponse.rewrite(new URL("/denied", request.url));
 
     //   Swal.fire({
     //     icon: 'error',
@@ -31,6 +31,16 @@ export default withAuth(
     //         return redirect("/admin")
     //     }
     //   });
+    }
+
+    if (pathName.startsWith("/") && request.nextauth.token?.role === "company") {
+
+      return NextResponse.rewrite(new URL("/company/joblisting", request.url));
+    }
+
+    if (pathName.startsWith("/company") && request.nextauth.token?.role !== "company") {
+
+      return NextResponse.rewrite(new URL("/auth/signIn", request.url));
     }
 
     if (
@@ -50,5 +60,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*", "/job-vacancy/:path*"],
+  matcher: ["/admin/:path*", "/job-vacancy/:path*", "/company/:path*", "/"],
 };

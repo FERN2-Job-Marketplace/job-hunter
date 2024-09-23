@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
+import LogoutBtn from "./Logout-Btn";
 export default function SidebarCompany() {
     const currentPath = usePathname();
 
@@ -17,7 +20,8 @@ export default function SidebarCompany() {
                 <Link href={"/company/applicants"} className={currentPath === "/company/applicants" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Applications</Link>
                 <Link href={"/company/postajob"} className={currentPath === "/company/postajob" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Post a Job</Link>
                 <Link href={"/company/profile"} className={currentPath === "/company/profile" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Company Profile</Link>
-                <button className="text-red p-3 text-[16px] block w-full text-start transition hover:bg-red hover:text-white">Logout</button>
+                {/* <button className="text-red p-3 text-[16px] block w-full text-start transition hover:bg-red hover:text-white">Logout</button> */}
+                <LogoutBtn />
             </div>
         </div>
     </>

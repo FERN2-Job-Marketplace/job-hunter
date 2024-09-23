@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import DashboardHeader from "../_components/DashboardHeader";
 import SidebarCompany from "../_components/SidebarCompany";
@@ -10,14 +10,14 @@ export default function Layout({
 }>) {
   return (
     <>
-      <style jsx global>{`
+      {/* <style jsx global>{`
           .navbar {
               display: none;
           }
           .footer{
               display: none;
           }
-      `}</style>
+      `}</style> */}
       <div className="dashboard bg-white flex min-h-screen">
 
           <SidebarCompany/>

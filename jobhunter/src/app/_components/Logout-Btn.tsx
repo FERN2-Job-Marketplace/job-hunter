@@ -21,11 +21,11 @@ export default function LogoutBtn() {
 
   return (
     <div className="flex flex-row gap-3">
-      <span>
+      {/* <span>
         Welcome, {session?.user?.name} the {session?.user?.role}
-      </span>
+      </span> */}
 
-      <button className="btn btn-outline" onClick={() => handleLogout()}>
+      <button className="btn btn-outline btn-info hover:btn-error" onClick={() => handleLogout()}>
         Sign Out
       </button>
     </div>
