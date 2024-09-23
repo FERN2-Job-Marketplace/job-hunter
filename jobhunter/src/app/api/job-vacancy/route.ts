@@ -42,54 +42,54 @@ export async function GET (request: NextRequest) {
   return NextResponse.json(data)
 }
 
-// export async function POST (request: NextRequest) {
+export async function POST (request: NextRequest) {
 
-//   const session = await getServerSession(options)
-//   console.log(session);
+  const session = await getServerSession(options)
+  console.log(session);
   
-//   const req: JobVacancy = await request.json()
+  const req: JobVacancy = await request.json()
   
-//   const jobVacancyUrl = baseUrl + "/job-vacancy";
+  const jobVacancyUrl = baseUrl + "/job-vacancy";
 
-//   if(!session?.user || session?.user?.role !== "company" ) {
-//     return NextResponse.json({
-//       error: "Unauthorized",
-//     }, {status: 401 });
-//   }
+  if(!session?.user || session?.user?.role !== "company" ) {
+    return NextResponse.json({
+      error: "Unauthorized",
+    }, {status: 401 });
+  }
 
-//   const newData: JobVacancy = {
-//     ...req,
-//     id: generateId(),
-//     userId: session.user.id,
-//     // isActive: true,
-//     // createdAt: new Date().toISOString(),
-//     // updatedAt: new Date().toISOString(), 
-//   }
+  const newData: JobVacancy = {
+    ...req,
+    id: generateId(),
+    userId: session.user.id,
+    // isActive: true,
+    // createdAt: new Date().toISOString(),
+    // updatedAt: new Date().toISOString(), 
+  }
 
-//   try {
+  try {
 
-//     const res = await fetch(jobVacancyUrl, {
-//       method: 'post',
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(newData),
-//     })
+    const res = await fetch(jobVacancyUrl, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
+    })
 
-//     if(!res.ok) {
-//       return NextResponse.json({
-//         error: "Failed",
-//         message: "Something went wrong", 
+    if(!res.ok) {
+      return NextResponse.json({
+        error: "Failed",
+        message: "Something went wrong", 
   
-//       }, {status: res.status || 500});
-//     }
+      }, {status: res.status || 500});
+    }
 
-//     return NextResponse.json({
-//       message: "Job successfully added"
-//     }, {status: 201})
+    return NextResponse.json({
+      message: "Job successfully added"
+    }, {status: 201})
 
-//   } catch (error) {
-//     console.error(error)
-//   } 
-// }
+  } catch (error) {
+    console.error(error)
+  } 
+}
 
