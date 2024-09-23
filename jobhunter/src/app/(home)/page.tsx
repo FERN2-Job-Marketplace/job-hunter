@@ -14,7 +14,7 @@ export default function Home() {
             {/* <SearchBar/> */}
           </div>
         </div>
-        <div className="homeShowcase px-12">
+        <div className="homeShowcase px-12 pb-12 lg:pb-14">
           <p className="mb-4 text-slate-grey text-[18px]">
             Companies we helped grow
           </p>
@@ -75,9 +75,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="homeAds relative m-auto w-fit max-w-full">
+        <div className="homeAds relative m-auto w-fit max-w-full px-12 py-20 lg:py-14">
             <img
-              src="/homepage illustration.png" // Ubah path ini ke lokasi gambar yang ingin kamu gunakan
+              src="/homepage illustration.png"
               alt="Illustration"
               className="max-w-full h-auto hidden lg:block" />
             <div className="homeAdsContent lg:absolute lg:left-[100px] lg:top-[50%] lg:translate-y-[-50%]">
@@ -92,29 +92,29 @@ export default function Home() {
               </Link>
             </div>
         </div>
-        <div className="w-screen h-screen bg-[#202430]">
-          <div className="w-screen h-screen bg-[#202430]">
-            <div className="w-screen bg-[#202430]">
-              <div className="container w-[80%] mx-auto pt-14">
-                <div className="pb-3 flex justify-between">
-                  <div className="flex gap-2 justify-start items-start">
-                    <div className="font-bold text-white text-5xl">Featured</div>
-                    <div className="font-bold text-[#26A4FF] text-5xl">jobs</div>
-                  </div>
-                  <div className="flex justify-end items-end">
-                    <div className="font-light text-[#4997d0] text-lg">Show all jobs</div>
-                  </div>
-                </div>
+        <div className="homeFeatured px-12 py-12 lg:py-14">
+          <div className="homeFeaturedHeader flex items-center justify-between mb-5">
+            <h2 className="font-semibold text-white text-[48px]">
+              Featured <span className="text-celestial-blue">jobs</span>
+            </h2>
+            <Link href={"/findJobs"}>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-steel-blue text-[16px]">
+                  Show all jobs
+                </p>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.75 11.7257L4.75 11.7257" stroke="#4D7EA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13.7002 5.7013L19.7502 11.7253L13.7002 17.7503" stroke="#4D7EA8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div className="w-screen bg-[#202430]">
-                <div className="container h-[50vw]">
-                  <CardJobs />
-                </div>
-                {/* <div className="w-screen bg-[#202430]">
-                  <Footer />
-                </div> */}
-              </div>
-            </div>
+            </Link>
+          </div>
+          <div className="homeFeaturedContent flex flex-wrap items-center justify-between">
+            {                    
+              Array.from({ length: 8 }).map((_, i: number) => {
+                  return <CardJobs key={i} />
+              })
+            }
           </div>
         </div>
       </div>
