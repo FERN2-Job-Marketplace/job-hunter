@@ -1,7 +1,7 @@
 export default function Footer(){
     return(
         <>
-            <div className="footer">
+            <footer className="footerContainer">
                 <div className="w-full py-12 px-24 grid grid-cols-3 bg-raisin-black">
                     <div className="flex flex-col">
                         <div className="flex flex-row pb-2">
@@ -72,7 +72,7 @@ export default function Footer(){
                         </div>
                     </div>
                 </div>
-            </div>
+            </footer>
         </>
     )
 }
