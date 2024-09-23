@@ -1,22 +1,48 @@
+'use client'
+
+import { useEffect, useState } from "react";
 import CardFindJobs from "../_components/CardFindJobs";
-import CustomBackground from "../_components/CustomBackground";
 import SearchBar from "../_components/SearchBar";
 
-
 export default function FindJobs() {
+    const [jobData, setJobData] = useState<JobVacancy[]>();
+    const [locationFilter, setLocationFilter] = useState('');
+    
+    async function getData(location: string) {
+        let url ="http://localhost:3000/api/job-vacancy?"        
+
+        if (location) {
+            url += `&location=${location}`;
+        }
+
+        const res = await fetch(url)
+        const responseJson = await res.json()
+
+        if (responseJson) {
+            const newData = Array.isArray(responseJson) ? responseJson : []
+            setJobData(newData)
+        }
+    }
+
+    useEffect(() => {
+        getData(locationFilter)
+    }, []);
+
+    function locationChange(value: string) {
+        setLocationFilter(value);
+        getData(value);
+    }
+
     return(
         <>
-            <CustomBackground />
-            <div className="w-screen h-[475px] bg-cale">
-                <div className="container w-[83%] mx-auto pt-32">
-                    <div className="pb-5 flex gap-2 justify-center items-center">
-                        <div className="font-bold text-white text-5xl">Find your</div>
-                        <div className="font-bold text-[#26A4FF] text-5xl">dream job</div>
-                    </div>
+            <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
+                <div className="homeHeroContent relative z-[1]">
+                    <h1 className="font-bold text-white text-center text-4xl lg:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
+                    <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
+                    <SearchBar/>
                 </div>
-                <SearchBar />
             </div>
-            <div className="flex flex-row bg-white pl-40 py-20">
+            <div className="flex flex-row bg-white px-44 py-20 gap-32">
                 <div className="w-[20%]">
                     <div>
                         <h3 className="text-black font-semibold pb-4 ">Type of Employment</h3>
@@ -158,7 +184,7 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 1jt - 4jt
+                            Rp 1jt - 10jt
                             </label>
                         </div>
                         <div className="flex items-center mb-4">
@@ -167,7 +193,7 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 5jt - 7jt
+                            Rp 11jt - 50jt
                             </label>
                         </div>
                         <div className="flex items-center mb-4">
@@ -176,122 +202,64 @@ export default function FindJobs() {
                             htmlFor="default-checkbox"
                             className="ms-2 text-sm font-light text-gray-700"
                             >
-                            Rp 8jt - 10jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 11jt - 15jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 16jt - 20jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 21jt - 25jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 26jt - 30jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 31jt - 40jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 41jt - 50jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 50jt - 70jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 70jt - 99jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={true} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                           Rp 100jt ++
+                            Rp 51jt - 100jt
                             </label>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col">
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-col">
                             <h3 className="text-3xl font-bold text-black">All Jobs</h3>
                             <h3 className="text-sm font-normal text-gray-700">Showing 73 results</h3>
                         </div>
-                        <div className="flex flex-row">
-                            <h3 className="pt-4 text-dark-grey-text">Sort by:</h3>
-                            <select
-                                name="Search"
-                                id="Search"
-                                // onChange={}
-                                defaultValue={""}
-                                className="bg-white outline-none text-black"
-                                >
-                                <option value="">Newest</option>
-                                <option value="">Oldest</option>
+                        <div className="filterWrap flex items-center gap-4">
+                            <select 
+                            name="Search"
+                            id="Search"
+                            onChange={(e) => locationChange(e.target.value)}
+                            defaultValue={""}
+                            className="select select-bordered text-raisin-black bg-white">
+                                    <option value="">Location</option>
+                                    <option value="Jakarta Pusat">Jakarta Pusat</option>
+                                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                                    <option value="Jakarta Utara">Jakarta Utara</option>
+                                    <option value="Jakarta Barat">Jakarta Barat</option>
+                                    <option value="Jakarta Timur">Jakarta Timur</option>
+                                    <option value="Bogor">Bogor</option>
+                                    <option value="Depok">Depok</option>
+                                    <option value="Tangerang">Tangerang</option>
+                                    <option value="Bekasi">Bekasi</option>
                             </select>
+                            <div className="flex flex-row items-center">
+                                <h3 className=" text-dark-grey-text">Sort by:</h3>
+                                <select
+                                    name="Search"
+                                    id="Search"
+                                    // onChange={}
+                                    defaultValue={""}
+                                    className="bg-white outline-none text-black"
+                                    >
+                                    <option value="">Newest</option>
+                                    <option value="">Oldest</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div className="mt-5">
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
-                        <CardFindJobs/>
+                        {jobData && ( 
+                            jobData?.map((el, index) => {
+                                return <CardFindJobs key={index} jobData={el} />;
+                            })
+                        )}
+
+                        {!jobData?.length && (
+                            <div className="flex justify-center items-center">
+                                <img src="/notjobs.png" alt="icon" className="w-96 h-[300px] justify-center items-center mt-5"/>
+                            </div>
+                        )}  
                     </div>
-                    <nav aria-label="Page navigation example" className="mt-7 ml-64">
+                    <nav aria-label="Page navigation example" className="mt-7 flex justify-center">
                         <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
                             <li>
                                 <a

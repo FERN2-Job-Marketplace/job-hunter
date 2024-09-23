@@ -9,7 +9,7 @@ export default function MyApplicationTableRow({index}: {index: number}) {
         <td>Fullstack Developer</td>
         <td>24 July 2024</td>
         <td>
-            <div className="rounded-xl w-fit border border-solid border-yellow text-yellow capitalized text-center py-1 px-2">
+            <div className="rounded-xl min-w-[80px] w-fit border border-solid border-yellow text-yellow capitalized text-center py-1 px-2">
                 On Going
             </div>
         </td>
