@@ -8,10 +8,6 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const listJob = await getListJobVacancy()
-
-  // console.log("listJob: ", listJob);
-
   return (
     <>
       <style jsx global>{`

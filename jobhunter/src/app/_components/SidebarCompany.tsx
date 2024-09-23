@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from 'next/navigation'
 import LogoutBtn from "./Logout-Btn";
 export default function SidebarCompany() {
     const currentPath = usePathname();
@@ -33,7 +31,6 @@ export default function SidebarCompany() {
                 <LogoutBtn />
             </div>
         </div>
-      </div>
     </>
-  );
+  )
 }

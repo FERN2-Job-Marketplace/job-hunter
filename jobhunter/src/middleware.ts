@@ -1,10 +1,14 @@
 import { withAuth, NextRequestWithAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import { jobHunterUrl } from "./utils";
 
 export default withAuth(
   function middleware(request: NextRequestWithAuth) {
     // console.log("Req next url", request.nextUrl.pathname);
     // console.log("Req auth", request.nextauth.token);
+
+    // console.log("Middleware triggered for:");
+
 
     const pathName = request.nextUrl.pathname;
 
@@ -18,25 +22,12 @@ export default withAuth(
     if (pathName.startsWith("/job-vacancy") && request.nextauth.token?.role === "company") {
 
       return NextResponse.rewrite(new URL("/denied", request.url));
-
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'You are Unauthorized'
-    //   })
-
-    //   return redirect("/admin")
-
-    //   .then(result => {
-    //     if(result.isConfirmed) {
-    //         return redirect("/admin")
-    //     }
-    //   });
     }
 
-    if (pathName.startsWith("/") && request.nextauth.token?.role === "company") {
+    // if (pathName === "/" && request.nextauth.token?.role === "company") {
 
-      return NextResponse.rewrite(new URL("/company/joblisting", request.url));
-    }
+    //   return NextResponse.rewrite(new URL("/company/joblisting", request.url));
+    // }
 
     if (pathName.startsWith("/company") && request.nextauth.token?.role !== "company") {
 
@@ -60,5 +51,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/admin/:path*", "/job-vacancy/:path*", "/company/:path*"],
+  matcher: [ "/job-vacancy/:path*", "/company/:path*"],
 };

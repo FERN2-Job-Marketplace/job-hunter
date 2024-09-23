@@ -2,12 +2,12 @@ import ApplicantsTableRow from "@/app/_components/ApplicantsTableRow";
 
 export default function Applicants() {
   
+  console.log("this is applicants page")
 
   return (
     <div className="overflow-x-auto">
       <table className="table text-raisin-black">
         <tbody>
-            test
           {Array.from({ length: 10 }).map((_, i: number) => {
             return <ApplicantsTableRow key={i} />;
           })}
