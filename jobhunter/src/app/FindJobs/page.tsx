@@ -277,10 +277,8 @@ export default function FindJobs() {
                                 defaultValue={""}
                                 className="bg-white outline-none text-black"
                                 >
-                                <option value="">Most relevant</option>
-                                <option value="">finance</option>
-                                <option value="">business</option>
-                                <option value="">devs</option>
+                                <option value="">Newest</option>
+                                <option value="">Oldest</option>
                             </select>
                         </div>
                     </div>
