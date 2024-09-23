@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { experience } from "./app/types/userProfile";
 import { error } from "console";
 
+export const jobHunterUrl = "http://localhost:3000"
 export const baseUrl = "http://localhost:3001";
 
 export const generateId = () => {

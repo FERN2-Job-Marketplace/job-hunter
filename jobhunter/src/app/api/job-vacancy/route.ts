@@ -11,9 +11,9 @@ export async function GET (request: NextRequest) {
   let query = ""
 
   //Ini harus dari sisi client
-  let startPage = 0
-  let endPage = 9
-  let offset = 10
+  // let startPage = 0
+  // let endPage = 9
+  // let offset = 10
 
   if(href.includes("?")) {
     query = href.split('?').pop() || ""
@@ -25,9 +25,9 @@ export async function GET (request: NextRequest) {
     getJobVacancyUrl += `?${query}`
   }
 
-  getJobVacancyUrl += `${query ? '&' : '?'}_start=${startPage}&_end=${endPage}`
+  // getJobVacancyUrl += `${query ? '&' : '?'}_start=${startPage}&_end=${endPage}`
 
-  console.log(getJobVacancyUrl);
+  // console.log(getJobVacancyUrl);
 
   const res = await fetch(getJobVacancyUrl)
   
