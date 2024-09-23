@@ -1,6 +1,21 @@
-import JoblistingTableRow from "@/app/_components/JoblistingTableRow";
+// "use client";
 
-export default function Applicants() {
+import JoblistingTableRow from "@/app/_components/JoblistingTableRow";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getListJobVacancy } from "@/fetch";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+
+export default async function JobListing() {
+
+  const getDataJobVacancy: JobVacancy[] = await getListJobVacancy()
+  const session = await getServerSession(options)
+
+  if(!session) return
+
+  const listJob = getDataJobVacancy.filter(item => item.userId === session?.user?.id)
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -18,12 +33,42 @@ export default function Applicants() {
             </tr>
           </thead>
           <tbody>
-            {Array.from({ length: 10 }).map((_, i: number) => {
+            {/* {Array.from({ length: 10 }).map((_, i: number) => {
               return <JoblistingTableRow key={i} />;
-            })}
+            })} */}
+            {listJob.length > 0 && (
+              <>
+                {listJob.map((item) => (
+                  <JoblistingTableRow key={item.id} item={item} />
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
     </>
   );
 }
+
+
+// const [dataJob, setDataJob] = useState<JobVacancy[]>([]);
+//   const { data: session } = useSession();
+
+//   // console.log("session:", session?.user.id);
+//   console.log(dataJob);
+
+//   useEffect(() => {
+//     async function fetchData() {
+//       // const filterIndex = "_start=0&_end=5"
+//       const result = await getListJobVacancy();
+//       setDataJob(result);
+//     }
+
+//     fetchData();
+//   }, []);
+
+//   if (!session) {
+//     return null;
+//   }
+
+//   const listJob = dataJob.filter((el) => el.userId === session.user.id);
