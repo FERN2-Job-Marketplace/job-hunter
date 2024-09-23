@@ -15,7 +15,7 @@ export default function Home() {
           </div>
         </div>
         <div className="homeShowcase px-12 pb-12 lg:pb-14">
-          <p className="mb-4 text-slate-grey text-[18px]">
+          <p className="mb-4 text-slate-grey text-center lg:text-start text-[18px]">
             Companies we helped grow
           </p>
           <div className="flex flex-wrap items-center justify-center lg:justify-between gap-4">
@@ -75,14 +75,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="homeAds relative m-auto w-fit max-w-full px-12 py-20 lg:py-14">
+        <div className="homeAds relative m-auto w-fit max-w-full px-12 py-20 lg:py-14 bg-steel-blue lg:bg-transparent">
             <img
               src="/homepage illustration.png"
               alt="Illustration"
               className="max-w-full h-auto hidden lg:block" />
             <div className="homeAdsContent lg:absolute lg:left-[100px] lg:top-[50%] lg:translate-y-[-50%]">
               <h2 className="text-white font-semibold text-[48px] mb-3">
-                Start posting <br /> jobs today
+                Start posting <br className="hidden lg:block"/> jobs today
               </h2>
               <p className="font-medium text-white text-[16px] mb-3">
                 Start posting jobs for only Rp100k.
@@ -94,7 +94,7 @@ export default function Home() {
         </div>
         <div className="homeFeatured px-12 py-12 lg:py-14">
           <div className="homeFeaturedHeader flex items-center justify-between mb-5">
-            <h2 className="font-semibold text-white text-[48px]">
+            <h2 className="font-semibold text-white text-[18px] lg:text-[48px]">
               Featured <span className="text-celestial-blue">jobs</span>
             </h2>
             <Link href={"/findJobs"}>
