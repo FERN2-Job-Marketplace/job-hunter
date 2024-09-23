@@ -229,7 +229,7 @@ export default function FindJobs() {
                     </div>
                     <div className="mt-5">
                     {jobData && 
-                        jobData.map((el, index) => {
+                        jobData?.map((el, index) => {
                             return <CardFindJobs key={index} jobData={el} />;
                         })
                     }
