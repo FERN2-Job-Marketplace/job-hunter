@@ -69,6 +69,9 @@ export default function MyProfile() {
                     </div>
                     <textarea className="textarea textarea-bordered h-36 w-full" placeholder="List Your Skills"></textarea>
                 </div>
+                <button className="bg-steel-blue block text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white">
+                    Save Profile
+                </button>
             </form>
         </div>
     </>

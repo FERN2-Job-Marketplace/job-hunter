@@ -50,7 +50,7 @@ export default function CompanyProfile() {
                         </div>
                     </div>
                 </div>
-                <button className="bg-steel-blue text-white font-bold border border-solid border-steel-blue text-center transition px-[24px] py-[12px] my-3 hover:text-steel-blue hover:bg-white">Post a Job</button>
+                <button className="bg-steel-blue text-white font-bold border border-solid border-steel-blue text-center transition px-[24px] py-[12px] my-3 hover:text-steel-blue hover:bg-white">Save Profile</button>
             </form>
         </div>
     </>

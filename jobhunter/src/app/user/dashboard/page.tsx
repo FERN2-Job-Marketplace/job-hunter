@@ -1,8 +1,8 @@
 export default function DashboardUser() {
   return (
     <>
-        <div className="dashboardHome flex flex-wrap items-center gap-6 py-4 px-5">
-            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] md:min-w-[258px]">
+        <div className="dashboardHome flex flex-col md:flex-row flex-wrap items-center gap-6 py-4 px-5">
+            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] min-w-[258px]">
                 <p className="text-raisin-black font-semibold text-[20px] capitalize mt-0 mb-2">
                     Total Jobs Applied
                 </p>
@@ -18,7 +18,7 @@ export default function DashboardUser() {
                     </g>
                 </svg>
             </div>
-            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] md:min-w-[258px]">
+            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] min-w-[258px]">
                 <p className="text-raisin-black font-semibold text-[20px] capitalize mt-0 mb-2">
                     On Going
                 </p>
@@ -34,7 +34,7 @@ export default function DashboardUser() {
                     </g>
                 </svg>
             </div>
-            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] md:min-w-[258px]">
+            <div className="dashboardHomeCard overflow-hidden border border-lavender border-solid bg-white relative p-[24px] min-w-[258px]">
                 <p className="text-raisin-black font-semibold text-[20px] capitalize mt-0 mb-2">
                     Completed
                 </p>
