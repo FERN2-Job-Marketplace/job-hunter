@@ -31,7 +31,7 @@ export async function GET (request: NextRequest) {
   const fuse = new Fuse(data, options)
   const fuseResult = fuse.search(search)
 
-  console.log(fuseResult);
+  // console.log(fuseResult);
 
   if(!res.ok || data.length < 1) {
     return NextResponse.json({

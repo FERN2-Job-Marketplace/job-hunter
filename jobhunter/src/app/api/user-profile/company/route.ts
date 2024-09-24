@@ -11,7 +11,7 @@ export async function POST (request: NextRequest) {
   
   const userProfileUrl = baseUrl + "/user-profile";
 
-  if(!session?.user || session?.user?.role !== "company" ) {
+  if(session?.user?.role !== "company" ) {
     return NextResponse.json({
       error: "Unauthorized",
     }, {status: 401 });

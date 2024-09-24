@@ -9,8 +9,7 @@ export type category =
   | "administrative"
   | "hr"
   | "legal"
-  | "freelance"
-  | "remote";
+  | "scientist"
 
 export type location =
   "jakarta pusat"
@@ -27,8 +26,8 @@ export type location =
   | "remote";
 
 export type jobType = 
-  "full-time" 
-  | "part-time" 
+  "full time" 
+  | "part time" 
   | "contract" 
   | "internship"
   | undefined;
@@ -37,23 +36,23 @@ declare global {
   interface JobVacancy {
     id: string;
     userId: string;
-    category?: category;
+    category: category;
+    jobType?: jobType;
     title: string;
     companyName: string;
     location: string;
     details: {
       description: string;
-      requirements: string[];
-      preferences: string[];
-      benefits?: string[];
-      salary: string
+      responsibilities?: string;
+      requirements?: string;
+      preferences?: string;
+      benefits?: string;
     };
     salary: number;
-    applicationDeadline: string;
+    applicationDeadline?: string;
     createdAt: string;
     updatedAt: string;
     isActive: boolean;
-    jobType?: jobType;
     experienceLevel?: "entry" | "mid" | "senior" | "executive";
   }
 }

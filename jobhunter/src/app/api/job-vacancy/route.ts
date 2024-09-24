@@ -45,13 +45,13 @@ export async function GET (request: NextRequest) {
 export async function POST (request: NextRequest) {
 
   const session = await getServerSession(options)
-  console.log(session);
+  // console.log(session);
   
-  const req: JobVacancy = await request.json()
+  const req = await request.json()
   
   const jobVacancyUrl = baseUrl + "/job-vacancy";
 
-  if(!session?.user || session?.user?.role !== "company" ) {
+  if(session?.user?.role !== "company" ) {
     return NextResponse.json({
       error: "Unauthorized",
     }, {status: 401 });
@@ -70,9 +70,6 @@ export async function POST (request: NextRequest) {
 
     const res = await fetch(jobVacancyUrl, {
       method: 'post',
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(newData),
     })
 

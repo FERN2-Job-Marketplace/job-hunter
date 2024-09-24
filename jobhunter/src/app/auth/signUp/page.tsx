@@ -92,7 +92,7 @@ export default function SignUpPage(){
                             <span className="text-base font-semibold tracking-widest text-dark-grey-text">Email</span>
                         </div>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             placeholder="Email"
                             className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
@@ -109,7 +109,7 @@ export default function SignUpPage(){
                             className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
                         />
                         </label>
-                        <button className="w-full btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
+                        <button type="submit" className="w-full btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
                             Register
                         </button>
                     </form>
