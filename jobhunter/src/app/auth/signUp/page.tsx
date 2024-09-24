@@ -1,7 +1,56 @@
+"use client";
+
 import AuthOptionBtn from "@/app/_components/AuthOptionBtn";
+import { useState } from "react";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import Swal from "sweetalert2";
+
 
 
 export default function SignUpPage(){
+    const [activeRole, setActiveRole] = useState("candidate");
+
+    function authSwitch(role: string) {
+        setActiveRole(role);
+    }
+
+    async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget); 
+        
+        const input = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          password: formData.get("password"),
+          role: activeRole
+        };
+        
+        try {
+          const response = await fetch("http://localhost:3000/api/registration", {
+            method: "POST",
+            body: JSON.stringify(input),
+            headers: {
+              "Content-Type": "form",
+            },
+          });
+
+          Swal.fire({
+            icon: "success",
+            title: "Register Success",
+            showCloseButton: true,
+          });
+      
+          if (!response.ok) throw new Error("Error adding data");
+      
+          revalidatePath("/");
+          redirect("/");
+        } catch (error) {
+          console.error("Registration failed:", error);
+          // Add user-facing error handling here
+        }
+    }
+      
  
     return(
         <>
@@ -22,43 +71,48 @@ export default function SignUpPage(){
                         className="w-6 h-6"/>
                         <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
                     </div>
-                    <AuthOptionBtn/>
-                    <label className="form-control w-full">
-                    <div className="label">
-                        <span className="text-base font-semibold tracking-widest text-dark-grey-text">Full Name</span>
+                    <div className="flex flex-row justify-center items-center">
+                        <button className={`authOptions w-1/2 px-2 py-2 text-steel-blue text-base font-semibold hover:bg-slate-300 ${activeRole === 'candidate' ? 'bg-slate-300' : ''}`} onClick={(e) => authSwitch("candidate")}>Job Seeker</button>
+                        <button className={`authOptions w-1/2 px-2 py-2 text-steel-blue text-base font-semibold hover:bg-slate-300 ${activeRole === 'company' ? 'bg-slate-300' : ''}`} onClick={(e) => authSwitch("company")}>Company</button>
                     </div>
-                    <input
-                        type="text"
-                        name="Full Name"
-                        placeholder="Full Name"
-                        className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
-                    />
-                    </label>
-                    <label className="form-control w-full">
-                    <div className="label">
-                        <span className="text-base font-semibold tracking-widest text-dark-grey-text">Email</span>
-                    </div>
-                    <input
-                        type="text"
-                        name="Email"
-                        placeholder="Email"
-                        className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
-                    />
-                    </label>
-                    <label className="form-control w-full">
-                    <div className="label">
-                        <span className="text-base font-semibold tracking-widest text-dark-grey-text">Password</span>
-                    </div>
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
-                    />
-                    </label>
-                    <button className="btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
-                        Register
-                    </button>
+                    <form onSubmit={handleRegister}>
+                        <label className="form-control w-full">
+                        <div className="label">
+                            <span className="text-base font-semibold tracking-widest text-dark-grey-text">Full Name</span>
+                        </div>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Full Name"
+                            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
+                        />
+                        </label>
+                        <label className="form-control w-full">
+                        <div className="label">
+                            <span className="text-base font-semibold tracking-widest text-dark-grey-text">Email</span>
+                        </div>
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
+                        />
+                        </label>
+                        <label className="form-control w-full">
+                        <div className="label">
+                            <span className="text-base font-semibold tracking-widest text-dark-grey-text">Password</span>
+                        </div>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
+                        />
+                        </label>
+                        <button className="w-full btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
+                            Register
+                        </button>
+                    </form>
                     <div className="flex flex-row justify-center text-base text-dark-grey-text gap-1">
                         <h1>Already Have an Account?</h1>
                         <a href="signIn" className="text-steel-blue">Login</a>
