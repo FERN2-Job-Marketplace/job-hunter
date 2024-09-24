@@ -32,7 +32,7 @@ export default function SignInPage() {
           className="w-6 h-6"/>
           <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
         </div>
-        <AuthOptionBtn/>
+        {/* <AuthOptionBtn/> */}
         <label className="form-control w-full ">
           <div className="label">
             <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
