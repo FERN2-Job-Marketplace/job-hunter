@@ -7,12 +7,17 @@ import SearchBar from "../_components/SearchBar";
 export default function FindJobs() {
     const [jobData, setJobData] = useState<JobVacancy[]>();
     const [locationFilter, setLocationFilter] = useState('');
+    const [searchText, setSearchText] = useState('');
     
-    async function getData(location: string) {
+    async function getData(props: {location?: string, search?: string}) {
         let url ="http://localhost:3000/api/job-vacancy?"        
 
-        if (location) {
-            url += `&location=${location}`;
+        if (props?.location) {
+            url += `&location=${props?.location}`;
+        }
+
+        if (props?.search) {
+            url += `&title=${props.search}`;
         }
 
         const res = await fetch(url)
@@ -25,12 +30,17 @@ export default function FindJobs() {
     }
 
     useEffect(() => {
-        getData(locationFilter)
+        getData({location: locationFilter})
     }, []);
 
     function locationChange(value: string) {
         setLocationFilter(value);
-        getData(value);
+        getData({location: value, search: searchText});
+    }
+
+    function handleSearch(text: string) {
+        setSearchText(text)
+        getData({location: locationFilter, search: text});
     }
 
     return(
@@ -39,7 +49,7 @@ export default function FindJobs() {
                 <div className="homeHeroContent relative z-[1]">
                     <h1 className="font-bold text-white text-center text-4xl lg:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
                     <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
-                    <SearchBar/>
+                    <SearchBar handleSearch={handleSearch}/>
                 </div>
             </div>
             <div className="flex flex-row bg-white px-44 py-20 gap-32">

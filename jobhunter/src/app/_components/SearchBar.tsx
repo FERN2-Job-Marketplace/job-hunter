@@ -1,4 +1,8 @@
-export default function SearchBar() {
+import { useState } from "react"
+
+export default function SearchBar(props: { handleSearch: (text: string) => void }) {
+  const [searchText, setSearchText] = useState('')
+
     return(
         <>
           <div className="container p-[24px] max-w-full bg-white rounded">
@@ -8,9 +12,19 @@ export default function SearchBar() {
                   <circle cx="11.7666" cy="11.7666" r="8.98856" stroke="#25324B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M18.0183 18.4851L21.5423 22" stroke="#25324B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <input type="text" className="grow" placeholder="Job title or keyword" />
+                <input 
+                  type="text" 
+                  className="grow" 
+                  placeholder="Job title or keyword" 
+                  value={searchText} 
+                  onChange={(e) => setSearchText(e.currentTarget.value as string)} 
+                  onKeyDown={(e) => {if (e.key === 'Enter') props.handleSearch(searchText as string)}}
+                />
               </label>  
-              <button className="bg-steel-blue block text-white font-bold capitalize border border-solid border-steel-blue text-center rounded-lg transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white w-full lg:w-fit">
+              <button 
+                className="bg-steel-blue block text-white font-bold capitalize border border-solid border-steel-blue text-center rounded-lg transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white w-full lg:w-fit"
+                onClick={() => props.handleSearch(searchText)}
+              >
                 search
               </button>
             </div>
