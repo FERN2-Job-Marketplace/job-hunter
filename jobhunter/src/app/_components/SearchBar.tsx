@@ -1,6 +1,10 @@
 import { useState } from "react"
 
-export default function SearchBar(props: { handleSearch: (text: string) => void }) {
+type Props = { 
+  handleSearch: (text: string) => void 
+}
+
+export default function SearchBar(props: Props) {
   const [searchText, setSearchText] = useState('')
 
     return(

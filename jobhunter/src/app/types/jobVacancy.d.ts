@@ -1,5 +1,5 @@
-type category =
-  | "technology"
+export type category =
+  "technology"
   | "devs"
   | "finance"
   | "marketing"
@@ -12,8 +12,8 @@ type category =
   | "freelance"
   | "remote";
 
-type location =
-  | "jakarta pusat"
+export type location =
+  "jakarta pusat"
   | "jakarta selatan"
   | "jakarta utara"
   | "jakarta barat"
@@ -25,6 +25,13 @@ type location =
   | "bogor"
   | "bandung"
   | "remote";
+
+export type jobType = 
+  "full-time" 
+  | "part-time" 
+  | "contract" 
+  | "internship"
+  | undefined;
 
 declare global {
   interface JobVacancy {
@@ -39,12 +46,13 @@ declare global {
       requirements: string[];
       preferences: string[];
       benefits?: string[];
+      salary: string
     };
     salary: number;
     applicationDeadline: string;
     updatedAt: string;
     isActive: boolean;
-    jobType?: "full-time" | "part-time" | "contract" | "internship";
+    jobType?: jobType;
     experienceLevel?: "entry" | "mid" | "senior" | "executive";
   }
 }

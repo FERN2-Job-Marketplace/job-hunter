@@ -3,34 +3,80 @@
 import { useEffect, useState } from "react";
 import CardFindJobs from "../_components/CardFindJobs";
 import SearchBar from "../_components/SearchBar";
+import Checkbox from "../_components/Checkbox";
+import Fuse from "fuse.js";
+import { jobType } from "../types/jobVacancy";
 
 export default function FindJobs() {
     const [jobData, setJobData] = useState<JobVacancy[]>();
     const [locationFilter, setLocationFilter] = useState('');
     const [searchText, setSearchText] = useState('');
+    const [checkBoxTypeEmployment, setCheckboxTypeEmployment] = useState<string[]>([]);
+    const [checkBoxTypeCategory, setCheckboxTypeCategory] = useState<string[]>([]);
+    const [checkBoxTypeRange, setCheckboxRange] = useState<string[]>([]);
     
-    async function getData(props: {location?: string, search?: string}) {
-        let url ="http://localhost:3000/api/job-vacancy?"        
-
-        if (props?.location) {
-            url += `&location=${props?.location}`;
-        }
-
-        if (props?.search) {
-            url += `&title=${props.search}`;
-        }
+    async function getData(props: {location?: string, search: string}) {
+        let url ="http://localhost:3000/api/job-vacancy?page=1&per_page=100"
 
         const res = await fetch(url)
-        const responseJson = await res.json()
+        const responseJson:JobVacancy[] = await res.json()
+        let result:JobVacancy[] = []
 
         if (responseJson) {
-            const newData = Array.isArray(responseJson) ? responseJson : []
-            setJobData(newData)
+            if (props.search !== '') {
+                const options = {
+                    keys: ['title', 'category', 'location', 'companyName'],
+                    includeScore: true,
+                }
+                
+                const fuse = new Fuse(responseJson, options)
+                const fuseResult = fuse.search(props.search)
+                
+                result = fuseResult.map((e) => {
+                    return e.item
+                })
+            } else {
+                result = Array.isArray(responseJson) ? responseJson : []
+            }
+
+            if (props?.location) {
+                result = result.filter(e => e.location === props.location);
+            }
+
+            if (checkBoxTypeEmployment.length > 0) {
+                result = result.filter(e => {
+                    if (checkBoxTypeEmployment.includes(e.jobType ?? '')) {
+                        return true
+                    }
+                    return false
+                });
+            }
+
+            if (checkBoxTypeCategory.length > 0) {
+                result = result.filter(e => {
+                    if (checkBoxTypeCategory.includes(e.category ?? '')) {
+                        return true
+                    }
+                    return false
+                });
+            }
+
+            if (checkBoxTypeRange.length > 0) {
+                result = result.filter(e => {
+                    if (checkBoxTypeRange.includes(e.details.salary ?? '')) {
+                        return true
+                    }
+                    return false
+                });
+            }
+
+            setJobData(result)
+            return
         }
     }
 
     useEffect(() => {
-        getData({location: locationFilter})
+        getData({location: locationFilter, search: searchText})
     }, []);
 
     function locationChange(value: string) {
@@ -43,6 +89,50 @@ export default function FindJobs() {
         getData({location: locationFilter, search: text});
     }
 
+    function handleApplyCheckbox() {
+        getData({location: locationFilter, search: searchText})
+    }
+
+    function handleChechbox(value : string, checkboxType : 'employment' | 'category' | 'sallary') {
+        if (checkboxType === "employment") {
+            handleChechboxEmployment(value)
+        } else if (checkboxType === "category") {
+            handleChechboxCategory(value)
+        } else if (checkboxType === 'sallary') {
+            handleChechboxRange(value)
+        }
+    }
+
+    function handleChechboxEmployment(value : string) {
+        if (checkBoxTypeEmployment.includes(value)) {
+            const removeSelected = checkBoxTypeEmployment.filter(e => e !== value);
+            setCheckboxTypeEmployment(removeSelected)
+        } else {
+            const selected = [...checkBoxTypeEmployment, value]
+            setCheckboxTypeEmployment(selected)
+        }
+    }
+
+    function handleChechboxCategory(value : string) {
+        if (checkBoxTypeCategory.includes(value)) {
+            const removeSelected = checkBoxTypeCategory.filter(e => e !== value);
+            setCheckboxTypeCategory(removeSelected)
+        } else {
+            const selected = [...checkBoxTypeCategory, value]
+            setCheckboxTypeCategory(selected)
+        }
+    }
+
+    function handleChechboxRange(value : string) {
+        if (checkBoxTypeRange.includes(value)) {
+            const removeSelected = checkBoxTypeRange.filter(e => e !== value);
+            setCheckboxRange(removeSelected)
+        } else {
+            const selected = [...checkBoxTypeCategory, value]
+            setCheckboxRange(selected)
+        }
+    }
+
     return(
         <>
             <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
@@ -53,175 +143,18 @@ export default function FindJobs() {
                 </div>
             </div>
             <div className="flex flex-row bg-white px-44 py-20 gap-32">
-                <div className="w-[20%]">
-                    <div>
-                        <h3 className="text-black font-semibold pb-4 ">Type of Employment</h3>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Full Time
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={true} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Part Time
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Intership
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Contract
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 className="text-black font-semibold pb-4 pt-5">Categories</h3>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Design
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Devs
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Intership
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Marketing
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Sales
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Businesss
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Human Resource
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={true} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Finance
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Tecnology
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Engineering
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 className="text-black font-semibold pb-4 pt-5">Salary Range</h3>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 1jt - 10jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 11jt - 50jt
-                            </label>
-                        </div>
-                        <div className="flex items-center mb-4">
-                            <input type="checkbox" checked={false} className="checkbox  checkbox-sm border-2 border-gray-300" />
-                            <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-light text-gray-700"
-                            >
-                            Rp 51jt - 100jt
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                <Checkbox 
+                    selectedEmployment={checkBoxTypeEmployment} 
+                    selectedCategory={checkBoxTypeCategory} 
+                    selectedSallary={checkBoxTypeRange}                    
+                    handleCheckbox={handleChechbox} 
+                    handleApplyCheckbox={handleApplyCheckbox}
+                />
                 <div className="w-full flex flex-col">
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-col">
                             <h3 className="text-3xl font-bold text-black">All Jobs</h3>
-                            <h3 className="text-sm font-normal text-gray-700">Showing 73 results</h3>
+                            <h3 className="text-sm font-normal text-gray-700">Showing {jobData?.length} results</h3>
                         </div>
                         <div className="filterWrap flex items-center gap-4">
                             <select 
