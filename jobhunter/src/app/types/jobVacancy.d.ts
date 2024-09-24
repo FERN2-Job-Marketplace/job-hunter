@@ -50,6 +50,7 @@ declare global {
     };
     salary: number;
     applicationDeadline: string;
+    createdAt: string;
     updatedAt: string;
     isActive: boolean;
     jobType?: jobType;

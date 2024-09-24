@@ -69,7 +69,10 @@ export default function Checkbox(props: Props){
                 </div>
             ))}
         </div>
-        <button className=" bg-steel-blue w-fit text-white font-semibold text-base px-4 py-1" onClick={props.handleApplyCheckbox} >Apply</button>
+        <button 
+        className=" bg-steel-blue w-full text-white font-semibold text-base px-4 py-2 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
+        onClick={props.handleApplyCheckbox}
+        >Apply</button>
     </div>
     )
 }

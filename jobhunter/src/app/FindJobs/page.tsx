@@ -5,7 +5,7 @@ import CardFindJobs from "../_components/CardFindJobs";
 import SearchBar from "../_components/SearchBar";
 import Checkbox from "../_components/Checkbox";
 import Fuse from "fuse.js";
-import { jobType } from "../types/jobVacancy";
+// import { jobType } from "../types/jobVacancy";
 
 export default function FindJobs() {
     const [jobData, setJobData] = useState<JobVacancy[]>();
@@ -14,8 +14,13 @@ export default function FindJobs() {
     const [checkBoxTypeEmployment, setCheckboxTypeEmployment] = useState<string[]>([]);
     const [checkBoxTypeCategory, setCheckboxTypeCategory] = useState<string[]>([]);
     const [checkBoxTypeRange, setCheckboxRange] = useState<string[]>([]);
+    const [isDescending, setIsDescending] = useState(false);
     
-    async function getData(props: {location?: string, search: string}) {
+    async function getData(props: {
+        location?: string
+        search: string
+        descending?: boolean
+    }) {
         let url ="http://localhost:3000/api/job-vacancy?page=1&per_page=100"
 
         const res = await fetch(url)
@@ -70,27 +75,38 @@ export default function FindJobs() {
                 });
             }
 
+            if (props.descending) {
+                result = result.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt))
+            } else {
+                result = result.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+            }
+
             setJobData(result)
             return
         }
     }
 
     useEffect(() => {
-        getData({location: locationFilter, search: searchText})
+        getData({location: locationFilter, search: searchText, descending: isDescending})
     }, []);
 
     function locationChange(value: string) {
         setLocationFilter(value);
-        getData({location: value, search: searchText});
+        getData({location: value, search: searchText, descending: isDescending});
     }
 
     function handleSearch(text: string) {
         setSearchText(text)
-        getData({location: locationFilter, search: text});
+        getData({location: locationFilter, search: text, descending: isDescending});
     }
 
     function handleApplyCheckbox() {
-        getData({location: locationFilter, search: searchText})
+        getData({location: locationFilter, search: searchText, descending: isDescending})
+    }
+
+    function handleSort(value: string) {        
+        setIsDescending(value === 'oldest')
+        getData({location: locationFilter, search: searchText, descending: value === 'oldest'})
     }
 
     function handleChechbox(value : string, checkboxType : 'employment' | 'category' | 'sallary') {
@@ -179,12 +195,12 @@ export default function FindJobs() {
                                 <select
                                     name="Search"
                                     id="Search"
-                                    // onChange={}
+                                    onChange={(e) => handleSort(e.currentTarget.value)}
                                     defaultValue={""}
                                     className="bg-white outline-none text-black"
                                     >
-                                    <option value="">Newest</option>
-                                    <option value="">Oldest</option>
+                                    <option value={'newest'}>Newest</option>
+                                    <option value={'oldest'}>Oldest</option>
                                 </select>
                             </div>
                         </div>
@@ -198,7 +214,7 @@ export default function FindJobs() {
 
                         {!jobData?.length && (
                             <div className="flex justify-center items-center">
-                                <img src="/notjobs.png" alt="icon" className="w-96 h-[300px] justify-center items-center mt-5"/>
+                                <img src="/notjobs.png" alt="icon" className="w-96 justify-center items-center mt-5"/>
                             </div>
                         )}  
                     </div>
