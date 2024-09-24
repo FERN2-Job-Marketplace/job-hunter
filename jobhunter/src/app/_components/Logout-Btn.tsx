@@ -25,7 +25,7 @@ export default function LogoutBtn() {
         Welcome, {session?.user?.name} the {session?.user?.role}
       </span> */}
 
-      <button className="bg-steel-blue text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white" onClick={() => handleLogout()}>
+      <button className="w-full bg-steel-blue text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white" onClick={() => handleLogout()}>
         Sign Out
       </button>
     </div>
