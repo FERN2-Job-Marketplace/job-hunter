@@ -11,7 +11,7 @@ export default async function Navbar() {
 
   const session = await getServerSession(options)
 
-  // console.log("session Navbar: ", session);
+  console.log("session Navbar: ", session?.user);
   // const currentPath = usePathname(); 
   // const isUserPage = currentPath.startsWith('/user');
   // const isCompanyPage = currentPath.startsWith('/company');
@@ -77,7 +77,7 @@ export default async function Navbar() {
               </li>
               {session && (
                 <li>
-                  <Link href={"/user/dashboard"} className="capitalize text-navy font-medium text-[16px] px-[24px] py-[12px]">
+                  <Link href={`${session?.user?.role === 'candidate' ? "/user/dashboard"  : "/company/joblisting"}`} className="capitalize text-navy font-medium text-[16px] px-[24px] py-[12px]">
                     my dashboard
                   </Link>
                 </li>
