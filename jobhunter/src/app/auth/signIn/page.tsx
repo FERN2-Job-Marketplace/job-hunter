@@ -23,58 +23,68 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-white">
-      <div className="p-5 flex flex-col gap-3 justify-center bg-white md:min-w-[405px]">
-        <div className="flex flex-row justify-center items-center gap-2">
-          <img 
-          src="/Vector.png" 
-          alt="icon" 
-          className="w-6 h-6"/>
-          <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
-        </div>
-        {/* <AuthOptionBtn/> */}
-        <label className="form-control w-full ">
-          <div className="label">
-            <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
+    <>
+      <style jsx global>{`
+          .navbarMain {
+              display: none;
+          }
+          .footer{
+              display: none;
+          }
+      `}</style>
+      <div className="flex justify-center items-center w-full h-screen bg-white">
+        <div className="p-5 flex flex-col gap-3 justify-center bg-white md:min-w-[405px]">
+          <div className="flex flex-row justify-center items-center gap-2">
+            <img 
+            src="/Vector.png" 
+            alt="icon" 
+            className="w-6 h-6"/>
+            <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
           </div>
-          <input
-            type="text"
-            name="username"
-            onChange={(e) => {
-              usernameCurr = e.target.value;
-            }}
-            placeholder="username"
-            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
-          />
-        </label>
-        <label className="form-control w-full ">
-          <div className="label">
-            <span className="text-base font-semibold tracking-widest text-dark-grey-text">Password</span>
+          {/* <AuthOptionBtn/> */}
+          <label className="form-control w-full ">
+            <div className="label">
+              <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
+            </div>
+            <input
+              type="text"
+              name="username"
+              onChange={(e) => {
+                usernameCurr = e.target.value;
+              }}
+              placeholder="username"
+              className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
+            />
+          </label>
+          <label className="form-control w-full ">
+            <div className="label">
+              <span className="text-base font-semibold tracking-widest text-dark-grey-text">Password</span>
+            </div>
+            <input
+              type="password"
+              name="password"
+              onChange={(e) => {
+                passwordCurr = e.target.value;
+              }}
+              placeholder="password"
+              className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
+            />
+          </label>
+          <button onClick={onSubmit} className="btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
+            Login
+          </button>
+          <div className="flex justify-center w-full p-5">
+          <GoogleButton onClick={() => signIn("google", {
+            redirect:true,
+            callbackUrl: '/'
+          })} className="mx-auto p-3"/>
           </div>
-          <input
-            type="password"
-            name="password"
-            onChange={(e) => {
-              passwordCurr = e.target.value;
-            }}
-            placeholder="password"
-            className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
-          />
-        </label>
-        <button onClick={onSubmit} className="btn bg-steel-blue text-white font-semibold text-base border-0 rounded-none hover:bg-slate-400 mt-5">
-          Login
-        </button>
-        <div className="flex justify-center w-full p-5">
-        <GoogleButton onClick={() => signIn("google", {
-          redirect:true,
-          callbackUrl: '/'
-        })} className="mx-auto p-3"/>
-        </div>
-        <div className="flex flex-row justify-center items-center text-base text-dark-grey-text gap-1">
-          <h1>Don't Have an Account?</h1>
-          <a href="signUp" className="text-steel-blue"> Register</a>
+          <div className="flex flex-row justify-center items-center text-base text-dark-grey-text gap-1">
+            <h1>Don't Have an Account?</h1>
+            <a href="signUp" className="text-steel-blue"> Register</a>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
