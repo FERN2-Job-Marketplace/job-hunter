@@ -1,42 +1,52 @@
-type category = 
-  | 'technology'
-  | 'devs'
-  | 'finance'
-  | 'marketing'
-  | 'creative'
-  | 'engineering'
-  | 'education'
-  | 'administrative'
-  | 'hr'
-  | 'legal'
-  | 'freelance'
-  | 'remote';
+type category =
+  | "technology"
+  | "devs"
+  | "finance"
+  | "marketing"
+  | "creative"
+  | "engineering"
+  | "education"
+  | "administrative"
+  | "hr"
+  | "legal"
+  | "freelance"
+  | "remote";
 
-  type location =
-    "jakarta" | "depok" | "bekasi" | "tanggerang" | "surabaya" | "bogor" | "bandung" | "remote"
-  
+type location =
+  | "jakarta pusat"
+  | "jakarta selatan"
+  | "jakarta utara"
+  | "jakarta barat"
+  | "jakarta timur"
+  | "depok"
+  | "bekasi"
+  | "tanggerang"
+  | "surabaya"
+  | "bogor"
+  | "bandung"
+  | "remote";
 
 declare global {
   interface JobVacancy {
     id: string;
     userId: string;
-    category?: category
+    category?: category;
     title: string;
     companyName: string;
-    location: string
+    location: string;
     details: {
       description: string;
       requirements: string[];
       preferences: string[];
       benefits?: string[];
     };
-    salary: number
+    salary: number;
     applicationDeadline: string;
-    updatedAt: string; 
+    updatedAt: string;
     isActive: boolean;
     jobType?: "full-time" | "part-time" | "contract" | "internship";
     experienceLevel?: "entry" | "mid" | "senior" | "executive";
   }
 }
 
-export {}
+export {};
