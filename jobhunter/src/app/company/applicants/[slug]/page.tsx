@@ -120,6 +120,22 @@ export default function ApplicantDetails() {
               </div>
           </div>
         </div>
+
+        <form action="" className="dashboardApplicantUpdateStatus">
+          <label className="form-control w-full max-w-sm mb-3">
+            <div className="label">
+              <span className="label-text">Update Applicant Status</span>
+            </div>
+            <select className="select select-bordered text-raisin-black">
+              <option disabled selected>On Going</option>
+              <option>Accepted</option>
+              <option>Rejected</option>
+            </select>
+          </label>
+          <button
+            className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
+            >Update !</button>
+        </form>
       </div>
     </>
   )

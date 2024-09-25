@@ -8,7 +8,7 @@ export default function SidebarCompany() {
     }
   return (
     <>
-        <div className="dashboardSidebar pt-4 container w-full md:w-3/12 bg-raisin-black">
+        <div className="dashboardSidebar pt-4 container w-full md:w-3/12 bg-raisin-black z-10">
             <div className="relative w-full mb-4">
               <Link href={"/"} className="block w-fit m-auto">
                 <svg className="max-w-full m-auto" width="166" height="36" viewBox="0 0 166 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,7 @@ export default function SidebarCompany() {
             </div>
             <div className="dashboardLinkWrap">
                 <Link href={"/company/joblisting"} className={currentPath === "/company/joblisting" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Job Listing</Link>
-                <Link href={"/company/applicants"} className={currentPath === "/company/applicants" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>My Applications</Link>
+                <Link href={"/company/applicants"} className={currentPath === "/company/applicants" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>All Applicants</Link>
                 <Link href={"/company/postajob"} className={currentPath === "/company/postajob" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Post a Job</Link>
                 <Link href={"/company/profile"} className={currentPath === "/company/profile" ? "text-steel-blue bg-lavender p-3 text-[16px] block w-full" : "text-ghost-white p-3 text-[16px] block w-full transition hover:text-steel-blue hover:bg-lavender"}>Company Profile</Link>
                 {/* <button className="text-red p-3 text-[16px] block w-full text-start transition hover:bg-red hover:text-white">Logout</button> */}
