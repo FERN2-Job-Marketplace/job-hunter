@@ -20,8 +20,16 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                             <h3>{props.jobData?.location}</h3>
                         </div>
                         <div className="flex flex-row gap-2 pt-2">
-                            <button className="bg-emerald-50 text-center px-2 rounded-2xl text-green">{props.jobData?.jobType}</button>
-                            <button className="bg-white text-center px-2 rounded-2xl text-yellow border-2 border-yellow">{props.jobData?.category}</button>
+                            {props.jobData?.jobType && (
+                                <button className="bg-emerald-50 text-center px-2 rounded-2xl text-green">
+                                    {props.jobData.jobType}
+                                </button>
+                            )}
+                            {props.jobData?.category && (
+                                <button className="bg-white text-center px-2 rounded-2xl text-yellow border-2 border-yellow">
+                                    {props.jobData.category}
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
