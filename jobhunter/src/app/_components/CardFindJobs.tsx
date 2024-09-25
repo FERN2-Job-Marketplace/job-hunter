@@ -17,7 +17,7 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                         <h3>{jobDate}</h3>
                         <div className="flex flex-row gap-1">
                             <h3>{props.jobData?.companyName} | </h3>
-                            <h3>{props.jobData?.location}</h3>
+                            <h3 className="capitalize">{props.jobData?.location}</h3>
                         </div>
                         <div className="flex flex-row gap-2 pt-2">
                             {props.jobData?.jobType && (
