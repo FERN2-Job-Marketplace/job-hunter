@@ -3,7 +3,7 @@
 import dayjs from "dayjs";
 
 export default function CardFindJobs(props: {jobData: JobVacancy}) {
-    const jobDate = dayjs(props.jobData.updatedAt).format('DD MMMM YYYY');
+    const jobDate = dayjs(props.jobData.updatedAt).format('DD MMMM YYYY'); 
 
     return(
         <div className="w-full h-[120px] flex flex-row border-2 gap-8 items-center px-8 mt-5 justify-between">

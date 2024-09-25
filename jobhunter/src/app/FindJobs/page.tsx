@@ -29,31 +29,37 @@ export default function FindJobs() {
         let url ="http://localhost:3000/api/job-vacancy?page=1&per_page=100"
 
         const res = await fetch(url)
-        const responseJson:JobVacancy[] = await res.json()
-        let result:JobVacancy[] = []
+        const responseJson:JobVacancy[] = await res.json() //hasil fetch dijadikan json
+        let result:JobVacancy[] = [] // buat variabel kosong untuk ditampilkan di akhir 
 
+        //cek jika responjson nya ada 
         if (responseJson) {
             if (props.search !== '') {
+                // search logic
                 const options = {
                     keys: ['title', 'category', 'location', 'companyName'],
                     includeScore: true,
                 }
                 
-                const fuse = new Fuse(responseJson, options)
+                const fuse = new Fuse(responseJson, options) // menggunakan library fuse 
                 const fuseResult = fuse.search(props.search)
                 
+                // hasil search dari fuse di olah lagi agar types nya sama menggunakan type JobVacancy[]
                 result = fuseResult.map((e) => {
                     return e.item
                 })
             } else {
+                // cek jika response api json server bukan array maka result diisi dengan array kosong
                 result = Array.isArray(responseJson) ? responseJson : []
             }
 
             if (props?.location) {
+                // filter lokasi 
                 result = result.filter(e => e.location === props.location);
             }
 
             if (checkBoxTypeEmployment.length > 0) {
+                // filter checkbox employment
                 result = result.filter(e => {
                     if (checkBoxTypeEmployment.includes(e.jobType ?? '')) {
                         return true
@@ -63,6 +69,7 @@ export default function FindJobs() {
             }
 
             if (checkBoxTypeCategory.length > 0) {
+                // filter checkbox category
                 result = result.filter(e => {
                     if (checkBoxTypeCategory.includes(e.category ?? '')) {
                         return true
@@ -72,6 +79,7 @@ export default function FindJobs() {
             }
 
             if (checkBoxTypeRange.length > 0) {
+                // filter checkbox salary
                 result = result.filter(e => {
                     if (checkBoxTypeRange.includes(e.details.salary ?? '')) {
                         return true
@@ -80,16 +88,20 @@ export default function FindJobs() {
                 });
             }
 
+            // sorting berdasarkan updatedAt 
             if (props.descending) {
+                // dari terlama 
                 result = result.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt))
             } else {
+                // dari terbaru
                 result = result.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
             }
 
+            // simpan hasil result di state jobData
             setJobData(result)
             setPage(1)
-            setTotalPage(Math.ceil(result.length / pageSize))
-            setJobDataShow(paginate(result, 1))
+            setTotalPage(Math.ceil(result.length / pageSize)) // hitung berapa page yg diperliukan]
+            setJobDataShow(paginate(result, 1)) // data yg ditampilkan per halaman
             return
         }
     }
@@ -98,24 +110,29 @@ export default function FindJobs() {
         getData({location: locationFilter, search: searchText, descending: isDescending})
     }, []);
 
+    //pagination
     function paginate(array: JobVacancy[], pageNumber: number) {
         return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
     }
 
+    //location
     function locationChange(value: string) {
         setLocationFilter(value);
         getData({location: value, search: searchText, descending: isDescending});
     }
 
+    //search
     function handleSearch(text: string) {
         setSearchText(text)
         getData({location: locationFilter, search: text, descending: isDescending});
     }
 
+    //button checkbox
     function handleApplyCheckbox() {
         getData({location: locationFilter, search: searchText, descending: isDescending})
     }
 
+    //sort by 
     function handleSort(value: string) {        
         setIsDescending(value === 'oldest')
         getData({location: locationFilter, search: searchText, descending: value === 'oldest'})
@@ -220,6 +237,9 @@ export default function FindJobs() {
                                     <option value="Depok">Depok</option>
                                     <option value="Tangerang">Tangerang</option>
                                     <option value="Bekasi">Bekasi</option>
+                                    <option value="Surabaya">Surabaya</option>
+                                    <option value="Bandung">Bandung</option>
+                                    <option value="Remote">Remote</option>
                             </select>
                             <div className="flex flex-row items-center">
                                 <h3 className=" text-dark-grey-text">Sort by:</h3>

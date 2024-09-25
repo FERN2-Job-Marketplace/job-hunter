@@ -47,6 +47,7 @@ declare global {
       requirements?: string;
       preferences?: string;
       benefits?: string;
+      salary?: string;
     };
     salary: number;
     applicationDeadline?: string;
