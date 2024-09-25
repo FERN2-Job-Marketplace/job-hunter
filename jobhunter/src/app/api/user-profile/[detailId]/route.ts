@@ -75,7 +75,6 @@ export async function PUT(
 
   let newData = {} as CandidateProfile | CompanyProfile;
 
-
   try {
     if (session?.user?.role === "candidate") {
 
@@ -109,6 +108,9 @@ export async function PUT(
       } else newData.isEligible = true;
     } else throw new Error("Unauthorized");
 
+    console.log("newData: ", newData);
+    
+
     const res = await fetch(updateProfileUrl, {
       method: "put",
       headers: {
@@ -125,6 +127,12 @@ export async function PUT(
         { status: res.status || 500 }
       );
     }
+
+    return NextResponse.json({
+      message: "Profile successfully Updated"
+    }, {status: 201})
+
+
   } catch (error) {
     console.error(error);
   }

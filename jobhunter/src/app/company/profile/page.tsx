@@ -53,9 +53,10 @@ export default function CompanyProfile() {
 
     if (!res.ok) throw new Error("Error adding data");
 
-    Swal.fire({
+    return await Swal.fire({
       icon: "success",
-      title: "Register Success",
+      title: "Update Success",
+      text: res.statusText,
       showCloseButton: true,
     });
 
@@ -103,10 +104,9 @@ export default function CompanyProfile() {
               </div>
               <div className="inputWrap md:w-6/12">
                 <input
-                  value={companyDetail?.companyName}
                   name="companyName"
                   type="text"
-                  placeholder="Insert Your Company Name"
+                  placeholder={`${companyDetail?.companyName ? `${companyDetail?.companyName}` : "Insert your Company Name Here" }`}
                   className="input input-bordered w-full max-w-sm"
                 />
               </div>
@@ -125,10 +125,10 @@ export default function CompanyProfile() {
               </div>
               <div className="inputWrap md:w-6/12">
                 <textarea
-                  value={companyDetail?.companyDescription}
+                  
                   name="companyDescription"
                   className="textarea textarea-bordered h-36 w-full"
-                  placeholder="Enter Description"
+                  placeholder={`${companyDetail?.companyDescription ? `${companyDetail?.companyDescription}` : "Enter Description" }`}
                 ></textarea>
               </div>
             </div>
