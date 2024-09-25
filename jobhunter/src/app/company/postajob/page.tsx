@@ -17,10 +17,12 @@ export default function PostaJobs() {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
-    const isEligible = await checkEligibleCompany(session?.user?.id || "")
+    const isEligible = await checkEligibleCompany(session?.user?.detailId || "")
 
+    console.log("isEligible: ", isEligible);
+    
     if(!isEligible) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         title: "Complete Your Company Profile first",
         showCloseButton: true,
@@ -51,13 +53,14 @@ export default function PostaJobs() {
       body: JSON.stringify(data),
     });
 
-    Swal.fire({
+   
+    if (!res.ok) throw new Error("Error adding data");
+
+    await Swal.fire({
       icon: "success",
       title: "Register Success",
       showCloseButton: true,
     });
-
-    if (!res.ok) throw new Error("Error adding data");
 
     router.push("/company/joblisting")
 
