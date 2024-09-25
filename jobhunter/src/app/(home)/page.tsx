@@ -1,8 +1,23 @@
+'use client'
+
+import { useEffect, useState } from "react";
 import CardJobs from "../_components/CardJobs";
 import Link from "next/link";
-import Footer from "../_components/Footer";
+
 
 export default function Home() {
+  const [jobData, setJobData] = useState<JobVacancy[]>();
+  
+  async function getData() {
+    let url ="http://localhost:3000/api/job-vacancy?page=1&per_page=100"
+    const res = await fetch(url)
+    const responseJson:JobVacancy[] = await res.json() 
+    setJobData(responseJson)
+  }
+
+  useEffect(() => {
+    getData()
+}, []);
   return (
     <>
       {/* <CustomBackground /> */}
@@ -97,7 +112,7 @@ export default function Home() {
             <h2 className="font-semibold text-white text-[18px] lg:text-[48px]">
               Featured <span className="text-celestial-blue">jobs</span>
             </h2>
-            <Link href={"/findJobs"}>
+            <Link href={"/FindJobs"}>
               <div className="flex items-center gap-2">
                 <p className="font-semibold text-steel-blue text-[16px]">
                   Show all jobs
@@ -110,11 +125,17 @@ export default function Home() {
             </Link>
           </div>
           <div className="homeFeaturedContent flex flex-wrap items-center justify-between">
-            {                    
+            {/* {                    
               Array.from({ length: 8 }).map((_, i: number) => {
-                  return <CardJobs key={i} />
+                  return <CardJobs key={i}  />
               })
-            }
+            } */}
+
+              {jobData &&
+                (jobData?.map((el, index) => {
+                        return <CardJobs key={index} jobData={el} />;
+                  })
+              )}
           </div>
         </div>
       </div>
