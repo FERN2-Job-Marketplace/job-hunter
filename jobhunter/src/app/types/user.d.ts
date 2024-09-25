@@ -10,6 +10,13 @@ declare global {
     createdAt: string;
     isVerified: boolean;
   }
+
+  interface UserFiltered {
+    name: string,
+    email: string,
+    id: string
+    detailId: string
+  }
 }
 
 export {};
