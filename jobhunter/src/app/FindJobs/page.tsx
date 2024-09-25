@@ -7,14 +7,19 @@ import Checkbox from "../_components/Checkbox";
 import Fuse from "fuse.js";
 // import { jobType } from "../types/jobVacancy";
 
+const pageSize = 10
+
 export default function FindJobs() {
     const [jobData, setJobData] = useState<JobVacancy[]>();
+    const [jobDataShow, setJobDataShow] = useState<JobVacancy[]>();
     const [locationFilter, setLocationFilter] = useState('');
     const [searchText, setSearchText] = useState('');
     const [checkBoxTypeEmployment, setCheckboxTypeEmployment] = useState<string[]>([]);
     const [checkBoxTypeCategory, setCheckboxTypeCategory] = useState<string[]>([]);
     const [checkBoxTypeRange, setCheckboxRange] = useState<string[]>([]);
     const [isDescending, setIsDescending] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1)
     
     async function getData(props: {
         location?: string
@@ -82,6 +87,9 @@ export default function FindJobs() {
             }
 
             setJobData(result)
+            setPage(1)
+            setTotalPage(Math.ceil(result.length / pageSize))
+            setJobDataShow(paginate(result, 1))
             return
         }
     }
@@ -89,6 +97,10 @@ export default function FindJobs() {
     useEffect(() => {
         getData({location: locationFilter, search: searchText, descending: isDescending})
     }, []);
+
+    function paginate(array: JobVacancy[], pageNumber: number) {
+        return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+    }
 
     function locationChange(value: string) {
         setLocationFilter(value);
@@ -149,6 +161,25 @@ export default function FindJobs() {
         }
     }
 
+    function handlePagination(value: 'plus' | 'min' | number) {
+        let newPage = 1
+        if (value === 'min') {
+            if (page > 1) {
+                newPage = page - 1
+            }
+        } else if (value === 'plus') {
+            if (page < totalPage) {
+                newPage = page + 1
+            } else {
+                newPage = page
+            }
+        } else {
+            newPage = value
+        }
+        setPage(newPage)
+        setJobDataShow(paginate(jobData ?? [], newPage))
+    }
+
     return(
         <>
             <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
@@ -206,8 +237,8 @@ export default function FindJobs() {
                         </div>
                     </div>
                     <div className="mt-5">
-                        {jobData && ( 
-                            jobData?.map((el, index) => {
+                        {jobDataShow && ( 
+                            jobDataShow?.map((el, index) => {
                                 return <CardFindJobs key={index} jobData={el} />;
                             })
                         )}
@@ -222,8 +253,9 @@ export default function FindJobs() {
                         <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
                             <li>
                                 <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
+                                    href="#"
+                                    onClick={() => handlePagination('min')}
+                                    className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
                                 >
                                 <span className="sr-only">Previous</span>
                                 <svg
@@ -234,77 +266,53 @@ export default function FindJobs() {
                                     viewBox="0 0 6 10"
                                 >
                                     <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 1 1 5l4 4"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 1 1 5l4 4"
                                     />
                                 </svg>
                                 </a>
                             </li>
+                                {[...Array(totalPage)].map((_, index) => {
+                                    const pageList = index + 1
+                                    const isChecked = pageList === page ? "dark:bg-steel-blue" : ""
+
+                                    return (
+                                        <a
+                                            href="#"
+                                            onClick={() => handlePagination(pageList)}
+                                            className={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white " + isChecked}
+                                        >
+                                            {pageList}
+                                        </a>
+                                    )
+                                })}
                             <li>
-                                <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                1
-                                </a>
                             </li>
                             <li>
                                 <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-white dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
+                                    href="#"
+                                    onClick={() => handlePagination('plus')}
+                                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
                                 >
-                                2
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                href="#"
-                                aria-current="page"
-                                className="z-10 flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-50 hover:bg-steel-blue hover:text-white dark:bg-white dark:text-gray-400"
-                                >
-                                3
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                4
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-white dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                5
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                href="#"
-                                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                <span className="sr-only">Next</span>
-                                <svg
-                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 6 10"
-                                >
-                                    <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="m1 9 4-4-4-4"
-                                    />
-                                </svg>
+                                    <span className="sr-only">Next</span>
+                                    <svg
+                                        className="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="m1 9 4-4-4-4"
+                                        />
+                                    </svg>
                                 </a>
                             </li>
                         </ul>
