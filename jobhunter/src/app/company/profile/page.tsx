@@ -1,6 +1,6 @@
 "use client";
 
-import { getCompanyDetail } from "@/fetch";
+import { getUserDetail } from "@/fetch";
 import { jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ export default function CompanyProfile() {
   useEffect(() => {
     //function ini taruh di luar gpp kok
     async function fetchData() {
-      const getDetail = await getCompanyDetail(session?.user?.id || "");
+      const getDetail = await getUserDetail(session?.user?.detailId || "");
       setCompanyDetail(getDetail);
     }
 
@@ -30,14 +30,15 @@ export default function CompanyProfile() {
       ...companyDetail,
       companyName: formData.get("companyName"),
       companyDescription: formData.get("companyDescription"),
-      updatedAt: new Date().toISOString(),
     } as CompanyProfile;
 
-    if (!data.companyName || !data.companyDescription) {
-      data.isEligible = false;
-    } else {
-      data.isEligible = true;
-    }
+    // if (!data.companyName || !data.companyDescription) {
+    //   data.isEligible = false;
+    // } else {
+    //   data.isEligible = true;
+    // }
+
+    await fetch(jobHunterUrl + `/api/user-profile/${session?.user?.detailId}`)
   }
 
   if (status === "loading") {
