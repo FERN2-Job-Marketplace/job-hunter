@@ -197,148 +197,196 @@ export default function FindJobs() {
         setJobDataShow(paginate(jobData ?? [], newPage))
     }
 
+    function openFilter(){
+        document.querySelector('.checkboxes')?.classList.add('opened');
+        document.body.classList.add('overflow-hidden');
+    }
+
     return(
-        <>
-            <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
-                <div className="homeHeroContent relative z-[1]">
-                    <h1 className="font-bold text-white text-center text-4xl lg:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
-                    <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
-                    <SearchBar handleSearch={handleSearch}/>
+        <>  
+            <div className="findJobsWrap">
+                <div className="homeHero w-full min-h-[80vh] flex items-center justify-center bg-raisin-black">
+                    <div className="homeHeroContent relative z-[1]">
+                        <h1 className="font-bold text-white text-center text-4xl md:text-5xl mb-[25px]">Discover more than <span className="text-celestial-blue">5000+ Job</span></h1>
+                        <p className="text-slate-grey text-center text-[18px] mb-4">Find your next career at companies that you desire</p>
+                        <SearchBar handleSearch={handleSearch}/>
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-row bg-white px-44 py-20 gap-32">
-                <Checkbox 
-                    selectedEmployment={checkBoxTypeEmployment} 
-                    selectedCategory={checkBoxTypeCategory} 
-                    selectedSallary={checkBoxTypeRange}                    
-                    handleCheckbox={handleChechbox} 
-                    handleApplyCheckbox={handleApplyCheckbox}
-                />
-                <div className="w-full flex flex-col">
-                    <div className="flex flex-row justify-between">
-                        <div className="flex flex-col">
-                            <h3 className="text-3xl font-bold text-black">All Jobs</h3>
-                            <h3 className="text-sm font-normal text-gray-700">Showing {jobData?.length} results</h3>
-                        </div>
-                        <div className="filterWrap flex items-center gap-4">
-                            <select 
-                            name="Search"
-                            id="Search"
-                            onChange={(e) => locationChange(e.target.value)}
-                            defaultValue={""}
-                            className="select select-bordered text-raisin-black bg-white">
-                                    <option value="">All Location</option>
-                                    <option value="jakarta pusat">Jakarta Pusat</option>
-                                    <option value="jakarta selatan">Jakarta Selatan</option>
-                                    <option value="jakarta utara">Jakarta Utara</option>
-                                    <option value="jakarta barat">Jakarta Barat</option>
-                                    <option value="jakarta timur">Jakarta Timur</option>
-                                    <option value="bogor">Bogor</option>
-                                    <option value="depok">Depok</option>
-                                    <option value="tangerang">Tangerang</option>
-                                    <option value="bekasi">Bekasi</option>
-                                    <option value="surabaya">Surabaya</option>
-                                    <option value="bandung">Bandung</option>
-                                    <option value="remote">Remote</option>
-                            </select>
-                            <div className="flex flex-row items-center">
-                                <h3 className=" text-dark-grey-text">Sort by:</h3>
-                                <select
+                <div className="findJobs relative bg-white px-5">
+                    <div className="flex flex-wrap justify-between py-20 max-w-[1200px] m-auto">
+                        <Checkbox 
+                            selectedEmployment={checkBoxTypeEmployment} 
+                            selectedCategory={checkBoxTypeCategory} 
+                            selectedSallary={checkBoxTypeRange}                    
+                            handleCheckbox={handleChechbox} 
+                            handleApplyCheckbox={handleApplyCheckbox}
+                        />
+                        <div className="w-full md:w-9/12 flex flex-col">
+                            <div className="flex flex-col md:flex-row justify-center md:justify-between gap-4">
+                                <div className="flex justify-between">
+                                    <div className="findJobsTitle">
+                                        <h3 className="text-3xl font-bold text-black">All Jobs</h3>
+                                        <h3 className="text-sm font-normal text-gray-700">Showing {jobData?.length} results</h3>
+                                    </div>
+                                    <button className="filter-m bg-transparent border-0 md:hidden" onClick={openFilter}>
+                                        <svg
+                                            width={24}
+                                            height={24}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                            <g clipPath="url(#clip0_9_3351)">
+                                                <path
+                                                d="M4 6H20"
+                                                stroke="#25324B"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                />
+                                                <path
+                                                d="M6 12H18"
+                                                stroke="#25324B"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                />
+                                                <path
+                                                d="M8 18H16"
+                                                stroke="#25324B"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_9_3351">
+                                                <rect width={24} height={24} fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="filterWrap flex items-center gap-4 justify-between md:justify-center">
+                                    <select 
                                     name="Search"
                                     id="Search"
-                                    onChange={(e) => handleSort(e.currentTarget.value)}
+                                    onChange={(e) => locationChange(e.target.value)}
                                     defaultValue={""}
-                                    className="bg-white outline-none text-black"
-                                    >
-                                    <option value={'newest'}>Newest</option>
-                                    <option value={'oldest'}>Oldest</option>
-                                </select>
+                                    className="select select-bordered text-raisin-black bg-white">
+                                            <option value="">All Location</option>
+                                            <option value="jakarta pusat">Jakarta Pusat</option>
+                                            <option value="jakarta selatan">Jakarta Selatan</option>
+                                            <option value="jakarta utara">Jakarta Utara</option>
+                                            <option value="jakarta barat">Jakarta Barat</option>
+                                            <option value="jakarta timur">Jakarta Timur</option>
+                                            <option value="bogor">Bogor</option>
+                                            <option value="depok">Depok</option>
+                                            <option value="tangerang">Tangerang</option>
+                                            <option value="bekasi">Bekasi</option>
+                                            <option value="surabaya">Surabaya</option>
+                                            <option value="bandung">Bandung</option>
+                                            <option value="remote">Remote</option>
+                                    </select>
+                                    <div className="flex flex-row items-center">
+                                        <h3 className=" text-dark-grey-text">Sort by:</h3>
+                                        <select
+                                            name="Search"
+                                            id="Search"
+                                            onChange={(e) => handleSort(e.currentTarget.value)}
+                                            defaultValue={""}
+                                            className="bg-white outline-none text-black"
+                                            >
+                                            <option value={'newest'}>Newest</option>
+                                            <option value={'oldest'}>Oldest</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="mt-5">
-                        {jobDataShow && ( 
-                            jobDataShow?.map((el, index) => {
-                                return <CardFindJobs key={index} jobData={el} />;
-                            })
-                        )}
+                            <div className="mt-5">
+                                {jobDataShow && ( 
+                                    jobDataShow?.map((el, index) => {
+                                        return <CardFindJobs key={index} jobData={el} />;
+                                    })
+                                )}
 
-                        {!jobData?.length && (
-                            <div className="flex justify-center items-center">
-                                <img src="/notjobs.png" alt="icon" className="w-96 justify-center items-center mt-5"/>
+                                {!jobData?.length && (
+                                    <div className="flex justify-center items-center">
+                                        <img src="/notjobs.png" alt="icon" className="w-96 justify-center items-center mt-5"/>
+                                    </div>
+                                )}  
                             </div>
-                        )}  
-                    </div>
-                    <nav aria-label="Page navigation example" className="mt-7 flex justify-center">
-                        <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={() => handlePagination('min')}
-                                    className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                <span className="sr-only">Previous</span>
-                                <svg
-                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 6 10"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M5 1 1 5l4 4"
-                                    />
-                                </svg>
-                                </a>
-                            </li>
-                                {[...Array(totalPage)].map((_, index) => {
-                                    const pageList = index + 1
-                                    const isChecked = pageList === page ? "dark:bg-steel-blue" : ""
-
-                                    return (
+                            <nav aria-label="Page navigation example" className="mt-7 flex justify-center">
+                                <ul className="flex items-center -space-x-px h-8 text-base font-semibold">
+                                    <li>
                                         <a
                                             href="#"
-                                            onClick={() => handlePagination(pageList)}
-                                            className={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white " + isChecked}
+                                            onClick={() => handlePagination('min')}
+                                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
                                         >
-                                            {pageList}
+                                        <span className="sr-only">Previous</span>
+                                        <svg
+                                            className="w-2.5 h-2.5 rtl:rotate-180"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 6 10"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M5 1 1 5l4 4"
+                                            />
+                                        </svg>
                                         </a>
-                                    )
-                                })}
-                            <li>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={() => handlePagination('plus')}
-                                    className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
-                                >
-                                    <span className="sr-only">Next</span>
-                                    <svg
-                                        className="w-2.5 h-2.5 rtl:rotate-180"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 6 10"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="m1 9 4-4-4-4"
-                                        />
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                                    </li>
+                                        {[...Array(totalPage)].map((_, index) => {
+                                            const pageList = index + 1
+                                            const isChecked = pageList === page ? "dark:bg-steel-blue" : ""
+
+                                            return (
+                                                <a
+                                                    href="#"
+                                                    onClick={() => handlePagination(pageList)}
+                                                    className={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:border-gray-700 dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white " + isChecked}
+                                                >
+                                                    {pageList}
+                                                </a>
+                                            )
+                                        })}
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onClick={() => handlePagination('plus')}
+                                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-white dark:text-gray-400 dark:hover:bg-steel-blue dark:hover:text-white"
+                                        >
+                                            <span className="sr-only">Next</span>
+                                            <svg
+                                                className="w-2.5 h-2.5 rtl:rotate-180"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 6 10"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="m1 9 4-4-4-4"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
-               
             </div>
         </>
     )
