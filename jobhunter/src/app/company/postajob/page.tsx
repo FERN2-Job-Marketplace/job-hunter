@@ -187,6 +187,8 @@ export default function PostaJobs() {
                   <option value="depok">Depok</option>
                   <option value="tangerang">Tangerang</option>
                   <option value="bekasi">Bekasi</option>
+                  <option value="surabaya">Surabaya</option>
+                  <option value="bandung">Bandung</option>
                   <option value="remote">Remote</option>
                 </select>
               </div>

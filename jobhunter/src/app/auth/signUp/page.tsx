@@ -3,13 +3,15 @@
 import AuthOptionBtn from "@/app/_components/AuthOptionBtn";
 import { useState } from "react";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 
 
 export default function SignUpPage(){
     const [activeRole, setActiveRole] = useState("candidate");
+
+    const router = useRouter()
 
     function authSwitch(role: string) {
         setActiveRole(role);
@@ -30,21 +32,30 @@ export default function SignUpPage(){
           const response = await fetch("http://localhost:3000/api/registration", {
             method: "POST",
             body: JSON.stringify(input),
-            headers: {
-              "Content-Type": "form",
-            },
           });
+          
 
-          Swal.fire({
+      
+        //   if (!response.ok) throw new Error("Error adding data");
+        if(!response.ok || response.status === 403) {
+            return Swal.fire({
+                icon: "error",
+                title: "Failed Registration",
+                text: "User already exist",
+                showCloseButton: true
+            })
+        }
+
+        await Swal.fire({
             icon: "success",
-            title: "Register Success",
-            showCloseButton: true,
-          });
+            title: "Success Registration",
+            showCloseButton: true
+        })
+
+        return router.push("/auth/signIn")
       
-          if (!response.ok) throw new Error("Error adding data");
-      
-          revalidatePath("/");
-          redirect("/");
+        //   revalidatePath("/");
+        //   redirect("/");
         } catch (error) {
           console.error("Registration failed:", error);
           // Add user-facing error handling here

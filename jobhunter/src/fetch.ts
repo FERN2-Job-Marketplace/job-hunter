@@ -71,10 +71,10 @@ export async function getAllUser (query?: string) {
 
 
 // dapatin detail profile berdasarkan detailId di /user
-export async function getUserDetail (detailId: string) {
+export async function getDetailProfile (detailId: string) {
 
   try {
-    const res = await fetch(jobHunterUrl + `/user-profile/${detailId}`)
+    const res = await fetch(jobHunterUrl + `/api/user-profile/${detailId}`)
 
     if(!res.ok) {
       throw new Error(res.statusText)
@@ -82,6 +82,8 @@ export async function getUserDetail (detailId: string) {
 
     const result: CompanyProfile = await res.json()
 
+    // console.log("result: ", result);
+    
     return result
 
   } catch (error) {

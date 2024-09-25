@@ -6,19 +6,19 @@ import { useRef } from "react";
 import GoogleButton from 'react-google-button'
 
 export default function SignInPage() {
-  let { current: usernameCurr } = useRef("");
+  let { current: emailCurr } = useRef("");
   let { current: passwordCurr } = useRef("");
 
   //Kalo login sebagai admin akan diarahkan ke /admin. Tapi ntar itu
   const onSubmit = async () => {
     const res = await signIn("credentials", {
-      username: usernameCurr,
+      email: emailCurr,
       password: passwordCurr,
       redirect: true,
       callbackUrl: "/",
     });
 
-    console.log("login: ", res);
+    // console.log("login: ", res);
 
   };
 
@@ -44,15 +44,15 @@ export default function SignInPage() {
           {/* <AuthOptionBtn/> */}
           <label className="form-control w-full ">
             <div className="label">
-              <span className="text-base font-semibold tracking-widest text-dark-grey-text">Username</span>
+              <span className="text-base font-semibold tracking-widest text-dark-grey-text">Email</span>
             </div>
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
               onChange={(e) => {
-                usernameCurr = e.target.value;
+                emailCurr = e.target.value;
               }}
-              placeholder="username"
+              placeholder="Insert your Email"
               className="input text-black input-bordered w-full focus:border-steel-blue rounded-none bg-white"
             />
           </label>

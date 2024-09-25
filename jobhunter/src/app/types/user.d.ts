@@ -3,6 +3,7 @@ declare global {
     id: string;
     name: string
     email: string;
+    imageUrl: string;
     provider?: "google" | "twitter" | "facebook" | "github" | "none"
     detailId?: string
     password?: string; // jangan lupa di hash
