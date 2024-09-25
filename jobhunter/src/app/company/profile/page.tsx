@@ -1,23 +1,31 @@
 "use client";
 
-import { getUserDetail } from "@/fetch";
+import { getDetailProfile } from "@/fetch";
 import { jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function CompanyProfile() {
   const { data: session, status } = useSession();
   const [companyDetail, setCompanyDetail] = useState<CompanyProfile>();
 
+  // console.log("detail id: ", session?.user?.detailId);
+  
+  async function fetchData() {
+    const getDetail = await getDetailProfile(session?.user?.detailId || "");
+    // console.log("getDetail: ", getDetail);
+    
+    setCompanyDetail(getDetail);
+  }
+
   useEffect(() => {
     //function ini taruh di luar gpp kok
-    async function fetchData() {
-      const getDetail = await getUserDetail(session?.user?.detailId || "");
-      setCompanyDetail(getDetail);
-    }
-
+  
     if (status === "authenticated") {
       fetchData();
+      // console.log("companyDetail: ", companyDetail );
+    
     }
   }, [session, status]);
 
@@ -38,7 +46,20 @@ export default function CompanyProfile() {
     //   data.isEligible = true;
     // }
 
-    await fetch(jobHunterUrl + `/api/user-profile/${session?.user?.detailId}`)
+    const res = await fetch(jobHunterUrl + `/api/user-profile/${session?.user?.detailId}`, {
+      method: 'put',
+      body: JSON.stringify(data)
+    })
+
+    if (!res.ok) throw new Error("Error adding data");
+
+    Swal.fire({
+      icon: "success",
+      title: "Register Success",
+      showCloseButton: true,
+    });
+
+
   }
 
   if (status === "loading") {
@@ -85,7 +106,7 @@ export default function CompanyProfile() {
                   value={companyDetail?.companyName}
                   name="companyName"
                   type="text"
-                  placeholder={`${companyDetail?.companyName}`}
+                  placeholder="Insert Your Company Name"
                   className="input input-bordered w-full max-w-sm"
                 />
               </div>

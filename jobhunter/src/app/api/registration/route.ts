@@ -1,15 +1,17 @@
 import { baseUrl, createDefaultProfile, generateId } from "@/utils";
 import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
+import Swal from "sweetalert2";
 
 export async function POST(request: NextRequest) {
-  const req = await request.formData();
+  const {name, email, password, role} = await request.json();
   const registerUrl = baseUrl + "/user";
 
-  const name = req.get("name")?.toString();
-  const email = req.get("email")?.toString();
-  const password = req.get("password")?.toString();
-  const role = req.get("role")?.toString();
+  // const name = req.get("name")?.toString();
+  // const email = req.get("email")?.toString();
+  // const password = req.get("password")?.toString();
+  // const role = req.get("role")?.toString();
+
 
   if (!name) {
     return NextResponse.json(
@@ -56,12 +58,26 @@ export async function POST(request: NextRequest) {
     name: name,
     email: email,
     password: password,
+    imageUrl: "https://media.istockphoto.com/id/871752462/vector/default-gray-placeholder-man.jpg?s=612x612&w=0&k=20&c=4aUt99MQYO4dyo-rPImH2kszYe1EcuROC6f2iMQmn8o=",
     role: role,
     detailId: generateId(),
     provider: "none",
     createdAt: new Date().toISOString(),
     isVerified: false,
   };
+
+  const users = await fetch(baseUrl + `/user?email=${newUser.email}`)
+
+  const getUser: User[] = await users.json()
+  const validateUser = getUser.find(user => user.email === newUser.email)
+
+  if(validateUser) {
+    return NextResponse.json({
+      error: "Error",
+      message: "User already exist",
+      
+    }, {status: 403})
+  }
 
   const res = await fetch(registerUrl, {
     method: "post",

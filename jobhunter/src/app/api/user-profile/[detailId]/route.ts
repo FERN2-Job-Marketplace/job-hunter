@@ -2,7 +2,7 @@ import { baseUrl } from "@/utils";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { options } from "../../auth/[...nextauth]/options";
-import { getUserDetail } from "@/fetch";
+import { getDetailProfile } from "@/fetch";
 
 export async function GET(
   request: NextRequest,
@@ -13,6 +13,8 @@ export async function GET(
 
   let query = "";
 
+  // console.log("params dId: ", params.detailId);
+  
   if (!params.detailId) {
     return NextResponse.json(
       {
@@ -67,14 +69,18 @@ export async function PUT(
 
   const req: CandidateProfile | CompanyProfile = await request.json();
 
+  console.log("req: ", req);
+  
   const updateProfileUrl = baseUrl + `/profile/${params.detailId}`;
 
   let newData = {} as CandidateProfile | CompanyProfile;
 
-  const companyDetail = await getUserDetail(params.detailId || "")
 
   try {
     if (session?.user?.role === "candidate") {
+
+      // const companyDetail = await getDetailProfile(params.detailId || "")
+
       newData = {
         ...req,
         updatedAt: new Date().toISOString(),
