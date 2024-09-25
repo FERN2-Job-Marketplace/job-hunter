@@ -50,7 +50,7 @@ declare global {
     userId: string; // Referensi ke user id
     companyName: string;
     companyWebsite?: string;
-    industry: string;
+    industry?: string;
     companySize?: string;
     foundedYear?: string;
     companyDescription: string;

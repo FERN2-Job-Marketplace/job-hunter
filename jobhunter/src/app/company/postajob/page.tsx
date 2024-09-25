@@ -1,5 +1,6 @@
 "use client"
 
+import { checkEligibleCompany, jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
 import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
@@ -16,6 +17,18 @@ export default function PostaJobs() {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
+    const isEligible = await checkEligibleCompany(session?.user?.id || "")
+
+    if(!isEligible) {
+      Swal.fire({
+        icon: "error",
+        title: "Complete Your Company Profile first",
+        showCloseButton: true,
+      });
+
+      return router.push("/company/profile")
+    }
+
     const data = {
       title: formData.get("title"),
       companyName: session?.user?.name,
@@ -23,8 +36,8 @@ export default function PostaJobs() {
       location: formData.get("location"),
       details: {
         description: formData.get("description"),
-        requirement: formData.get("description"),
-        preference: formData.get("description"),
+        requirements: formData.get("requirements"),
+        preferences: formData.get("preferences"),
         benefits: formData.get("benefits"),
       },
       salary: formData.get("salary"),
@@ -33,7 +46,7 @@ export default function PostaJobs() {
       isActive: true,
     }
 
-    const res = await fetch("http://localhost:3000/api/job-vacancy", {
+    const res = await fetch(jobHunterUrl + "/api/job-vacancy", {
       method: "post",
       body: JSON.stringify(data),
     });

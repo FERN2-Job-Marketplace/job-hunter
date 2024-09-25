@@ -69,5 +69,22 @@ export async function getAllUser (query?: string) {
   return data
 }
 
+export async function getCompanyDetail (userId: string) {
+  try {
+    const res = await fetch(jobHunterUrl + `/user-profile/${userId}`)
+
+    if(!res.ok) {
+      throw new Error(res.statusText)
+    }
+
+    const result: CompanyProfile = await res.json()
+
+    return result
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 

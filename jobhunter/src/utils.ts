@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
 import Swal from "sweetalert2";
 import { experience } from "./app/types/userProfile";
-import { error } from "console";
 
 export const jobHunterUrl = "http://localhost:3000"
 export const baseUrl = "http://localhost:3001";
@@ -121,72 +120,72 @@ export async function createDefaultProfile(
 
 // }
 
-export async function updateProfile (prop: CandidateProfile | CompanyProfile, role: User["role"]){
+// export async function updateProfile (prop: CandidateProfile | CompanyProfile, role: User["role"]){
 
-  const updateJobUrl = baseUrl + `/profile/${prop.id}`
+//   const updateJobUrl = baseUrl + `/profile/${prop.id}`
 
-  let newData = {} as CandidateProfile | CompanyProfile
+//   let newData = {} as CandidateProfile | CompanyProfile
 
-  if(role === "candidate") {
+//   if(role === "candidate") {
 
-    newData = {
-      ...prop,
-    updatedAt: new Date().toISOString()
-    } as CandidateProfile
+//     newData = {
+//       ...prop,
+//     updatedAt: new Date().toISOString()
+//     } as CandidateProfile
 
     
-    // const checkExpValidness = jobExperienceValidation(newData.experience)
+//     // const checkExpValidness = jobExperienceValidation(newData.experience)
     
-    if(
-      !newData.dateOfBirth 
-      || !newData.gender 
-      || !newData.phoneNumber 
-      || !newData.profilePicture 
-      || !newData.currentCity
-      || !newData.skills
-    ) {
-      newData.isEligible = false
-    } else newData.isEligible = true
-  } else if(role === "company") {
-    newData = {
-      ...prop,
-    updatedAt: new Date().toISOString()
-    } as CompanyProfile
+//     if(
+//       !newData.dateOfBirth 
+//       || !newData.gender 
+//       || !newData.phoneNumber 
+//       || !newData.profilePicture 
+//       || !newData.currentCity
+//       || !newData.skills
+//     ) {
+//       newData.isEligible = false
+//     } else newData.isEligible = true
+//   } else if(role === "company") {
+//     newData = {
+//       ...prop,
+//     updatedAt: new Date().toISOString()
+//     } as CompanyProfile
 
-    if(
-      !newData.companyName
-      || !newData.industry
-      || !newData.companyDescription
-    ) {
-      newData.isEligible = false
-    } else newData.isEligible = true 
-  } else throw new Error("Unauthorized")
+//     if(
+//       !newData.companyName
+//       || !newData.industry
+//       || !newData.companyDescription
+//     ) {
+//       newData.isEligible = false
+//     } else newData.isEligible = true 
+//   } else throw new Error("Unauthorized")
 
-  try {
-    const res = await fetch(updateJobUrl, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newData)
-    })
+//   try {
+//     const res = await fetch(updateJobUrl, {
+//       method: "put",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(newData)
+//     })
 
-    if(!res.ok) {
-      return
-    }
+//     if(!res.ok) {
+//       return
+//     }
 
-    await Swal.fire({
-      icon: "success",
-      title: "Update",
-      text: `${res.status}`
-    })
+//     await Swal.fire({
+//       icon: "success",
+//       title: "Update",
+//       text: `${res.status}`
+//     })
 
-    revalidatePath("/FindJobs")
+//     revalidatePath("/FindJobs")
 
-  } catch (error) {
-    console.error(error)
-  }
-}
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 export async function updateJob (prop: JobVacancy) {
   const updateJobUrl = baseUrl + `/job-vacancy/${prop.id}`
@@ -229,7 +228,7 @@ export async function deleteJob (id: string) {
     })
 
     if(!res.ok) {
-      return 
+      return {message: "Failed to delete", status: res.status, error: res.statusText};
     }
 
     await Swal.fire({
@@ -297,4 +296,25 @@ export async function getDetailWishlist (id: string) {
 
   return data
     
-} 
+}
+
+export async function checkEligibleCompany(userId: string) {
+  try {
+    const res = await fetch(jobHunterUrl + `/user-profile/${userId}`)
+
+    if(!res.ok) {
+      throw new Error(res.statusText)
+    }
+
+    const result: CompanyProfile = await res.json()
+
+    if(!result.isEligible) {
+      return {message: "Complete your Company Profile", status: 400};
+    }
+
+    return result.isEligible
+
+  } catch (error) {
+    console.error(error)
+  }
+}
