@@ -70,4 +70,24 @@ export async function getAllUser (query?: string) {
 }
 
 
+// dapatin detail profile berdasarkan detailId di /user
+export async function getUserDetail (detailId: string) {
+
+  try {
+    const res = await fetch(jobHunterUrl + `/user-profile/${detailId}`)
+
+    if(!res.ok) {
+      throw new Error(res.statusText)
+    }
+
+    const result: CompanyProfile = await res.json()
+
+    return result
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
 

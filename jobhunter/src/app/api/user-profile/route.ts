@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server"
 import { options } from "../auth/[...nextauth]/options";
 
+//Ini khusus buat nampilin informasi user tanpa munculin password
 export async function GET (request: NextRequest) {
   const {href} = request.nextUrl
 
