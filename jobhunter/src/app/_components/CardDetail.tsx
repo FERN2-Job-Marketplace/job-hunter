@@ -10,9 +10,13 @@ export default function CardDetail(props: Props) {
                 <div className="flex flex-wrap items-center justify-between w-full">
                     <div className="flex items-center gap-[20px] mb-2">
                         <img src="/logo-nomad.svg" alt="company name" className="max-w-full h-auto w-[88px]"/>
-                        <h1 className="detailTitle text-[32px] font-semibold text-raisin-black">
-                             {props.detailData?.title}
-                        </h1>
+                        
+                        <div>
+                            <h1 className="detailTitle text-[32px] font-semibold text-raisin-black">
+                                {props.detailData?.title}
+                            </h1>
+                            <h3 className="font-semibold text-raisin-black">{props.detailData?.companyName}</h3>
+                        </div>
                     </div>
                     <button
                     onClick={props.handleApply}
