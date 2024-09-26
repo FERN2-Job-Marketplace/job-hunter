@@ -23,6 +23,13 @@ export type myProfileForm = {
     company: string
     jobtitle:string
     durationexperience: string
+    password?: string
+    imageUrl?: string,
+    role?: string,
+    detailId?: string
+    provider?: string
+    createdAt?: string
+    isVerified?: boolean
 }
 
 export const useMyProfile = () => {
@@ -48,7 +55,7 @@ export const useMyProfile = () => {
         jobtitle:"",
         durationexperience: "",
     }
-    const [input,setInput] = useState(INITIAL_FORM);
+    const [input,setInput] = useState<myProfileForm>(INITIAL_FORM);
     const [image,setImage] = useState(null);
 
 
@@ -81,6 +88,13 @@ export const useMyProfile = () => {
                     company: result?.data?.company ?? "",
                     jobtitle: result?.data?.jobtitle ?? "",
                     durationexperience: result?.data?.durationexperience ?? "",
+                    password: result?.data?.password,
+                    imageUrl: result?.data?.imageUrl,
+                    role: result?.data?.role,
+                    detailId: result?.data?.detailId,
+                    provider: result?.data?.provider,
+                    createdAt: result?.data?.createdAt,
+                    isVerified: result?.data?.isVerified,
                 }
                 console.log(profileData);
                 

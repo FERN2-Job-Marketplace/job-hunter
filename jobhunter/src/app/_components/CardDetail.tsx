@@ -1,5 +1,6 @@
 type Props = {
     detailData?: JobVacancy
+    handleApply: () => void
 }
 
 export default function CardDetail(props: Props) {
@@ -14,6 +15,7 @@ export default function CardDetail(props: Props) {
                         </h1>
                     </div>
                     <button
+                    onClick={props.handleApply}
                     className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-10 py-3 md:py-3 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
                     >Apply</button>
                 </div>

@@ -1,8 +1,10 @@
 'use client'
 
 import CardDetail from "@/app/_components/CardDetail";
+import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function DetailJob({
   params,
@@ -25,11 +27,28 @@ export default function DetailJob({
         getDetailsJob()
     }, []);
 
+    async function handleApply() {
+        try {
+            let config = {
+                method: "post",
+                url: `http://localhost:3000/api/apply-job/${params.id}`,
+            };
+            await axios(config);
+            await Swal.fire({
+                icon: "success",
+                title: "Apply succeed",
+                showCloseButton: true,
+            });
+        } catch (error) {
+            console.log(error);   
+        }
+    }
+    
     return(
         <>
             <div className="detail pt-4">
                 <div className="detailHeader bg-raisin-black flex items-center justify-center min-h-[350px] px-5">
-                    <CardDetail detailData={detailData}/>
+                    <CardDetail detailData={detailData} handleApply={handleApply}/>
                 </div>
                 <div className="detailBody bg-white">
                     <div className="detailBodyWrap flex flex-wrap justify-center py-5 max-w-full md:max-w-[1200px] m-auto">
