@@ -1,8 +1,57 @@
-
+import { jobHunterUrl } from "@/utils";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function JoblistingTableRow({ item }: { item: JobVacancy }) {
+  const router = useRouter();
 
-  if(!item) return null
+  if (!item) return null;
+
+  async function handleDelete() {
+    const result = await Swal.fire({
+      icon: "question",
+      title: "Delete Job",
+      text: `Are you sure want to delete ${item.title}?`,
+      showCloseButton: true,
+      showConfirmButton: true,
+      showCancelButton: true,
+    });
+
+    try {
+      if (result.isConfirmed) {
+        const res = await fetch(
+          jobHunterUrl + `/api/job-vacancy/${item.id}`,
+          {
+            method: "delete"
+          }
+        );
+
+        if (!res.ok) {
+          return await Swal.fire({
+            icon: "error",
+            title: "Error occured",
+            text: `${res.statusText}, error code: ${res.status}`,
+            showCloseButton: true,
+          });
+        }
+
+        await Swal.fire({
+          icon: "success",
+          title: "Delete success",
+          showCloseButton: true,
+        });
+
+        return window.location.reload()
+      }
+    } catch (error) {
+      console.error(error);
+
+      await Swal.fire({
+        icon: "error",
+        title: "Error on Delete",
+      });
+    }
+  }
 
   return (
     <tr>
@@ -12,7 +61,7 @@ export default function JoblistingTableRow({ item }: { item: JobVacancy }) {
       <td>{item?.jobType}</td>
       <td>TBA</td>
       <td>
-        <button className="bg-transparent">
+        <button onClick={() => handleDelete()} className="bg-transparent">
           <svg
             width="24"
             height="24"

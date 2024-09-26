@@ -218,31 +218,31 @@ export async function updateJob (prop: JobVacancy) {
   }
 }
 
-export async function deleteJob (id: string) {
+// export async function deleteJob (id: string) {
 
-  const deleteJobUrl = baseUrl + `/job-vacancy/${id}`
+//   const deleteJobUrl = baseUrl + `/job-vacancy/${id}`
   
-  try {
-    const res = await fetch(deleteJobUrl, {
-      method: 'delete'
-    })
+//   try {
+//     const res = await fetch(deleteJobUrl, {
+//       method: 'delete'
+//     })
 
-    if(!res.ok) {
-      return {message: "Failed to delete", status: res.status, error: res.statusText};
-    }
+//     if(!res.ok) {
+//       return {message: "Failed to delete", status: res.status, error: res.statusText};
+//     }
 
-    await Swal.fire({
-      icon: "success",
-      title: "Delete",
-      text: `${res.status}`
-    })
+//     await Swal.fire({
+//       icon: "success",
+//       title: "Delete",
+//       text: `${res.status}`
+//     })
 
-    revalidatePath("/FindJobs")
+//     revalidatePath("/FindJobs")
 
-  } catch (error) {
-    console.error(error)
-  }
-}
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 export async function getDetailApplicant (id: string) {
 
@@ -250,7 +250,6 @@ export async function getDetailApplicant (id: string) {
 
   // console.log("id:", id);
   // console.log("url:", appliedUrl);
-  
 
   const res = await fetch(appliedUrl)
 

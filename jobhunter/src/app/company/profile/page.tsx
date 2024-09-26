@@ -3,6 +3,7 @@
 import { getDetailProfile } from "@/fetch";
 import { jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -10,22 +11,23 @@ export default function CompanyProfile() {
   const { data: session, status } = useSession();
   const [companyDetail, setCompanyDetail] = useState<CompanyProfile>();
 
+  const router = useRouter();
+
   // console.log("detail id: ", session?.user?.detailId);
-  
+
   async function fetchData() {
     const getDetail = await getDetailProfile(session?.user?.detailId || "");
     // console.log("getDetail: ", getDetail);
-    
+
     setCompanyDetail(getDetail);
   }
 
   useEffect(() => {
     //function ini taruh di luar gpp kok
-  
+
     if (status === "authenticated") {
       fetchData();
       // console.log("companyDetail: ", companyDetail );
-    
     }
   }, [session, status]);
 
@@ -46,21 +48,31 @@ export default function CompanyProfile() {
     //   data.isEligible = true;
     // }
 
-    const res = await fetch(jobHunterUrl + `/api/user-profile/${session?.user?.detailId}`, {
-      method: 'put',
-      body: JSON.stringify(data)
-    })
+    const res = await fetch(
+      jobHunterUrl + `/api/user-profile/${session?.user?.detailId}`,
+      {
+        method: "put",
+        body: JSON.stringify(data),
+      }
+    );
 
-    if (!res.ok) throw new Error("Error adding data");
+    if (!res.ok) {
+      return await Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: `error code: ${res.status}`,
+        showCloseButton: true,
+      });
+    }
 
-    return await Swal.fire({
+    await Swal.fire({
       icon: "success",
       title: "Update Success",
       text: res.statusText,
       showCloseButton: true,
     });
 
-
+    return router.push("/company/joblisting");
   }
 
   if (status === "loading") {
@@ -106,7 +118,11 @@ export default function CompanyProfile() {
                 <input
                   name="companyName"
                   type="text"
-                  placeholder={`${companyDetail?.companyName ? `${companyDetail?.companyName}` : "Insert your Company Name Here" }`}
+                  placeholder={`${
+                    companyDetail?.companyName
+                      ? `${companyDetail?.companyName}`
+                      : "Insert your Company Name Here"
+                  }`}
                   className="input input-bordered w-full max-w-sm"
                 />
               </div>
@@ -125,10 +141,13 @@ export default function CompanyProfile() {
               </div>
               <div className="inputWrap md:w-6/12">
                 <textarea
-                  
                   name="companyDescription"
                   className="textarea textarea-bordered h-36 w-full"
-                  placeholder={`${companyDetail?.companyDescription ? `${companyDetail?.companyDescription}` : "Enter Description" }`}
+                  placeholder={`${
+                    companyDetail?.companyDescription
+                      ? `${companyDetail?.companyDescription}`
+                      : "Enter Description"
+                  }`}
                 ></textarea>
               </div>
             </div>

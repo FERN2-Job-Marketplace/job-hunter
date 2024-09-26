@@ -96,18 +96,24 @@ export async function PUT (request: NextRequest) {
   } 
 }
 
-export async function DELETE (request: NextRequest) {
+export async function DELETE (request: NextRequest, {params} : {params: {jobId: string}}) {
 
-  const session = getServerSession(options)
+  const session = await getServerSession(options)
 
-  console.log(session);
+  // console.log(session);
+
+  if(!session?.user || session?.user?.role !== "company" ) {
+    return NextResponse.json({
+      error: "Unauthorized",
+    }, {status: 401 });
+  }
 
   const {href} = request.nextUrl
-  const jobId = href.split("/").pop()
+  // const jobId = href.split("/").pop()
 
   // console.log(!jobId);
 
-  if(!jobId) {
+  if(!params.jobId) {
     return NextResponse.json({
       error: "Unauthorized",
     }, {status: 401 });
@@ -119,28 +125,26 @@ export async function DELETE (request: NextRequest) {
   //   }, {status: 404 });
   // }
 
-  const resJobDetail = await fetch(`/api/job-vacancy/${jobId}`)
+  // const resJobDetail = await fetch(`/api/job-vacancy/${jobId}`)
 
-  
-
-  const deleteJobUrl = baseUrl + "/job-vacancy" + `/${jobId}`;
+  const deleteJobUrl = baseUrl + "/job-vacancy" + `/${params.jobId}`;
 
  try {
-    // const res = await fetch(deleteJobUrl, {
-    //   method: 'delete'
-    // })
+    const res = await fetch(deleteJobUrl, {
+      method: 'delete'
+    })
 
-    // if(!res.ok) {
-    //   return NextResponse.json({
-    //     error: "Failed",
-    //     message: "Delete Failed", 
+    if(!res.ok) {
+      return NextResponse.json({
+        error: "Failed",
+        message: "Delete Failed", 
   
-    //   }, {status: res.status || 500});
-    // }
+      }, {status: res.status || 500});
+    }
 
-    // return NextResponse.json({
-    //   message: "Job successfully Deleted"
-    // }, {status: 200})
+    return NextResponse.json({
+      message: "Job successfully Deleted"
+    }, {status: 200})
 
   } catch (error) {
     console.error(error)

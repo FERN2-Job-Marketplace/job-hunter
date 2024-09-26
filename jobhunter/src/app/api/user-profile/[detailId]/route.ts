@@ -69,7 +69,7 @@ export async function PUT(
 
   const req: CandidateProfile | CompanyProfile = await request.json();
 
-  console.log("req: ", req);
+  // console.log("req: ", req);
   
   const updateProfileUrl = baseUrl + `/profile/${params.detailId}`;
 

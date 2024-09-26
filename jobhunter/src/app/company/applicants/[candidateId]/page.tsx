@@ -1,4 +1,44 @@
-export default function ApplicantDetails() {
+"use client"
+
+import { jobHunterUrl } from "@/utils"
+import { useEffect, useState } from "react"
+import Swal from "sweetalert2"
+
+type CandidateInformation = {
+  name: string
+  gender: string
+  phoneNumber: string
+  dateOfBirth: string
+  address: string
+  bio: string
+  skills: string
+  experiences: CandidateProfile["experiences"]
+  
+}
+//slug = candidate ID
+export default function ApplicantDetails({params}: {params : {candidateId: string}} ) {
+
+  let userInformation = {}
+  
+  async function fetchData () {
+    try {
+      const getUser = await fetch(jobHunterUrl + `/api/user/${params.candidateId}`)
+
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        text: `${error}`
+      })
+    }
+  }
+
+  useEffect(() => {
+    if(params.candidateId) {
+      
+    fetchData()
+    }
+  }, [params.candidateId])
+  
   return (
     <>
       <div className="dashboardApplicantDetails py-4 px-5">
