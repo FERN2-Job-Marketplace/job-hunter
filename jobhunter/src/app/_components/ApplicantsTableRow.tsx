@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function ApplicantsTableRow({
   applicant, listUser, listJob
 }: {
+  // Object utama utk dirender itu applicant
   applicant: ApplyJob;
   listUser: UserFiltered[];
   listJob: JobVacancy[]
@@ -15,8 +16,8 @@ export default function ApplicantsTableRow({
         //     }
         // }
 
-        const findName = listUser.find(user => user.id === applicant.candidateId)
-        return findName?.name || ""
+        const findUser = listUser.find(user => user.id === applicant.candidateId)
+        return findUser?.name || ""
     }
 
     function title () {
@@ -45,7 +46,7 @@ export default function ApplicantsTableRow({
         <td>{title()}</td>
         <td>
           <Link
-            href={`/company/applicants/${applicant.candidateId}`}
+            href={`/company/applicants/${applicant.id}/${applicant.candidateId}`}
             className="bg-steel-blue text-white font-bold capitalize border border-solid border-steel-blue text-center transition px-[24px] py-[12px] hover:text-steel-blue hover:bg-white"
           >
             see details

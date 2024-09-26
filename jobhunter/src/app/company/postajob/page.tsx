@@ -19,7 +19,7 @@ export default function PostaJobs() {
 
     const isEligible = await checkEligibleCompany(session?.user?.detailId || "")
 
-    console.log("isEligible: ", isEligible);
+    // console.log("isEligible: ", isEligible);
     
     if(!isEligible) {
       await Swal.fire({

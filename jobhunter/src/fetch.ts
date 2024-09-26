@@ -80,7 +80,7 @@ export async function getDetailProfile (detailId: string) {
       throw new Error(res.statusText)
     }
 
-    const result: CompanyProfile = await res.json()
+    const result: CompanyProfile | CandidateProfile = await res.json()
 
     // console.log("result: ", result);
     

@@ -16,7 +16,7 @@ export default function CompanyProfile() {
   // console.log("detail id: ", session?.user?.detailId);
 
   async function fetchData() {
-    const getDetail = await getDetailProfile(session?.user?.detailId || "");
+    const getDetail = await getDetailProfile(session?.user?.detailId || "") as CompanyProfile
     // console.log("getDetail: ", getDetail);
 
     setCompanyDetail(getDetail);

@@ -19,7 +19,7 @@ declare global {
     currentCity: string;
     currentCountry?: string; //kita pake city aja, tapi kalo mau tambahin negara bolehh
     latestJob?: string
-    experiences?: experiences[];
+    experiences?: experiences;
 
     education?: {
       //Array of Objects, edukasi
