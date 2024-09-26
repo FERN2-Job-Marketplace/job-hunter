@@ -300,13 +300,17 @@ export async function getDetailWishlist (id: string) {
 
 export async function checkEligibleCompany(userId: string) {
   try {
-    const res = await fetch(jobHunterUrl + `/user-profile/${userId}`)
+    const res = await fetch(jobHunterUrl + `/api/user-profile/${userId}`)
+
+    // console.log("result :", userId);
 
     if(!res.ok) {
       throw new Error(res.statusText)
     }
 
     const result: CompanyProfile = await res.json()
+
+    // console.log("result :", userId);
 
     if(!result.isEligible) {
       return {message: "Complete your Company Profile", status: 400};

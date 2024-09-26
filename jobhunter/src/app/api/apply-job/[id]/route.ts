@@ -11,11 +11,14 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const appliedUrl = baseUrl + `/applicant/${params.id}`;
+  
+  // console.log("get applicantId: ", params.id);
 
-  // console.log("id:", id);
+  console.log("id:", params.id);
   // console.log("url:", appliedUrl);
-
-  const res = await fetch(appliedUrl);
+  
+  try {
+    const res = await fetch(appliedUrl);
 
   // console.log(res);
 
@@ -30,7 +33,12 @@ export async function GET(
 
   // console.log("this is data: ", data);
 
-  return data;
+  return NextResponse.json(data);
+
+    
+  } catch (error) {
+    console.error
+  }
 }
 
 //Untuk apply job baru
@@ -97,10 +105,13 @@ export async function POST(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { detailId: string } }
+  { params }: { params: { id: string } }
 ) {
+
   const session = await getServerSession(options);
 
+  // console.log("put applicantId: ", params.id);
+  
   if (session?.user?.role !== "company") {
     return NextResponse.json(
       {
@@ -115,7 +126,7 @@ export async function PUT(
 
     // console.log("req: ", req);
 
-    const updateApplicantUrl = baseUrl + `/applicant/${params.detailId}`;
+    const updateApplicantUrl = baseUrl + `/applicant/${params.id}`;
 
     // let newData = {} as ApplyJob;
 

@@ -3,7 +3,7 @@
 import { getDetailProfile } from "@/fetch";
 import { checkEligibleCompany, jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -18,11 +18,12 @@ type CandidateInformation = {
   skills: string;
   experiences?: CandidateProfile["experiences"];
 };
+
 //slug = candidate ID
 export default function ApplicantDetails({
   params,
 }: {
-  params: { id: string };
+  params: { id: string[] };
 }) {
   const { data: session } = useSession();
 
@@ -30,24 +31,22 @@ export default function ApplicantDetails({
   const [candidateApplicant, setCandidateApplicant] = useState<ApplyJob>();
 
   const router = useRouter();
-  const { id } = router.query;
 
-  if (!id || id.length < 2) {
+  if (!params.id || params.id.length < 2) {
     alert("Invalid Route, click Ok to back");
     return router.back();
   }
 
-  const applicantId = id[0];
-  const candidateId = id[1];
+  const applicantId = params.id[0];
+  const candidateId = params.id[1];
 
   useEffect(() => {
     if (candidateId) {
       fetchUserInfo();
-    }
-
-    if (applicantId) {
+      
       fetchApplicantDetail();
     }
+
   }, [candidateId]);
 
   if (!candidateId) {
@@ -67,8 +66,12 @@ export default function ApplicantDetails({
       //Dapatin detail applicant by id
       const res = await fetch(jobHunterUrl + `/api/apply-job/${applicantId}`);
 
+      console.log("appid: ", res);
+      
       const getCandidateDetail: ApplyJob = await res.json();
 
+      console.log("getCandidateDetail: ", getCandidateDetail);
+      
       setCandidateApplicant(getCandidateDetail);
     } catch (error) {
       console.error(error);
@@ -105,14 +108,14 @@ export default function ApplicantDetails({
         tempinfo.experiences = getDetailUser.experiences;
       }
 
-      if (!tempinfo.name || !tempinfo.phoneNumber || !tempinfo.skills) {
-        return Swal.fire({
-          icon: "error",
-          title: "Invalid Input",
-          text: "Name, Phone Number, or Skills must not Empty",
-          showCloseButton: true,
-        });
-      }
+      // if (!tempinfo.name || !tempinfo.phoneNumber || !tempinfo.skills) {
+      //   return Swal.fire({
+      //     icon: "error",
+      //     title: "Invalid Input",
+      //     text: "Name, Phone Number, or Skills must not Empty",
+      //     showCloseButton: true,
+      //   });
+      // }
 
       setCandidateInfo({ ...tempinfo });
     } catch (error) {
@@ -161,7 +164,7 @@ export default function ApplicantDetails({
           status: formData.get("status"),
         } as ApplyJob;
 
-        if (data.status === candidateApplicant?.status) {
+        if (!data.status) {
           await Swal.fire({
             icon: "info",
             title: "No Update Applicant Status",
@@ -170,10 +173,22 @@ export default function ApplicantDetails({
           });
         }
 
+        // console.log("data: ", data);
+        // console.log(data.status, candidateApplicant?.status);
+        // console.log(applicantId);
+
         const updateRes = await fetch(jobHunterUrl + `/api/apply-job/${applicantId}`, {
-          method: 'put',
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(data)
         })
+        
+        const res = await updateRes.json()
+
+        console.log(res);
+        
 
         await Swal.fire({
           icon: "success",
@@ -336,7 +351,7 @@ export default function ApplicantDetails({
               <option value="rejected">Rejected</option>
             </select>
           </label>
-          <button className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white">
+          <button type="submit" className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white">
             Update !
           </button>
         </form>
