@@ -34,7 +34,7 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                     </div>
                 </div>
             </div>
-            <a href="/"
+            <a href="/FindJobs/detail-job"
             className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
             >See Details</a>
         </div>
