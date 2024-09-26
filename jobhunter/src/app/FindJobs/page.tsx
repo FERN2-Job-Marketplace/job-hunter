@@ -275,18 +275,18 @@ export default function FindJobs() {
                                     defaultValue={""}
                                     className="select select-bordered text-raisin-black bg-white">
                                             <option value="">All Location</option>
-                                            <option value="jakarta pusat">Jakarta Pusat</option>
-                                            <option value="jakarta selatan">Jakarta Selatan</option>
-                                            <option value="jakarta utara">Jakarta Utara</option>
-                                            <option value="jakarta barat">Jakarta Barat</option>
-                                            <option value="jakarta timur">Jakarta Timur</option>
-                                            <option value="bogor">Bogor</option>
-                                            <option value="depok">Depok</option>
-                                            <option value="tangerang">Tangerang</option>
-                                            <option value="bekasi">Bekasi</option>
-                                            <option value="surabaya">Surabaya</option>
-                                            <option value="bandung">Bandung</option>
-                                            <option value="remote">Remote</option>
+                                            <option >Jakarta Pusat</option>
+                                            <option >Jakarta Selatan</option>
+                                            <option >Jakarta Utara</option>
+                                            <option >Jakarta Barat</option>
+                                            <option >Jakarta Timur</option>
+                                            <option >Bogor</option>
+                                            <option >Depok</option>
+                                            <option >Tangerang</option>
+                                            <option >Bekasi</option>
+                                            <option >Surabaya</option>
+                                            <option >Bandung</option>
+                                            <option >Remote</option>
                                     </select>
                                     <div className="flex flex-row items-center">
                                         <h3 className=" text-dark-grey-text">Sort by:</h3>
