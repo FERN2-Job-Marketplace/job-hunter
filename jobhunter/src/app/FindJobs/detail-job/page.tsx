@@ -3,7 +3,87 @@ import CardDetail from "@/app/_components/CardDetail";
 export default function DetailJob() {
     return(
         <>
-            <div className="w-screen h-[350px]">
+            <div className="detail pt-4">
+                <div className="detailHeader bg-raisin-black flex items-center justify-center min-h-[350px] px-5">
+                    <CardDetail />
+                </div>
+                <div className="detailBody bg-white">
+                    <div className="detailBodyWrap flex flex-wrap justify-center py-5 max-w-full md:max-w-[1200px] m-auto">
+                        <div className="detailBodyLeft px-6 w-full md:w-8/12">
+                            <div className="detailBodyLeftSection mb-6">
+                                <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                    Description
+                                </h2>
+                                <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
+                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                </p>
+                            </div>
+                            <div className="detailBodyLeftSection mb-6">
+                                <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                    Responsibilities
+                                </h2>
+                                <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
+                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                </p>
+                            </div>
+                            <div className="detailBodyLeftSection mb-6">
+                                <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                    Requirements
+                                </h2>
+                                <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
+                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                </p>
+                            </div>
+                            <div className="detailBodyLeftSection mb-6">
+                                <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                    Nice to Haves
+                                </h2>
+                                <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
+                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                </p>
+                            </div>
+                            <div className="detailBodyLeftSection mb-6">
+                                <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                    Perks and Benefits
+                                </h2>
+                                <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
+                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="detailBodyRight px-6 w-full md:w-4/12">
+                            <h2 className="detailBodyLeftSectionTitle text-center md:text-left font-semibold text-raisin-black capitalize mb-3 text-[32px]">
+                                About this role
+                            </h2>
+                            <div className="flex flex-wrap items-center justify-between mb-3">
+                                <p className="m-0 text-slate-grey text-[16px]">
+                                    Job Posted On
+                                </p>
+                                <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
+                                    July 1, 2021
+                                </p>
+                            </div>
+                            <div className="flex flex-wrap items-center justify-between mb-3">
+                                <p className="m-0 text-slate-grey text-[16px]">
+                                    Job Type
+                                </p>
+                                <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
+                                    Full-Time
+                                </p>
+                            </div>
+                            <div className="flex flex-wrap items-center justify-between mb-3">
+                                <p className="m-0 text-slate-grey text-[16px]">
+                                    Salary
+                                </p>
+                                <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
+                                    Rp10jt - Rp15jt 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* <div className="w-screen h-[350px]">
                 <div className="w-screen h-[250px] bg-[#202430]">
                     <div className="container mx-auto">
                         <CardDetail />
@@ -43,7 +123,7 @@ export default function DetailJob() {
                         <div className="font-normal">Good Money</div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

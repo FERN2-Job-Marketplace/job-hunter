@@ -1,34 +1,35 @@
 import Link from "next/link";
 
 export default function ApplicantsTableRow({
-  applicant, listUser, listJob
+  applicant,
+  listUser,
+  listJob,
 }: {
   // Object utama utk dirender itu applicant
   applicant: ApplyJob;
   listUser: UserFiltered[];
-  listJob: JobVacancy[]
+  listJob: JobVacancy[];
 }) {
+  function userName() {
+    // for (let i = 0; i < listUser.length; i++) {
+    //     if (applicant.candidateId === listUser[i].id) {
+    //       return listUser[i].name;
+    //     }
+    // }
 
-    function userName () {
-        // for (let i = 0; i < listUser.length; i++) {
-        //     if (applicant.candidateId === listUser[i].id) {
-        //       return listUser[i].name;
-        //     }
-        // }
+    const findUser = listUser.find((user) => user.id === applicant.candidateId);
+    return findUser?.name || "";
+  }
 
-        const findUser = listUser.find(user => user.id === applicant.candidateId)
-        return findUser?.name || ""
-    }
-
-    function title () {
-        // for (let i = 0; i < listJob.length; i++) {
-        //     if (applicant.jobId === listJob[i].id) {
-        //       return listJob[i].title;
-        //     }
-        // }
-        const findTitle = listJob.find(user => user.id === applicant.jobId)
-        return findTitle?.title || ""
-    }
+  function title() {
+    // for (let i = 0; i < listJob.length; i++) {
+    //     if (applicant.jobId === listJob[i].id) {
+    //       return listJob[i].title;
+    //     }
+    // }
+    const findTitle = listJob.find((user) => user.id === applicant.jobId);
+    return findTitle?.title || "";
+  }
 
   return (
     <>
@@ -38,7 +39,18 @@ export default function ApplicantsTableRow({
           {userName()}
         </td>
         <td>
-          <div className="rounded-xl w-fit border border-solid border-yellow text-yellow capitalized text-center py-1 px-2">
+          <div
+            className={`rounded-xl w-fit border border-solid
+              ${
+                applicant.status === "ongoing"
+                  ? "border-yellow text-yellow"
+                  : applicant.status === "accepted"
+                  ? "border-green text-green"
+                  : applicant.status === "rejected"
+                  ? "border-red text-red"
+                  : ""
+              } capitalized text-center py-1 px-2`}
+          >
             {applicant.status}
           </div>
         </td>

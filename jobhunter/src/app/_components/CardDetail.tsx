@@ -1,16 +1,17 @@
 export default function CardDetail() {
     return (
-        <>
-            <div className="w-screen my-10">
-                <div className="flex justify-center items-center gap-10 px-32 py-10">
-                    <div className="flex justify-between items-start w-[80%] bg-[#ffffff] hover:bg-[#4D7EA8] text-black hover:text-[#ffffff] transition-colors px-3 py-8">
-                        <img src="/Company Logo.png" alt="icon" className="w-16 h-16 self-center"/>
-                        <div className="font-bold text-lg mt-2">Sosial Media Assistant</div>
-                        <div className="flex gap-10 justify-between items-center">
-                            <div className="font-bold text-lg mt-2">Button Share</div>
-                            <div className="text-sm font-bold mt-2 text-gray-400">235 jobs available</div>
-                        </div>
+        <>  
+            <div className="detailCard bg-white  p-[24px] w-full max-w-full md:max-w-[1100px]">
+                <div className="flex flex-wrap items-center justify-between w-full">
+                    <div className="flex items-center gap-[20px] mb-2">
+                        <img src="/logo-nomad.svg" alt="company name" className="max-w-full h-auto w-[88px]"/>
+                        <h1 className="detailTitle text-[32px] font-semibold text-raisin-black">
+                            Social Media Assistant
+                        </h1>
                     </div>
+                    <button
+                    className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-10 py-3 md:py-3 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
+                    >Apply</button>
                 </div>
             </div>
         </>
