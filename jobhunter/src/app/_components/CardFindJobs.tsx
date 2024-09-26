@@ -1,6 +1,7 @@
 'use client'
 
 import dayjs from "dayjs";
+import Link from "next/link";
 
 export default function CardFindJobs(props: {jobData: JobVacancy}) {
     const jobDate = dayjs(props.jobData.updatedAt).format('DD MMMM YYYY'); 
@@ -34,9 +35,12 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                     </div>
                 </div>
             </div>
-            <a href="/FindJobs/detail-job"
+            <Link
+            href={`/FindJobs/${props.jobData.id}`}
             className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
-            >See Details</a>
+          >
+            see details
+          </Link>
         </div>
     )
 }

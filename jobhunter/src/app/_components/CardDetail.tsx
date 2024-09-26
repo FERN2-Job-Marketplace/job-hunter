@@ -1,4 +1,8 @@
-export default function CardDetail() {
+type Props = {
+    detailData?: JobVacancy
+}
+
+export default function CardDetail(props: Props) {
     return (
         <>  
             <div className="detailCard bg-white  p-[24px] w-full max-w-full md:max-w-[1100px]">
@@ -6,7 +10,7 @@ export default function CardDetail() {
                     <div className="flex items-center gap-[20px] mb-2">
                         <img src="/logo-nomad.svg" alt="company name" className="max-w-full h-auto w-[88px]"/>
                         <h1 className="detailTitle text-[32px] font-semibold text-raisin-black">
-                            Social Media Assistant
+                             {props.detailData?.title}
                         </h1>
                     </div>
                     <button

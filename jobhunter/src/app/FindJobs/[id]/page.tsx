@@ -1,12 +1,35 @@
-import CardDetail from "@/app/_components/CardDetail";
+'use client'
 
-export default function DetailJob() {
+import CardDetail from "@/app/_components/CardDetail";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+
+export default function DetailJob({
+  params,
+}: {
+  params: { id: string };
+}) {
+
+    const [detailData, setDetailData] = useState<JobVacancy>();
+    const jobDate = dayjs(detailData?.updatedAt).format('DD MMMM YYYY'); 
+
+
+    async function getDetailsJob() {
+        let url =`http://localhost:3001/job-vacancy/${params.id}`
+        const res = await fetch(url)
+        const responseJson:JobVacancy = await res.json()
+        setDetailData(responseJson)
+      }
+    
+      useEffect(() => {
+        getDetailsJob()
+    }, []);
 
     return(
         <>
             <div className="detail pt-4">
                 <div className="detailHeader bg-raisin-black flex items-center justify-center min-h-[350px] px-5">
-                    <CardDetail />
+                    <CardDetail detailData={detailData}/>
                 </div>
                 <div className="detailBody bg-white">
                     <div className="detailBodyWrap flex flex-wrap justify-center py-5 max-w-full md:max-w-[1200px] m-auto">
@@ -16,7 +39,7 @@ export default function DetailJob() {
                                     Description
                                 </h2>
                                 <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
-                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                    {detailData?.details.description}
                                 </p>
                             </div>
                             <div className="detailBodyLeftSection mb-6">
@@ -24,7 +47,7 @@ export default function DetailJob() {
                                     Responsibilities
                                 </h2>
                                 <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
-                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                    {detailData?.details.responsibilities}
                                 </p>
                             </div>
                             <div className="detailBodyLeftSection mb-6">
@@ -32,15 +55,15 @@ export default function DetailJob() {
                                     Requirements
                                 </h2>
                                 <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
-                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                    {detailData?.details.requirements}
                                 </p>
                             </div>
                             <div className="detailBodyLeftSection mb-6">
                                 <h2 className="detailBodyLeftSectionTitle font-semibold text-raisin-black capitalize mb-3 text-[32px]">
-                                    Nice to Haves
+                                    Nice to Haves 
                                 </h2>
                                 <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
-                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                    {detailData?.details.preferences}
                                 </p>
                             </div>
                             <div className="detailBodyLeftSection mb-6">
@@ -48,7 +71,7 @@ export default function DetailJob() {
                                     Perks and Benefits
                                 </h2>
                                 <p className="detailBodyLeftSectionDescription text-slate-grey m-0 text-[16px]">
-                                    Stripe is looking for Social Media Marketing expert to help manage our online networks. You will be responsible for monitoring our social media channels, creating content, finding effective ways to engage the community and incentivize others to engage on our channels.
+                                    {detailData?.details.benefits}
                                 </p>
                             </div>
                         </div>
@@ -61,7 +84,7 @@ export default function DetailJob() {
                                     Job Posted On
                                 </p>
                                 <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
-                                    July 1, 2021
+                                    {jobDate}
                                 </p>
                             </div>
                             <div className="flex flex-wrap items-center justify-between mb-3">
@@ -69,7 +92,7 @@ export default function DetailJob() {
                                     Job Type
                                 </p>
                                 <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
-                                    Full-Time
+                                    {detailData?.jobType}
                                 </p>
                             </div>
                             <div className="flex flex-wrap items-center justify-between mb-3">
@@ -77,7 +100,7 @@ export default function DetailJob() {
                                     Salary
                                 </p>
                                 <p className="m-0 text-raisin-black text-[16px] md:text-right font-bold">
-                                    Rp10jt - Rp15jt 
+                                    {detailData?.details.salary}
                                 </p>
                             </div>
                         </div>
