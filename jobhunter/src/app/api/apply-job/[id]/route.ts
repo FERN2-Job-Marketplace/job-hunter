@@ -7,7 +7,7 @@ import { baseUrl, generateId, getDetailApplicant } from "@/utils";
 //Route API GET detail apply job ada di utils
 
 //Untuk apply job baru
-// ID nya si JOB ID
+  // ID nya si JOB ID
 export async function POST (request: NextRequest, {params} : {params: {id: string}}) {
 
   const session = await getServerSession(options)
@@ -20,6 +20,9 @@ export async function POST (request: NextRequest, {params} : {params: {id: strin
       error: "Unauthorized",
     }, {status: 401 });
   }
+
+  //validasi utk cek apakah user sudah ada job id yg sama
+  // if()
 
   const newData: ApplyJob = {
     id: generateId(),

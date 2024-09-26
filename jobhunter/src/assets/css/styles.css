@@ -35,4 +35,15 @@ a{
     .dashboardSidebar.opened{
         left: 0;
     }
+
+    .checkboxes{
+        left: -100%;
+        transition: left .7s;
+        height: 100%;
+    }
+    .checkboxes.opened{
+        left: 0;
+        overflow: scroll;
+        height: calc(100vh - 88px);
+    }
 }

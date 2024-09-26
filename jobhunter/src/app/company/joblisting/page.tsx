@@ -9,21 +9,29 @@ import { useEffect, useState } from "react";
 
 export default function JobListing() {
   const [listJob, setListJob] = useState<JobVacancy[]>([]);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const filterIndex = `userId=${session?.user.id}`;
 
   // console.log("session:", session?.user.id);
-  console.log(listJob);
+  // console.log(listJob);
+
+  async function fetchData() {
+    const result = await getListJobVacancy(filterIndex);
+    setListJob(result);
+  }
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await getListJobVacancy(filterIndex);
-      setListJob(result);
-    }
-
+  
+    if(status === "authenticated") {
+      
     fetchData();
-  }, []);
+    }
+  }, [session, status]);
+
+  if(status === "loading") {
+    return (<>Loading...</>)
+  }
 
   if (!session) {
     return null;

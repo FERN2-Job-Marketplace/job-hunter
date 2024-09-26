@@ -1,4 +1,44 @@
-export default function ApplicantDetails() {
+"use client"
+
+import { jobHunterUrl } from "@/utils"
+import { useEffect, useState } from "react"
+import Swal from "sweetalert2"
+
+type CandidateInformation = {
+  name: string
+  gender: string
+  phoneNumber: string
+  dateOfBirth: string
+  address: string
+  bio: string
+  skills: string
+  experiences: CandidateProfile["experiences"]
+  
+}
+//slug = candidate ID
+export default function ApplicantDetails({params}: {params : {candidateId: string}} ) {
+
+  let userInformation = {}
+  
+  async function fetchData () {
+    try {
+      const getUser = await fetch(jobHunterUrl + `/api/user/${params.candidateId}`)
+
+    } catch (error) {
+      await Swal.fire({
+        icon: "error",
+        text: `${error}`
+      })
+    }
+  }
+
+  useEffect(() => {
+    if(params.candidateId) {
+      
+    fetchData()
+    }
+  }, [params.candidateId])
+  
   return (
     <>
       <div className="dashboardApplicantDetails py-4 px-5">
@@ -120,6 +160,22 @@ export default function ApplicantDetails() {
               </div>
           </div>
         </div>
+
+        <form action="" className="dashboardApplicantUpdateStatus">
+          <label className="form-control w-full max-w-sm mb-3">
+            <div className="label">
+              <span className="label-text">Update Applicant Status</span>
+            </div>
+            <select className="select select-bordered text-raisin-black">
+              <option disabled selected>On Going</option>
+              <option>Accepted</option>
+              <option>Rejected</option>
+            </select>
+          </label>
+          <button
+            className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
+            >Update !</button>
+        </form>
       </div>
     </>
   )

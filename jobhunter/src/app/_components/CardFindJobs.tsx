@@ -6,7 +6,7 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
     const jobDate = dayjs(props.jobData.updatedAt).format('DD MMMM YYYY'); 
 
     return(
-        <div className="w-full h-[120px] flex flex-row border-2 gap-8 items-center px-8 mt-5 justify-between">
+        <div className="w-full flex flex-col lg:flex-row border-2 gap-8 items-center py-4 px-4 md:px-8 mt-5 justify-between">
             <div className="flex flex-row gap-8 justify-center">
                 <img src="/Company Logo.png" alt="icon" className="w-16 h-16 self-center"/>
                 <div>
@@ -35,7 +35,7 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                 </div>
             </div>
             <a href="/"
-            className="bg-steel-blue w-fit text-white font-semibold text-base px-4 py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
+            className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
             >See Details</a>
         </div>
     )
