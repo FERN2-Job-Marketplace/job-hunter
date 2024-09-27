@@ -18,15 +18,16 @@ declare global {
     bio?: string;
     currentCity: string;
     currentCountry?: string; //kita pake city aja, tapi kalo mau tambahin negara bolehh
-    latestJob?: string
-    experiences?: experiences;
+    latestExperience?: string
+    education?: string
+    // experience?: experience;
 
-    education?: {
-      //Array of Objects, edukasi
-      institution: string;
-      degree: string;
-      graduationYear: string;
-    }[];
+    // education?: {
+    //   //Array of Objects, edukasi
+    //   institution: string;
+    //   degree: string;
+    //   graduationYear: string;
+    // };
 
     skills: string; // Array of Strings
     isEligible: boolean;

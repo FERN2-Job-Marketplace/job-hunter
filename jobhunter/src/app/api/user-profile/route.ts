@@ -7,14 +7,13 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server"
 import { options } from "../auth/[...nextauth]/options";
 
-//Ini khusus buat nampilin informasi user tanpa munculin password
+//Ini khusus buat nampilin informasi user tanpa sensitif data
 export async function GET (request: NextRequest) {
   const {href} = request.nextUrl
 
   const session = await getServerSession(options)
 
-  console.log("session: " , session);
-  
+  // console.log("session: " , session);
 
   if(!session?.user) {
     return NextResponse.json({

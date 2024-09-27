@@ -31,7 +31,7 @@ export default function Applicants() {
   useEffect(() => {
     
     async function fetchData() {
-      const resultJobs = await getListJobVacancy(filterIndex); //udah difilter job yg hanya di buat oleh signed in user company
+      const resultJobs = await getListJobVacancy(filterIndex); //udah difilter job yg hanya di buat oleh authenticated user company
       const resultAplicants = await getAllApplicant();
       const resultUser = await getAllUser();
       setListJob(resultJobs);

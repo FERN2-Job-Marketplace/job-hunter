@@ -46,6 +46,7 @@ export async function getAllApplicant (query?: string) {
   return data
 }
 
+//ini dapatin semua user tanpa melibatkan data sensi
 export async function getAllUser (query?: string) {
 
   let endpointUrl = jobHunterUrl + '/api/user-profile'

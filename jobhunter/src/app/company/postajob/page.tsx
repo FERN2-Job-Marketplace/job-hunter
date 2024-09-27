@@ -34,7 +34,9 @@ export default function PostaJobs() {
     const data = {
       title: formData.get("title"),
       companyName: session?.user?.name,
+      companyLogo: session?.user?.imageUrl,
       jobType: formData.get("jobType"),
+      category: formData.get("jobCategories"),
       location: formData.get("location"),
       details: {
         description: formData.get("description"),
@@ -58,7 +60,7 @@ export default function PostaJobs() {
 
     await Swal.fire({
       icon: "success",
-      title: "Register Success",
+      title: "Post New Job",
       showCloseButton: true,
     });
 
@@ -68,7 +70,7 @@ export default function PostaJobs() {
 
   return (
     <>
-      <div className="dashboardPostjobs py-4 px-5">
+      <div className="dashboardPostjobs py-4 px-5 text-gray-800">
         <form onSubmit={handlePostJob}>
           <div className="dashboardPostjobsSection my-5">
             <div className="flex flex-wrap">
@@ -85,7 +87,7 @@ export default function PostaJobs() {
                   type="text"
                   name="title"
                   placeholder="Eg. Frontend Developer"
-                  className="input input-bordered w-full max-w-sm"
+                  className="input input-bordered w-full max-w-sm placeholder-gray-600"
                 />
               </div>
             </div>
@@ -130,7 +132,7 @@ export default function PostaJobs() {
                   name="salary"
                   type="number"
                   placeholder="Rp"
-                  className="input input-bordered w-full max-w-sm"
+                  className="input input-bordered w-full max-w-sm placeholder-gray-600"
                 />
               </div>
             </div>
@@ -181,18 +183,18 @@ export default function PostaJobs() {
                   <option disabled selected>
                     Location
                   </option>
-                  <option value="jakarta pusat">Jakarta Pusat</option>
-                  <option value="jakarta selatan">Jakarta Selatan</option>
-                  <option value="jakarta utara">Jakarta Utara</option>
-                  <option value="jakarta barat">Jakarta Barat</option>
-                  <option value="jakarta timur">Jakarta Timur</option>
-                  <option value="bogor">Bogor</option>
-                  <option value="depok">Depok</option>
-                  <option value="tangerang">Tangerang</option>
-                  <option value="bekasi">Bekasi</option>
-                  <option value="surabaya">Surabaya</option>
-                  <option value="bandung">Bandung</option>
-                  <option value="remote">Remote</option>
+                  <option value="Jakarta Pusat">Jakarta Pusat</option>
+                  <option value="Jakarta Selatan">Jakarta Selatan</option>
+                  <option value="Jakarta Utara">Jakarta Utara</option>
+                  <option value="Jakarta Barat">Jakarta Barat</option>
+                  <option value="Jakarta Timur">Jakarta Timur</option>
+                  <option value="Bogor">Bogor</option>
+                  <option value="Depok">Depok</option>
+                  <option value="Tanggerang">Tangerang</option>
+                  <option value="Bekasi">Bekasi</option>
+                  <option value="Surabaya">Surabaya</option>
+                  <option value="Bandung">Bandung</option>
+                  <option value="Remote">Remote</option>
                 </select>
               </div>
             </div>
@@ -211,7 +213,7 @@ export default function PostaJobs() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="description"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder="Job Description"
                 ></textarea>
               </div>
@@ -231,7 +233,7 @@ export default function PostaJobs() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="responsibilities"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder="Responsibilities"
                 ></textarea>
               </div>
@@ -251,7 +253,7 @@ export default function PostaJobs() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="requirements"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder="Requirements"
                 ></textarea>
               </div>
@@ -271,7 +273,7 @@ export default function PostaJobs() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="preferences"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder="Nice to Haves"
                 ></textarea>
               </div>
@@ -291,7 +293,7 @@ export default function PostaJobs() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="benefits"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder="Perks and Benefits"
                 ></textarea>
               </div>

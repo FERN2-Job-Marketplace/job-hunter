@@ -1,10 +1,11 @@
-import { baseUrl } from "@/utils";
+import { baseUrl, createDefaultProfile, generateId } from "@/utils";
 import axios from "axios";
 import { error } from "console";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { GoogleProfile } from "next-auth/providers/google";
+import { NextResponse } from "next/server";
 import Swal from "sweetalert2";
 
 export const options: NextAuthOptions = {
@@ -26,7 +27,9 @@ export const options: NextAuthOptions = {
             id: profile.sub,
             name: profile.name,
             email: profile.email,
-            imageUrl: profile.picture,
+            imageUrl:
+              "https://media.istockphoto.com/id/871752462/vector/default-gray-placeholder-man.jpg?s=612x612&w=0&k=20&c=4aUt99MQYO4dyo-rPImH2kszYe1EcuROC6f2iMQmn8o=",
+            detailId: generateId(),
             provider: "google",
             createdAt: new Date().toISOString(),
             isVerified: false,
@@ -40,6 +43,21 @@ export const options: NextAuthOptions = {
 
           if (!newUser.ok) return;
 
+          const resultProfile = await createDefaultProfile(
+            newData.role,
+            newData.detailId,
+            newData.id
+          );
+        
+          if (resultProfile?.error) {
+            return NextResponse.json(
+              {
+                error: resultProfile.error,
+                message: resultProfile.message,
+              },
+              { status: resultProfile.status }
+            );
+          }
           return newData;
         }
 
@@ -91,8 +109,9 @@ export const options: NextAuthOptions = {
           detailId: data[0].detailId,
           role: data[0].role,
           image:
-            data[0].imageUrl ||
-            "https://media.istockphoto.com/id/871752462/vector/default-gray-placeholder-man.jpg?s=612x612&w=0&k=20&c=4aUt99MQYO4dyo-rPImH2kszYe1EcuROC6f2iMQmn8o=",
+            data[0].imageUrl || data[0].role === "candidate"
+              ? "https://media.istockphoto.com/id/871752462/vector/default-gray-placeholder-man.jpg?s=612x612&w=0&k=20&c=4aUt99MQYO4dyo-rPImH2kszYe1EcuROC6f2iMQmn8o="
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl3KRLQ-4_EdCiWdQ5WVmZBhS4HCHiTxV71A&s",
         };
       },
     }),
@@ -103,7 +122,8 @@ export const options: NextAuthOptions = {
       // console.log("cbacks token: ", token);
 
       if (user) {
-        (token.id = user.id), (token.detailId = user.detailId);
+        token.id = user.id;
+        token.detailId = user.detailId;
         token.name = user.name;
         token.role = user.role;
       }

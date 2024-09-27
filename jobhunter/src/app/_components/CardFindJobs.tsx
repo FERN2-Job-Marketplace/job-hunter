@@ -36,7 +36,7 @@ export default function CardFindJobs(props: {jobData: JobVacancy}) {
                 </div>
             </div>
             <Link
-            href={`/FindJobs/${props.jobData.id}`}
+            href={`/FindJobs/detail/${props.jobData.id}`}
             className="bg-steel-blue w-full text-center md:w-fit text-white font-semibold text-base px-4 py-2 md:py-1 border-2 border-steel-blue hover:text-steel-blue hover:bg-white" 
           >
             see details

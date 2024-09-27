@@ -36,6 +36,7 @@ declare global {
   interface JobVacancy {
     id: string;
     userId: string;
+    companyLogo: string
     category: category;
     jobType?: jobType;
     title: string;

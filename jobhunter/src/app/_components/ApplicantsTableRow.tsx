@@ -1,3 +1,4 @@
+import { formatDate } from "@/utils";
 import Link from "next/link";
 
 export default function ApplicantsTableRow({
@@ -54,7 +55,7 @@ export default function ApplicantsTableRow({
             {applicant.status}
           </div>
         </td>
-        <td>{applicant.appliedAt}</td>
+        <td>{formatDate(applicant.appliedAt)}</td>
         <td>{title()}</td>
         <td>
           <Link

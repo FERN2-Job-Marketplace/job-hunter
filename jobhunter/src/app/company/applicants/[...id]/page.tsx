@@ -1,7 +1,7 @@
 "use client";
 
 import { getDetailProfile } from "@/fetch";
-import { checkEligibleCompany, jobHunterUrl } from "@/utils";
+import { checkEligibleCompany, formatDate, jobHunterUrl } from "@/utils";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,10 +13,10 @@ type CandidateInformation = {
   phoneNumber: string;
   dateOfBirth: string;
   currentCity: string;
-  latestJob?: string;
+  latestExperience?: string;
+  education?: string;
   bio?: string;
   skills: string;
-  experiences?: CandidateProfile["experiences"];
 };
 
 //slug = candidate ID
@@ -104,8 +104,8 @@ export default function ApplicantDetails({
         tempinfo.currentCity = getDetailUser.currentCity;
         tempinfo.bio = getDetailUser?.bio;
         tempinfo.skills = getDetailUser.skills;
-        tempinfo.latestJob = getDetailUser.latestJob;
-        tempinfo.experiences = getDetailUser.experiences;
+        tempinfo.latestExperience = getDetailUser.latestExperience;
+        tempinfo.education = getDetailUser.education;
       }
 
       // if (!tempinfo.name || !tempinfo.phoneNumber || !tempinfo.skills) {
@@ -187,15 +187,14 @@ export default function ApplicantDetails({
         
         const res = await updateRes.json()
 
-        console.log(res);
+        // console.log(res);
         
-
         await Swal.fire({
           icon: "success",
           title: "Update Status Success",
           text: `${updateRes.status}`,
           showCloseButton: true,
-        }); 
+        });
 
         return router.push("/company/applicants")
       }
@@ -239,7 +238,7 @@ export default function ApplicantDetails({
                 birth date
               </div>
               <div className="infoContent text-raisin-black capitalize text-[16px]">
-                {candidateInfo?.dateOfBirth}
+                {formatDate(candidateInfo?.dateOfBirth as string)}
               </div>
             </div>
             <div className="info">
@@ -270,15 +269,15 @@ export default function ApplicantDetails({
               Current/Latest job
             </div>
             <div className="infoContent text-raisin-black capitalize text-[16px]">
-              {candidateInfo?.latestJob ?? candidateInfo?.experiences}
+              {candidateInfo?.latestExperience}
             </div>
           </div>
           <div className="info mb-3">
             <div className="infoLabel text-[16px] text-slate-grey capitalize">
-              experience in years
+              Highest Qualification Held
             </div>
             <div className="infoContent text-raisin-black capitalize text-[16px]">
-              {candidateInfo?.experiences}
+              {candidateInfo?.education}
             </div>
           </div>
           <div className="info mb-3">
@@ -290,7 +289,7 @@ export default function ApplicantDetails({
             </div>
           </div>
         </div>
-        <div className="dashboardApplicantDetailsSection my-3 max-w-[700px]">
+        {/* <div className="dashboardApplicantDetailsSection my-3 max-w-[700px]">
           <div className="formCard border border-solid border-slate-300 rounded w-full max-w-lg p-3 my-5">
             <div className="formCardHeader flex items-center justify-between">
               <p className="m-0 text-raisin-black font-semibold capitalize text-[16px]">
@@ -330,7 +329,7 @@ export default function ApplicantDetails({
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <form
           onSubmit={handleUpdateStatus}

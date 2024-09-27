@@ -1,4 +1,4 @@
-import { jobHunterUrl } from "@/utils";
+import { formatDate, jobHunterUrl } from "@/utils";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
@@ -57,7 +57,7 @@ export default function JoblistingTableRow({ item }: { item: JobVacancy }) {
     <tr>
       <td>{item.title}</td>
       <td>{item.category}</td>
-      <td>20 May 2020</td>
+      <td>{formatDate(item.createdAt)}, {item.isActive ? "Open": "Close"}</td>
       <td>{item?.jobType}</td>
       <td>TBA</td>
       <td>

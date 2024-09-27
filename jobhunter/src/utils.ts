@@ -18,14 +18,17 @@ const defaultCandidateProfile = {
   dateOfBirth: "",
   gender: "",
   phoneNumber: "",
-  profilePicture: "",
+  profilePicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl3KRLQ-4_EdCiWdQ5WVmZBhS4HCHiTxV71A&s",
   bio: "",
   currentCity: "",
   currentCountry: "",
+  latestExperience: "",
+  education: "",
+  // experience: {},
 
-  experience: "",
+  // education: {
 
-  education: [],
+  // },
 
   skills: "",
 
@@ -52,7 +55,7 @@ const defaultCompanyProfile = {
   foundedYear: "",
   companyDescription: "",
   headquarters: "",
-  logoUrl: "",
+  logoUrl: "https://w7.pngwing.com/pngs/981/645/png-transparent-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette-symbol.png",
   socialProfiles: {
     linkedin: "",
     twitter: "",
@@ -268,7 +271,7 @@ export async function getDetailApplicant (id: string) {
   // console.log("this is data: ", data);
 
   return data
-    
+  
 }
 
 export async function getDetailWishlist (id: string) {
@@ -321,4 +324,17 @@ export async function checkEligibleCompany(userId: string) {
   } catch (error) {
     console.error(error)
   }
+}
+
+export function formatDate(isoString: string) {
+  const date = new Date(isoString);
+
+  // Convert the ISO string into the format "12 April 2023"
+  const formattedDate = date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  return formattedDate;
 }

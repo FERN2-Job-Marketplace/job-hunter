@@ -1,7 +1,9 @@
 "use client";
 
 import AuthOptionBtn from "@/app/_components/AuthOptionBtn";
+import { jobHunterUrl } from "@/utils";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRef } from "react";
 import GoogleButton from 'react-google-button'
 
@@ -34,13 +36,13 @@ export default function SignInPage() {
       `}</style>
       <div className="flex justify-center items-center w-full h-screen bg-white">
         <div className="p-5 flex flex-col gap-3 justify-center bg-white md:min-w-[405px]">
-          <div className="flex flex-row justify-center items-center gap-2">
+          <Link href={jobHunterUrl} className="flex flex-row justify-center items-center gap-2">
             <img 
             src="/Vector.png" 
             alt="icon" 
             className="w-6 h-6"/>
             <h1 className="text-steel-blue text-xl font-bold">JobHunter</h1>
-          </div>
+          </Link>
           {/* <AuthOptionBtn/> */}
           <label className="form-control w-full ">
             <div className="label">

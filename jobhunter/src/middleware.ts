@@ -9,7 +9,6 @@ export default withAuth(
 
     // console.log("Middleware triggered for:");
 
-
     const pathName = request.nextUrl.pathname;
 
     if (
@@ -19,7 +18,19 @@ export default withAuth(
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
 
+    if (
+      pathName.startsWith("/user") &&
+      request.nextauth.token?.role !== "candidate"
+    ) {
+      return NextResponse.rewrite(new URL("/denied", request.url));
+    }
+
     if (pathName.startsWith("/job-vacancy") && request.nextauth.token?.role === "company") {
+
+      return NextResponse.rewrite(new URL("/denied", request.url));
+    }
+
+    if (pathName.startsWith("/FindJobs/detail") && request.nextauth.token?.role === "company" || !request.nextauth.token?.role) {
 
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
@@ -51,5 +62,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: [ "/job-vacancy/:path*", "/company/:path*"],
+  matcher: [ "/job-vacancy/:path*", "/company/:path*", "/user/:path*", "/FindJobs/detail/:path*"],
 };

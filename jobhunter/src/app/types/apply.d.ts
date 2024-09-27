@@ -1,4 +1,5 @@
 
+//buat applicant
 declare global {
   interface ApplyJob {
     id: string

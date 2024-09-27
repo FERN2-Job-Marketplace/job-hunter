@@ -5,6 +5,7 @@ import { useState } from "react";
 import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { jobHunterUrl } from "@/utils";
 
 
 
@@ -29,7 +30,7 @@ export default function SignUpPage(){
         };
         
         try {
-          const response = await fetch("http://localhost:3000/api/registration", {
+          const response = await fetch(jobHunterUrl + "/api/registration", {
             method: "POST",
             body: JSON.stringify(input),
           });
