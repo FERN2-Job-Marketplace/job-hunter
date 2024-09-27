@@ -93,23 +93,29 @@ export const options: NextAuthOptions = {
 
         // const credential = data.find()
 
-        console.log("res options: ", data.length);
+        // console.log("res options: ", data.length);
 
-        if (!data[0]) {
+        const userCredential = await data[0]
+
+        if (!userCredential) {
           // console.log("true");
           return null;
         }
 
+        if(userCredential.email !== credentials?.email || userCredential.password !== credentials?.password) {
+          return null
+        }
+
         //
         return {
-          id: data[0].id,
-          email: data[0].email,
-          name: data[0].name,
-          imageUrl: data[0].imageUrl,
-          detailId: data[0].detailId,
-          role: data[0].role,
+          id: userCredential.id,
+          email: userCredential.email,
+          name: userCredential.name,
+          imageUrl: userCredential.imageUrl,
+          detailId: userCredential.detailId,
+          role: userCredential.role,
           image:
-            data[0].imageUrl || data[0].role === "candidate"
+            userCredential.imageUrl || userCredential.role === "candidate"
               ? "https://media.istockphoto.com/id/871752462/vector/default-gray-placeholder-man.jpg?s=612x612&w=0&k=20&c=4aUt99MQYO4dyo-rPImH2kszYe1EcuROC6f2iMQmn8o="
               : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl3KRLQ-4_EdCiWdQ5WVmZBhS4HCHiTxV71A&s",
         };

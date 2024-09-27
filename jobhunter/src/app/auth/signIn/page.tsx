@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRef } from "react";
 import GoogleButton from 'react-google-button'
+import Swal from "sweetalert2";
 
 export default function SignInPage() {
   let { current: emailCurr } = useRef("");
@@ -20,7 +21,23 @@ export default function SignInPage() {
       callbackUrl: "/",
     });
 
-    // console.log("login: ", res);
+    // if(!res?.error) {
+    //   await Swal.fire({
+    //     icon: "error",
+    //     title: "Authentication Failed",
+    //     text: "Re-Login",
+    //     showCloseButton: true
+    //   })
+    // } else {
+    //   await Swal.fire({
+    //     icon: "success",
+    //     title: "Authentication Success",
+    //     text: "Login...",
+    //     showCloseButton: true
+    //   })
+    // }
+
+    
 
   };
 
