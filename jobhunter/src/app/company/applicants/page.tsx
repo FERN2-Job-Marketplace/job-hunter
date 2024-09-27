@@ -29,7 +29,6 @@ export default function Applicants() {
   // console.log(listJob);
 
   useEffect(() => {
-    
     async function fetchData() {
       const resultJobs = await getListJobVacancy(filterIndex); //udah difilter job yg hanya di buat oleh authenticated user company
       const resultAplicants = await getAllApplicant();
@@ -44,9 +43,19 @@ export default function Applicants() {
     fetchData();
   }, [session]);
 
-  if(status === "loading") {
-    return <>Loading ...</>
+  if (status === "loading") {
+    return <>Loading ...</>;
   }
+
+  // if(listJob.length < 1 || listApplicant.length < 1 || listUser.length < 1 ) {
+  //   return (
+  //     <div className="w-full h-full flex justify-center">
+  //       NO DATA
+  //     </div>
+  //   )
+  // } else {
+
+  // }
 
   if (!session) {
     return null;
@@ -55,24 +64,35 @@ export default function Applicants() {
   // console.log("listApplicant:", listApplicant);
 
   //Dapatin applicants yg daftar di job si company signed in
-  const filteredApplicants = listApplicant.filter((item) => {
-    for (let i = 0; i < listJob.length; i++) {
-      if (item.jobId === listJob[i].id) {
-        return item;
+
+  let filteredApplicants: ApplyJob[] = []
+
+  if(listApplicant.length > 0) {
+    filteredApplicants = listApplicant.filter((item) => {
+      for (let i = 0; i < listJob.length; i++) {
+        if (item.jobId === listJob[i].id) {
+          return item;
+        }
       }
-    }
-  });
+    });
+  }
+
 
   // console.log("filtered: ", filteredApplicants);
 
   //Dapatin detail si applicants
-  const findCandidate = filteredApplicants.filter((item) => {
-    for (let i = 0; i < listUser.length; i++) {
-      if (item.candidateId === listUser[i].id) {
-        return true;
-      } else false;
-    }
-  });
+
+  let findCandidate: ApplyJob[] = []
+  if(filteredApplicants.length > 1) {
+    findCandidate = filteredApplicants.filter((item) => {
+      for (let i = 0; i < listUser.length; i++) {
+        if (item.candidateId === listUser[i].id) {
+          return true;
+        } else false;
+      }
+    });
+  }
+  
 
   // console.log("find candidate:", findCandidate);
   // return () => filteredApplicants.filter(el => el === item)
@@ -84,19 +104,22 @@ export default function Applicants() {
           {/* {Array.from({ length: 10 }).map((_, i: number) => {
             return <ApplicantsTableRow key={i} />;
           })} */}
-          {
-            findCandidate.length > 0 && (
-                <>
-                {
-                    findCandidate.map((applicant, index) => (
-                        //process applicants harus return applicants yg sama dengan user
-                        // <ApplicantsTableRow key={user.id} item={user} applicants={processApplicants(user, filteredApplicants[index])} />
-                        <ApplicantsTableRow key={applicant.id} applicant={applicant} listUser={listUser} listJob={listJob} />
-                    ))
-                }
-                </>
-            )
-          }
+          {findCandidate.length > 0 ? (
+            <>
+              {findCandidate.map((applicant, index) => (
+                //process applicants harus return applicants yg sama dengan user
+                // <ApplicantsTableRow key={user.id} item={user} applicants={processApplicants(user, filteredApplicants[index])} />
+                <ApplicantsTableRow
+                  key={applicant.id}
+                  applicant={applicant}
+                  listUser={listUser}
+                  listJob={listJob}
+                />
+              ))}
+            </>
+          ) : (
+            <div className="w-full h-full flex justify-center">NO DATA</div>
+          )}
         </tbody>
       </table>
     </div>

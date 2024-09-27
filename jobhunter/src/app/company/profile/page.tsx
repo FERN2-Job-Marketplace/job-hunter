@@ -81,7 +81,7 @@ export default function CompanyProfile() {
 
   return (
     <>
-      <div className="dashboardCompanyProfile py-4 px-5">
+      <div className="dashboardCompanyProfile py-4 px-5 text-gray-800">
         <form onSubmit={handleUpdateDetail}>
           <div className="dashboardPostjobsSection my-5">
             <div className="flex flex-wrap">
@@ -97,7 +97,7 @@ export default function CompanyProfile() {
                 <input
                   type="file"
                   accept="image/*"
-                  className="file-input file-input-bordered w-full"
+                  className="file-input file-input-bordered w-full "
                 />
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function CompanyProfile() {
                       ? `${companyDetail?.companyName}`
                       : "Insert your Company Name Here"
                   }`}
-                  className="input input-bordered w-full max-w-sm"
+                  className="input input-bordered w-full max-w-sm placeholder-gray-600"
                 />
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function CompanyProfile() {
               <div className="inputWrap md:w-6/12">
                 <textarea
                   name="companyDescription"
-                  className="textarea textarea-bordered h-36 w-full"
+                  className="textarea textarea-bordered h-36 w-full placeholder-gray-600"
                   placeholder={`${
                     companyDetail?.companyDescription
                       ? `${companyDetail?.companyDescription}`

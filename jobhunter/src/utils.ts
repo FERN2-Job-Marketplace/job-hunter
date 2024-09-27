@@ -315,9 +315,9 @@ export async function checkEligibleCompany(userId: string) {
 
     // console.log("result :", userId);
 
-    if(!result.isEligible) {
-      return {message: "Complete your Company Profile", status: 400};
-    }
+    // if(!result.isEligible) {
+    //   return {message: "Complete your Company Profile", status: 400};
+    // }
 
     return result.isEligible
 
