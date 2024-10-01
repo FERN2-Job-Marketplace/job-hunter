@@ -99,7 +99,7 @@ export default function SignInPage() {
           })} className="mx-auto p-3"/>
           </div>
           <div className="flex flex-row justify-center items-center text-base text-dark-grey-text gap-1">
-            <h1>Don't Have an Account?</h1>
+            <h1>Don`t Have an Account?</h1>
             <a href="signUp" className="text-steel-blue"> Register</a>
           </div>
         </div>

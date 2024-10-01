@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { checkBoxTypeCategory, checkBoxTypeEmployment, checkBoxTypeRange } from "../constants/checkbox"
 
 type Props = {

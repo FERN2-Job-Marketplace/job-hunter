@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import CardJobs from "../_components/CardJobs";
 import Link from "next/link";
+import { jobHunterUrl } from "@/utils";
 
 export default function Home() {
   const [jobData, setJobData] = useState<JobVacancy[]>();
 
   async function getData() {
-    let url = "http://localhost:3000/api/job-vacancy?page=1&per_page=100";
+    let url = jobHunterUrl + "/api/job-vacancy?page=1&per_page=100";
     const res = await fetch(url);
     const responseJson: JobVacancy[] = await res.json();
     setJobData(responseJson);

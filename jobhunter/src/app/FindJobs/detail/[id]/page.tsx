@@ -1,7 +1,7 @@
 "use client";
 
 import CardDetail from "@/app/_components/CardDetail";
-import { checkEligibleCandidate} from "@/utils";
+import { baseUrl, checkEligibleCandidate} from "@/utils";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
@@ -16,7 +16,7 @@ export default function DetailJob({ params }: { params: { id: string } }) {
   const jobDate = dayjs(detailData?.updatedAt).format("DD MMMM YYYY");
 
   async function getDetailsJob() {
-    let url = `http://localhost:3001/job-vacancy/${params.id}`;
+    let url = baseUrl + `/job-vacancy/${params.id}`;
     const res = await fetch(url);
     const responseJson: JobVacancy = await res.json();
     setDetailData(responseJson);

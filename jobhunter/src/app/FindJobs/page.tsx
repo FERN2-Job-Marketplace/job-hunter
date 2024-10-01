@@ -5,6 +5,7 @@ import CardFindJobs from "../_components/CardFindJobs";
 import SearchBar from "../_components/SearchBar";
 import Checkbox from "../_components/Checkbox";
 import Fuse from "fuse.js";
+import { jobHunterUrl } from "@/utils";
 // import { jobType } from "../types/jobVacancy";
 
 const pageSize = 10;
@@ -30,7 +31,7 @@ export default function FindJobs() {
     search: string;
     descending?: boolean;
   }) {
-    let url = "http://localhost:3000/api/job-vacancy?page=1&per_page=100";
+    let url = jobHunterUrl + "/api/job-vacancy?page=1&per_page=100";
 
     const res = await fetch(url);
     const responseJson: JobVacancy[] = await res.json(); //hasil fetch dijadikan json
@@ -388,6 +389,7 @@ export default function FindJobs() {
                       pageList === page ? "dark:bg-steel-blue" : "";
 
                     return (
+                      // eslint-disable-next-line react/jsx-key
                       <a
                         href="#"
                         onClick={() => handlePagination(pageList)}
