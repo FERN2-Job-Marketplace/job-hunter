@@ -130,7 +130,7 @@ export default function SignUpPage(){
                         <a href="signIn" className="text-steel-blue">Login</a>
                     </div>
                     <div className="w-80 text-xs text-dark-grey-text tracking-wide  m-auto">
-                        By clicking 'Register', you acknowledge that you have read and accept the 
+                        By clicking `Register`, you acknowledge that you have read and accept the 
                         <a href="" className="text-blue-300 gap-1">Terms of Service</a> and <a href="" className="text-blue-300 gap-1">Privacy Policy</a>
                     </div>
                 </div>

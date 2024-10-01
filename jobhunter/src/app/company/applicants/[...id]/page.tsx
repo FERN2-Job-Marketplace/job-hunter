@@ -32,14 +32,9 @@ export default function ApplicantDetails({
 
   const router = useRouter();
 
-  if (!params.id || params.id.length < 2) {
-    alert("Invalid Route, click Ok to back");
-    return router.back();
-  }
-
   const applicantId = params.id[0];
   const candidateId = params.id[1];
-
+  
   useEffect(() => {
     if (candidateId) {
       fetchUserInfo();
@@ -48,6 +43,13 @@ export default function ApplicantDetails({
     }
 
   }, [candidateId]);
+
+  if (!params.id || params.id.length < 2) {
+    alert("Invalid Route, click Ok to back");
+    return router.back();
+  }
+
+
 
   if (!candidateId) {
     Swal.fire({

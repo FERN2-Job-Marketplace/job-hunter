@@ -1,4 +1,4 @@
-import CardDetail from "@/app/_components/CardDetail";
+// import CardDetail from "@/app/_components/CardDetail";
 
 export default function DetailJob() {
 
@@ -6,7 +6,7 @@ export default function DetailJob() {
         <>
             <div className="detail pt-4">
                 <div className="detailHeader bg-raisin-black flex items-center justify-center min-h-[350px] px-5">
-                    <CardDetail />
+                    {/* <CardDetail /> */}
                 </div>
                 <div className="detailBody bg-white">
                     <div className="detailBodyWrap flex flex-wrap justify-center py-5 max-w-full md:max-w-[1200px] m-auto">

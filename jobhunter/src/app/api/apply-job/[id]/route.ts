@@ -7,37 +7,29 @@ import { baseUrl, generateId, getDetailApplicant } from "@/utils";
 
 //disini /[id] = applicant id
 export async function GET(
-  requets: NextRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const appliedUrl = baseUrl + `/applicant/${params.id}`;
-  
-  // console.log("get applicantId: ", params.id);
 
-  console.log("id:", params.id);
-  // console.log("url:", appliedUrl);
-  
   try {
     const res = await fetch(appliedUrl);
 
-  // console.log(res);
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "Get Applicant Detail Error" },
+        { status: res.status || 500 }
+      );
+    }
 
-  if (!res.ok) {
-    return {
-      error: "Get Applicant Detail Error",
-      status: res.status || 500,
-    };
-  }
-
-  const data: ApplyJob = await res.json();
-
-  // console.log("this is data: ", data);
-
-  return NextResponse.json(data);
-
-    
+    const data: ApplyJob = await res.json();
+    return NextResponse.json(data); // Return the valid response
   } catch (error) {
-    console.error
+    console.error("Error fetching applicant details:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    ); // Return a proper error response
   }
 }
 
@@ -107,11 +99,10 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-
   const session = await getServerSession(options);
 
   // console.log("put applicantId: ", params.id);
-  
+
   if (session?.user?.role !== "company") {
     return NextResponse.json(
       {
@@ -169,10 +160,7 @@ export async function PUT(
 }
 
 // INI ID Si Applicant
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   const session = await getServerSession(options);
 
   // console.log(session);
@@ -231,6 +219,10 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching applicant details:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    ); // Return a proper error response
   }
 }
